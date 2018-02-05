@@ -1,0 +1,7 @@
+SCMBranch=Windows projects
+SCMRepository=Windows projects/MSMClient/MultisiteMonitor/Controls/Images/StatusIcon
+SCMMainlineUUID={1fac89a6-0c0e-4ff3-9d7f-2bd2da9bf924}
+SCMBranchRepositoryID=24
+16x16_Alarm.png;1596477132;1;1486538598;|115|144
+16x16_Dissabled.png;426904346;1;1486538598;|116|145
+16x16_Warning.png;2973830340;1;1486538598;|117|146

@@ -1,0 +1,21 @@
+<div class="animated fadeIn" [ngSwitch]="menuChoice">
+  <!--Put the map view  or the list view over here-->
+
+  <div class="row" *ngSwitchCase="'list-view'">
+    <div class="col-sm-7 hidden-sm-down">
+      <a (click)="chooseMode('')" title="Switch to the map view">
+            <i class="icon-location-pin"></i>
+      </a>
+    </div>
+    <list-view></list-view>
+  </div>
+
+  <div class="row" *ngSwitchDefault>
+    <div class="col-sm-7 hidden-sm-down">
+      <a (click)="chooseMode('list-view')" title="Switch to the list view">
+            <i class="icon-list"></i>
+      </a>
+    </div>
+    <map-view></map-view>
+  </div>
+</div>

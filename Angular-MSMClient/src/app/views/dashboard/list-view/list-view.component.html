@@ -1,0 +1,38 @@
+<div class="animated fadeIn">
+    <table class="table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>IP</th>
+                <th>Controller Type</th>
+                <th><img src="../../../assets/img/StatusIcon/16x16_Alarm.png"><img></th>
+                <th><img src="../../../assets/img/StatusIcon/16x16_Warning.png"><img></th>
+                <th><img src="../../../assets/img/StatusIcon/16x16_Disabled.png"><img></th>
+                <th>MainPhase1[V]</th>
+                <th>BatteryVoltage[V]</th>
+                <th>RectifierCurrent[A]</th>
+                <th>LoadCurrent[A]</th>
+                <th>BatteryTemperature[°C]</th>
+                <th>SolarCurrent[A]</th>
+                <th>Last successful polling</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let siteView of siteListViews">
+            <tr>
+                <td>{{siteView.siteName}}</td>
+                <td>{{siteView.ipAddress}}</td>
+                <td>{{siteView.controllerType}}</td>
+                <td>{{siteView.noAlarm}}</td>
+                <td>{{siteView.noWarning}}</td>
+                <td>{{siteView.noOffline}}</td>
+                <td>{{siteView.mainPhase1}}</td>
+                <td>{{siteView.batteryVoltage}}</td>
+                <td>{{siteView.rectifierCurrent}}</td>
+                <td>{{siteView.loadCurrent}}</td>
+                <td>{{siteView.batteryTemperature}}</td>
+                <td>{{siteView.solarCurrent}}</td>
+                <td>{{siteView.lastPooling}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

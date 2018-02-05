@@ -1,0 +1,107 @@
+{
+    "getSiteListView": [
+        {
+            "id": 238,
+            "siteName": "Orion",
+            "ipAddress": "89.9.160.158",
+            "controllerType": "Orion",
+            "noAlarm": 0,
+            "noWarning": 1,
+            "noOffline": 0,
+            "offlineStatus": "Offline",
+            "mainPhase1": "0",
+            "solarCurrent": "0"
+        },
+        {
+            "id": 237,
+            "siteName": "Burnin Room",
+            "ipAddress": "90.121.165.27",
+            "controllerType": "SmartPack",
+            "noAlarm": 0,
+            "noWarning": 1,
+            "noOffline": 0,
+            "offlineStatus": "Offline",
+            "mainPhase1": "0",
+            "solarCurrent": "0"
+        },
+        {
+            "id": 103,
+            "siteName": "Compacks",
+            "ipAddress": "10.20.188.10",
+            "controllerType": "ComPack",
+            "noAlarm": 2,
+            "noWarning": 1,
+            "noOffline": 1,
+            "offlineStatus": "Online",
+            "batteryVoltage": "54.53",
+            "rectifierCurrent": "0",
+            "loadCurrent": "0",
+            "batteryTemperature": "0",
+            "solarCurrent": "0"
+        },
+        {
+            "id": 239,
+            "siteName": "HYBRIDO",
+            "ipAddress": "10.20.5.149:8082",
+            "controllerType": "Orion",
+            "noAlarm": 0,
+            "noWarning": 1,
+            "noOffline": 0,
+            "offlineStatus": "Offline",
+            "mainPhase1": "232",
+            "batteryVoltage": "48.95",
+            "rectifierCurrent": "0",
+            "loadCurrent": "12",
+            "batteryTemperature": "8.8",
+            "solarCurrent": "25"
+        },
+        {
+            "id": 2,
+            "siteName": "HQ demo system outside",
+            "ipAddress": "10320.7.2",
+            "controllerType": "SmartPack2",
+            "noAlarm": 0,
+            "noWarning": 1,
+            "noOffline": 0,
+            "offlineStatus": "Offline",
+            "mainPhase1": "243",
+            "batteryVoltage": "49.94",
+            "rectifierCurrent": "0",
+            "loadCurrent": "10",
+            "batteryTemperature": "20",
+            "solarCurrent": "0"
+        }
+    ],
+    "todos2": [
+        {
+            "title": "Read SitePoint article",
+            "complete": true,
+            "id": 1
+        },
+        {
+            "title": "Clean inbox",
+            "complete": true,
+            "id": 2
+        },
+        {
+            "title": "Make restaurant reservetation",
+            "complete": true,
+            "id": 3
+        },
+        {
+            "title": "html",
+            "complete": false,
+            "id": 4
+        },
+        {
+            "title": "css",
+            "complete": false,
+            "id": 5
+        },
+        {
+            "title": "angular",
+            "complete": false,
+            "id": 6
+        }
+    ]
+}

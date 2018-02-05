@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header">
+        ECB Run Time
+      </div>
+      <div class="card-block">
+        <div class="chart-wrapper">
+          <canvas baseChart class="chart" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
+            [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        AirCon Run Time
+      </div>
+      <div class="card-block">
+        <div class="chart-wrapper">
+          <canvas baseChart class="chart" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
+            [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card">
+      Rect. capacity
+    </div>
+
+    <div class="card">
+      Zoom:
+    </div>
+
+    <!-- Time frame -->
+    <app-timeframe></app-timeframe>
+
+    <!-- Compare type -->
+    <app-comparetype></app-comparetype>
+
+    <!-- Actions -->
+    <app-action></app-action>
+  </div>
+
+</div>

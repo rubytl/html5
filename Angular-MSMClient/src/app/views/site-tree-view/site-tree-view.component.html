@@ -1,0 +1,16 @@
+<nav class="sidebar-nav">
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i><span class="badge badge-info">Dashboard</span></a>
+    </li>
+    <li class="divider"></li>
+    <li *ngFor="let site of sites$ | async" class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+      <a (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle>{{site.name}}</a>
+      <ul *ngFor="let child of site.children" class="nav-dropdown-items">
+        <li class="nav-item">
+          <p class="nav-link" (click)="chooseSite(child)"><i class="icon-puzzle"></i> {{child.name}}</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
