@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="yes"?>
+<Settings>
+  <helpURL>http://onlinedocs.eltek.com/wip4/mywip/multisite</helpURL>
+  <ticketURL></ticketURL>
+  <SerialNumber>123456
+  </SerialNumber>
+  <MapStatus>0</MapStatus>
+  <SiteDescriptionVisibility>0</SiteDescriptionVisibility>
+  <dcsURL>http://localhost:8082/JsonAPIService</dcsURL>
+  <SnmpServiceURL>http://localhost:8083/JsonAPIService</SnmpServiceURL>
+  <NetworkUtilityServiceURL>http://localhost:8084/JsonAPIService</NetworkUtilityServiceURL>
+  <ConfigCompareUploadTimeout>24</ConfigCompareUploadTimeout>
+  <ProgramPath>
+  </ProgramPath>
+  <CameraType>
+    <Axis>/axis-media/media.amp?videocodec=h264&amp;resolution=320x240&amp;compression=20</Axis>
+    <Dlink>/video/mjpg.cgi</Dlink>
+  </CameraType>
+</Settings>
