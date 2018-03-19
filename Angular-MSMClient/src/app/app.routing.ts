@@ -6,15 +6,20 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 import { ListviewComponent } from './views/listview/listview.component';
 
+// Auth
+import { AuthGuard } from './services';
+
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'smartgrid/solar',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: '',
     component: FullLayoutComponent,
+    canActivate: [AuthGuard],
     data: {
       title: 'Home'
     },
@@ -42,7 +47,7 @@ export const routes: Routes = [
       {
         path: 'multigrid',
         loadChildren: './views/multigrid/multigrid.module#MultigridModule'
-      }, 
+      },
       {
         path: 'listview',
         component: ListviewComponent

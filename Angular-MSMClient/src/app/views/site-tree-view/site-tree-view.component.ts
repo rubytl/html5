@@ -1,4 +1,4 @@
-import { ViewChild, Component, OnInit } from '@angular/core';
+import { ViewChild, Component, OnInit, Input } from '@angular/core';
 import { NgRedux, select } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,18 +10,14 @@ import { IAppState } from '../../store';
     selector: 'site-tree-view',
     templateUrl: './site-tree-view.component.html'
 })
-export class SiteTreeViewComponent implements OnInit {
-    @select('sites') sites$: Observable<Site>;
+export class SiteTreeViewComponent {
+    @Input() sites: Observable<Site>;
 
     constructor(private siteAction: SiteActions,
         private SelectSiteAction: SelectSiteActions) {
     }
 
-    public ngOnInit() {
-        this.siteAction.loadSites();
-    }
-
     chooseSite(site: Site) {
-        this.SelectSiteAction.chooseSite(site);
+       this.SelectSiteAction.chooseSite(site);
     }
 }

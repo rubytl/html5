@@ -4,6 +4,7 @@ import { IAppState } from '../store';
 import { RestrictedSiteApiService } from '../services/restricted-site.service';
 import { Site } from '../models/site';
 import { constants } from './constants';
+import { treeHelper } from '../helpers';
 
 @Injectable()
 export class SiteActions {
@@ -19,8 +20,8 @@ export class SiteActions {
           type: constants.LOAD_SITE,
           payload: [new Site({
             id: 0,
-            name: "My Network",
-            children: sites
+            description: "My Network",
+            children: treeHelper.listToTree(sites)
           })]
         });
       }

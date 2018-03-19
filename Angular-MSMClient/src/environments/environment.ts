@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   restrictedSiteUrl:'http://localhost:8087/api/v1/Site',
-  msmClientAPIUrl:'http://localhost:3000',
+  msmClientAPIUrl:'http://localhost:56070/api',
 };

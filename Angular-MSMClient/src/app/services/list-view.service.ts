@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Http, Response } from '@angular/http';
-import { ListView } from '../models/list-view';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
+import { ListView } from '../models/list-view';
+import { BaseService } from "./base.service";
+
 const API_URL = environment.msmClientAPIUrl;
 
 @Injectable()
-export class ListViewApiService {
+export class ListViewApiService extends BaseService {
 
     constructor(
         private http: Http
     ) {
+        super();
     }
 
     public getAllSites(): Observable<ListView[]> {
@@ -26,10 +29,5 @@ export class ListViewApiService {
                 return sites.map((site) => new ListView(site));
             })
             .catch(this.handleError);
-    }
-
-    private handleError(error: Response | any) {
-        console.error('SiteApiService::handleError', error);
-        return Observable.throw(error);
     }
 }

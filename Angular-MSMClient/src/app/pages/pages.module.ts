@@ -6,9 +6,11 @@ import { LoginComponent } from './login.component';
 import { RegisterComponent } from './register.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  imports: [ PagesRoutingModule ],
+  imports: [PagesRoutingModule,
+    SharedModule],
   declarations: [
     P404Component,
     P500Component,

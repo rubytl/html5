@@ -18,6 +18,7 @@ import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
 // Dashboard
 import { MenuComponent } from '../shared/menu/menu.component';
 import { SiteTreeViewComponent } from '../views/site-tree-view/site-tree-view.component';
+import { TreeViewComponent } from '../views/site-tree-view/tree-view.component';
 import { SmartGridMenuComponent } from "../shared/smartgridmenu/smartgridmenu.component";
 
 @NgModule({
@@ -36,6 +37,7 @@ import { SmartGridMenuComponent } from "../shared/smartgridmenu/smartgridmenu.co
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective,
     SiteTreeViewComponent,
+    TreeViewComponent,
     MenuComponent,
     SmartGridMenuComponent
   ]

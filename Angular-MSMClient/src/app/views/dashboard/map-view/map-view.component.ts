@@ -92,10 +92,10 @@ export class MapViewComponent implements OnInit, OnDestroy {
         }
 
         //Reset the map zoom
-        let position = new google.maps.LatLng(site.lat, site.long);
+        let position = new google.maps.LatLng(site.latitude, site.longitude);
         let marker = new google.maps.Marker({
             position: position,
-            title: site.name,
+            title: site.description,
             map: this.myMap,
         });
 
@@ -108,9 +108,9 @@ export class MapViewComponent implements OnInit, OnDestroy {
     makeInfoWindowEvent(map, site: Site, marker) {
         var infowindow = new google.maps.InfoWindow();
         var content = `<div>
-        <p> Site name: `+ site.name + `</p>
-        <p> Latitude: ` + site.lat + `</p>
-        <p> Longtitude: ` + site.long + `</p>
+        <p> Site name: `+ site.description + `</p>
+        <p> Latitude: ` + site.latitude + `</p>
+        <p> Longtitude: ` + site.longitude + `</p>
         </div>`;
 
         google.maps.event.addListener(marker, 'click', function () {

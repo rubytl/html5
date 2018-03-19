@@ -1,16 +1,29 @@
-<nav class="sidebar-nav">
+<ul class="nav">
+  <li *ngFor="let site of sites" class="nav-item nav-dropdown" appNavDropdown>
+    <div>
+      <a *ngIf="site.children.length > 0" (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle" appNavDropdownToggle>{{site.description}}</a>
+      <a *ngIf="site.children.length == 0" (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle-noContent" appNavDropdownToggle>{{site.description}}</a>
+    </div>
+    <site-tree-view *ngIf="site.children.length > 0" [sites]="site.children"></site-tree-view>
+  </li>
+</ul>
+
+<!-- <nav class="sidebar-nav">
   <ul class="nav">
     <li class="nav-item">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i><span class="badge badge-info">Dashboard</span></a>
     </li>
     <li class="divider"></li>
-    <li *ngFor="let site of sites$ | async" class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
-      <a (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle>{{site.name}}</a>
-      <ul *ngFor="let child of site.children" class="nav-dropdown-items">
-        <li class="nav-item">
-          <p class="nav-link" (click)="chooseSite(child)"><i class="icon-puzzle"></i> {{child.name}}</p>
+    <li *ngFor="let site of sites" class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+      <a (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle>{{site.description}}</a>
+      <ul class="nav-dropdown-items">
+        <li class="nav-item" *ngFor="let child of site.children">
+          <p class="nav-link" (click)="chooseSite(child)"><i class="icon-puzzle"></i> {{child.description}}</p>
+          <div *ngIf="child.children.length > 0">
+            <site-tree-view [sites]="child.children"></site-tree-view>
+          </div>
         </li>
       </ul>
     </li>
   </ul>
-</nav>
+</nav> -->
