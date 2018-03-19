@@ -84,8 +84,11 @@
       margin: 0;
       transition: background .3s ease-in-out;
 
+      div{
+        // max-height: 0;
+        
       ul {
-        max-height: 0;
+        max-height: 0;        
         padding: 0;
         margin: 0;
         overflow-y: hidden;
@@ -96,6 +99,7 @@
           list-style: none;
         }
       }
+    }
 
       .nav-link {
         display: block;
@@ -174,9 +178,17 @@
           @if $enable-sidebar-nav-rounded {
             border-radius: $border-radius;
           }
-          > ul, > ol {
+          // >div, > ul, > ol {
+          //   // display: inline;
+          //   max-height: 1000px;
+          // }
+
+          >div {
+            > ul, > ol
+            {
             // display: inline;
             max-height: 1000px;
+            }
           }
 
           .nav-link {
@@ -194,7 +206,7 @@
         }
         &.nt {
           transition: 0s !important;
-          > ul, > ol {
+          >div, > ul, > ol {
             transition: 0s !important;
           }
           .nav-link {

@@ -1,0 +1,15 @@
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\bin\Debug\netcoreapp2.0\MSMClientAPIService.deps.json
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\bin\Debug\netcoreapp2.0\MSMClientAPIService.runtimeconfig.json
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\bin\Debug\netcoreapp2.0\MSMClientAPIService.runtimeconfig.dev.json
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\bin\Debug\netcoreapp2.0\MSMClientAPIService.dll
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\bin\Debug\netcoreapp2.0\MSMClientAPIService.pdb
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\bin\Debug\netcoreapp2.0\MSMClientAPIService.Data.dll
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\bin\Debug\netcoreapp2.0\MSMClientAPIService.Mapping.dll
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\bin\Debug\netcoreapp2.0\MSMClientAPIService.Data.pdb
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\bin\Debug\netcoreapp2.0\MSMClientAPIService.Mapping.pdb
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\obj\Debug\netcoreapp2.0\MSMClientAPIService.csprojResolveAssemblyReference.cache
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\obj\Debug\netcoreapp2.0\MSMClientAPIService.csproj.CoreCompileInputs.cache
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\obj\Debug\netcoreapp2.0\MSMClientAPIService.AssemblyInfoInputs.cache
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\obj\Debug\netcoreapp2.0\MSMClientAPIService.AssemblyInfo.cs
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\obj\Debug\netcoreapp2.0\MSMClientAPIService.dll
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService\obj\Debug\netcoreapp2.0\MSMClientAPIService.pdb

@@ -1,0 +1,11 @@
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\bin\Debug\netcoreapp2.0\MSMClientAPIService.Data.deps.json
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\bin\Debug\netcoreapp2.0\MSMClientAPIService.Data.dll
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\bin\Debug\netcoreapp2.0\MSMClientAPIService.Data.pdb
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\bin\Debug\netcoreapp2.0\System.IdentityModel.Tokens.Jwt.dll
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\bin\Debug\netcoreapp2.0\System.IdentityModel.Tokens.Jwt.xml
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\obj\Debug\netcoreapp2.0\MSMClientAPIService.Data.csprojResolveAssemblyReference.cache
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\obj\Debug\netcoreapp2.0\MSMClientAPIService.Data.csproj.CoreCompileInputs.cache
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\obj\Debug\netcoreapp2.0\MSMClientAPIService.Data.AssemblyInfoInputs.cache
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\obj\Debug\netcoreapp2.0\MSMClientAPIService.Data.AssemblyInfo.cs
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\obj\Debug\netcoreapp2.0\MSMClientAPIService.Data.dll
+E:\Projects\ELTEK-Angular\MSMClientAPIService\MSMClientAPIService.Library\obj\Debug\netcoreapp2.0\MSMClientAPIService.Data.pdb
