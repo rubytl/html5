@@ -1,32 +1,28 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { Http, Response, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+// put this next to the other RxJs operator imports
+// With the shareReplay operator in place, we would no longer
+// fall into the situation where we have accidental multiple HTTP requests.
+import 'rxjs/add/operator/shareReplay';
 
 import { Site } from '../models';
 import { BaseService } from "./base.service";
 import { factory } from '../helpers';
 
-const API_URL = environment.restrictedSiteUrl;
-
 @Injectable()
 export class RestrictedSiteApiService extends BaseService {
 
   constructor(
-    private http: Http
+    private httpClient: HttpClient
   ) {
     super();
   }
 
-  public getAllSites(): Observable<any> {
-    let headers = factory.createHttpHeader();
-    return this.http
-      .get(factory.getSiteUrl(), { headers })
-      .map(response => response.json())
-      .catch(this.handleError);
+  getAllSites() {
+    return this.httpClient
+      .get(factory.getSiteUrl(), { headers: factory.createHeaderWithToken() })
+      .toPromise();
   }
 }

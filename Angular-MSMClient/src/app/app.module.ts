@@ -1,18 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { HttpModule, XHRBackend } from '@angular/http';
 import { NgReduxModule, DevToolsExtension } from 'ng2-redux';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
 // Routing Module
 import { AppRoutingModule } from './app.routing';
 import { FullLayoutModule } from './layouts/full-layout.module';
-import {
-  RestrictedSiteApiService, AuthenticateXHRBackend,
-  UserService, AuthGuard
-} from './services';
+import { RequestInterceptorService, SharedServiceModule } from './services';
 
 import { ACTION_PROVIDERS } from './actions';
 import { ListviewComponent } from './views/listview/listview.component';
@@ -22,6 +19,8 @@ import { ListviewComponent } from './views/listview/listview.component';
     AppRoutingModule,
     NgReduxModule,
     FullLayoutModule,
+    HttpClientModule,
+    SharedServiceModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -32,13 +31,11 @@ import { ListviewComponent } from './views/listview/listview.component';
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
     },
-    [UserService],
-    [AuthGuard],
     {
-      provide: XHRBackend,
-      useClass: AuthenticateXHRBackend
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptorService,
+      multi: true
     },
-    RestrictedSiteApiService,
     DevToolsExtension,
     ACTION_PROVIDERS
   ],

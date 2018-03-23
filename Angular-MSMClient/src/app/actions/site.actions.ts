@@ -14,8 +14,7 @@ export class SiteActions {
   loadSites(): void {
     this.siteApiService
       .getAllSites()
-      .subscribe(
-      (sites) => {
+      .then((sites) => {
         this.ngRedux.dispatch({
           type: constants.LOAD_SITE,
           payload: [new Site({
@@ -24,11 +23,10 @@ export class SiteActions {
             children: treeHelper.listToTree(sites)
           })]
         });
-      }
-      );
+      });
   }
 
-   
+
   addSite(site): void {
   }
 }

@@ -20,14 +20,13 @@ export class LoginComponent {
     this.isRequesting = true;
     this.errors = '';
     this.userSVC.login(this.credentials.username, this.credentials.password)
-      .finally(() => this.isRequesting = false)
-      .subscribe(
-      result => {
-        if (result) {
-          this.router.navigate(['/dashboard']);
-        }
-      },
-      error => {
+      .then(() => {
+        this.isRequesting = false
+        this.router.navigate(['/dashboard']);
+      })
+      .catch(ex => {
+        var error = ex.error;
+        this.isRequesting = false
         if (error == "1") {
           this.errors = "You are already logged in from '{0}' computer,\ndo you want to close your other session to prevent data loss?";
           // if user agrees, then logout and login again
@@ -43,7 +42,6 @@ export class LoginComponent {
         else {
           this.errors = "Invalid username/password.\n Or server error, or internet connection failure has occurred";
         }
-      }
-      );
+      });
   }
 }

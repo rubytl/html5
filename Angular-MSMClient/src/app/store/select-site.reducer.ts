@@ -1,6 +1,6 @@
 import { constants } from '../actions/constants';
 import { Site } from '../models/site';
-import { INITIAL_STATE } from '../store';
+import { INITIAL_STATE } from './inital-state';
 
 export function selectedSiteReducer(state: any = INITIAL_STATE.selectedSite, action): Site {
     switch (action.type) {

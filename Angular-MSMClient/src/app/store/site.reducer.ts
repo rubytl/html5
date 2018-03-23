@@ -1,6 +1,6 @@
 import { constants } from '../actions/constants';
 import { Site } from '../models/site';
-import { INITIAL_STATE } from '../store';
+import { INITIAL_STATE } from './inital-state';
 
 export function siteReducer(state: Array<any> = INITIAL_STATE.sites, action): Array<Site> {
     switch (action.type) {
