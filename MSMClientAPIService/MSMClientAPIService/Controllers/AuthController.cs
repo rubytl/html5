@@ -14,26 +14,23 @@ using MSMClientAPIService.Data.Repositories;
 using MSMClientAPIService.Data.Repositories.Interfaces;
 using MSMClientAPIService.Models;
 using Microsoft.Extensions.Options;
+using MSMClientAPIService.Services;
 
 namespace MSMClientAPIService.Controllers
 {
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly IConfiguration config;
-        private readonly IUserMaintenanceRepository userRepo;
+        private readonly IAuthService authService;
         private readonly IJwtFactory jwtFactory;
-        private JwtIssuerOptions jwtOptions;
 
-        public AuthController(IConfiguration config, IUserMaintenanceRepository userRepo, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
+        public AuthController(IJwtFactory jwtFactory, IAuthService authService)
         {
-            this.config = config;
-            this.userRepo = userRepo;
             this.jwtFactory = jwtFactory;
-            this.jwtOptions = jwtOptions.Value;
+            this.authService = authService;
         }
 
-        [HttpGet]
+        [HttpGet("validate/{token}")]
         public async Task<IActionResult> ValidateToken(string token)
         {
             ClaimsPrincipal principal = await this.jwtFactory.GetPrincipal(token);
@@ -45,7 +42,8 @@ namespace MSMClientAPIService.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginModel credentials)
         {
             if (!ModelState.IsValid)
@@ -53,16 +51,29 @@ namespace MSMClientAPIService.Controllers
                 return BadRequest(ModelState);
             }
 
-            var loginStatus = await this.userRepo.CheckLogin(credentials.Username, credentials.Password);
+            var loginStatus = await this.authService.CheckLogin(credentials.Username, credentials.Password);
             CheckLoginResult result = loginStatus.CheckLoginResult;
             if (result == CheckLoginResult.Allowed)
             {
-                return Ok(await Tokens.GenerateJwt(this.jwtFactory, credentials.Username, this.jwtOptions));
+                return Ok(await this.jwtFactory.GenerateJwtToken(credentials.Username));
             }
             else
             {
                 return BadRequest(result);
             }
         }
+
+        [HttpPost("refresh")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RefreshAccessToken([FromBody]RefreshTokenModel token)
+            => Ok(await this.authService.RefreshAccessToken(token.Token));
+
+        [HttpPost("revoke")]
+        public IActionResult RevokeRefreshToken([FromBody]RefreshTokenModel token)
+        {
+            this.authService.RevokeRefreshToken(token.Token);
+            return NoContent();
+        }
+
     }
 }

@@ -269,7 +269,7 @@ namespace Tørketrommel
                 license = eltService.GetLicenseVer2Async(product, productversion, productbuild, CUSTOMER, productSerial, Environment.UserName, Environment.MachineName, ipAddress, macAddress, allMacAddress, hdSerial, osVersion).Result;
                 return true;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 license = string.Empty;
                 return false;

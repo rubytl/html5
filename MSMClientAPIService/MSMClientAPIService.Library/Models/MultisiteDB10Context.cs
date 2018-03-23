@@ -8,7 +8,9 @@ namespace MSMClientAPIService.Data.Models
     {
         public MultisiteDBEntitiesContext(DbContextOptions<MultisiteDBEntitiesContext> options)
             : base(options)
-        { }
+        {
+            //Database.EnsureCreated();
+        }
 
         public virtual DbSet<AlarmHistory> AlarmHistory { get; set; }
         public virtual DbSet<AlarmStatistics> AlarmStatistics { get; set; }

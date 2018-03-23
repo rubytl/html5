@@ -10,13 +10,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using MSMClientAPIService.Data.Helpers;
 using MSMClientAPIService.Data.Models;
 using MSMClientAPIService.Data.Repositories;
 using MSMClientAPIService.Data.Repositories.Interfaces;
 using MSMClientAPIService.Extensions;
 using MSMClientAPIService.Helpers;
+using MSMClientAPIService.Services;
 
 namespace MSMClientAPIService
 {
@@ -54,36 +55,21 @@ namespace MSMClientAPIService
 
             // add repositories
             this.AddRepositories(services);
+            services.AddLogging();
             services.AddCors();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddDebug().AddConsole();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseExceptionHandler(
-          builder =>
-          {
-              builder.Run(
-                        async context =>
-                        {
-                            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                            context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-
-                            var error = context.Features.Get<IExceptionHandlerFeature>();
-                            if (error != null)
-                            {
-                                context.Response.AddApplicationError(error.Error.Message);
-                                await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
-                            }
-                        });
-          });
-
+            app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseAuthentication();
             app.UseCors(builder =>
                             builder.AllowAnyOrigin()
@@ -95,6 +81,7 @@ namespace MSMClientAPIService
         private void ConfigAuthentication(IServiceCollection services)
         {
             services.AddSingleton<IJwtFactory, JwtFactory>();
+            services.AddScoped<IAuthService, AuthService>();
 
             // Get options from app settings
             var jwtAppSettingOptions = this.Configuration.GetSection(nameof(JwtIssuerOptions));

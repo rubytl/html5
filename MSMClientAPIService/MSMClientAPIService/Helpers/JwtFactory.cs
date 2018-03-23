@@ -6,12 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using MSMClientAPIService.Models;
+using System.Linq;
 
 namespace MSMClientAPIService.Helpers
 {
     public class JwtFactory : IJwtFactory
     {
         private readonly JwtIssuerOptions jwtOptions;
+        private readonly ISet<RefreshToken> refreshTokens = new HashSet<RefreshToken>();
 
         public JwtFactory(IOptions<JwtIssuerOptions> jwtOptions)
         {
@@ -39,16 +42,17 @@ namespace MSMClientAPIService.Helpers
             }
         }
 
-        public async Task<string> GenerateJwtToken(string username)
+        public async Task<JwtResponse> GenerateJwtToken(string username)
         {
+            string jti = await this.jwtOptions.JtiGenerator();
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.GivenName, username),
-                new Claim(JwtRegisteredClaimNames.Jti, await this.jwtOptions.JtiGenerator()),
+                new Claim(JwtRegisteredClaimNames.Jti, jti),
                 new Claim("role","Admin")
             };
 
-            var token = new JwtSecurityToken(
+            var jwt = new JwtSecurityToken(
                 issuer: this.jwtOptions.Issuer,
                 audience: this.jwtOptions.Audience,
                 claims: claims,
@@ -57,13 +61,24 @@ namespace MSMClientAPIService.Helpers
                 signingCredentials: this.jwtOptions.SigningCredentials
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            string token = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            var response = new JwtResponse()
+            {
+                auth_token = token,
+                expires_in = (int)jwtOptions.ValidFor.TotalMinutes,
+                Jti = jti
+            };
+
+            this.refreshTokens.Add(new RefreshToken() { Username = username, Jti = jti });
+            return await Task.FromResult(response);
         }
 
         public async Task<ClaimsPrincipal> GetPrincipal(string token)
         {
             try
             {
+                token = Tokens.RefreshToken(token);
                 JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
                 JwtSecurityToken jwtToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
                 if (jwtToken == null)
@@ -86,6 +101,15 @@ namespace MSMClientAPIService.Helpers
             {
                 return null;
             }
+        }
+
+        public Task<bool> RemoveRefreshToken(string token)
+           => Task.FromResult(this.refreshTokens.Remove(this.GetRefreshToken(token).Result));
+
+        public Task<RefreshToken> GetRefreshToken(string token)
+        {
+            token = Tokens.RefreshToken(token);
+            return Task.FromResult(this.refreshTokens.SingleOrDefault(x => x.Jti == token));
         }
     }
 }

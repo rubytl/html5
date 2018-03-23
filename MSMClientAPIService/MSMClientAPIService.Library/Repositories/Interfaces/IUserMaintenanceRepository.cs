@@ -8,7 +8,5 @@ namespace MSMClientAPIService.Data.Repositories.Interfaces
 {
     public interface IUserMaintenanceRepository:IEntityBaseRepository<Msmuser>
     {
-        Task<CheckLoginResponse> CheckLogin(string userName, string password);
-        Task<bool> GetUser(string userName);
     }
 }

@@ -28,4 +28,8 @@
     <ProjectReference Include="..\MSMClientAPIService.Mapping\MSMClientAPIService.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
 </Project>

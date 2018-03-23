@@ -1,2 +1,8 @@
 MSMClientAPIService/.vs/MSMClientAPIService/v15/Server/sqlite3/db.lock
 MSMClientAPIService/.vs/MSMClientAPIService/v15/Server/sqlite3/storage.ide
+MSMClientAPIService/MSMClientAPIService/bin/MSMClientAPIService.runtimeconfig.json
+MSMClientAPIService/MSMClientAPIService/bin/MSMClientAPIService.runtimeconfig.dev.json
+MSMClientAPIService/MSMClientAPIService/bin/MSMClientAPIService.deps.json
+MSMClientAPIService/MSMClientAPIService.Mapping/bin/MSMClientAPIService.Mapping.deps.json
+MSMClientAPIService/MSMClientAPIService.Library/bin/System.IdentityModel.Tokens.Jwt.xml
+MSMClientAPIService/MSMClientAPIService.Library/bin/MSMClientAPIService.Data.deps.json

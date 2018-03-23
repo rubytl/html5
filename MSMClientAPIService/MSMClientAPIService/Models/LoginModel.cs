@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace MSMClientAPIService.Models
 {
+    public class RefreshTokenModel
+    {
+        public string Token { get; set; }
+    }
+
     public class LoginModel
     {
         public string Username { get; set; }

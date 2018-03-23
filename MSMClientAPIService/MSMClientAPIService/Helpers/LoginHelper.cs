@@ -6,7 +6,7 @@ using System.Xml;
 using Microsoft.Extensions.Configuration;
 using Tørketrommel;
 
-namespace MSMClientAPIService.Data.Helpers
+namespace MSMClientAPIService.Helpers
 {
     public class LoginHelper
     {
