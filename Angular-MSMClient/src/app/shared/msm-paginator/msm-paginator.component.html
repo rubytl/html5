@@ -1,0 +1,13 @@
+<div>
+  <a>Items per page</a>
+  <select (change)="onPageSizeChange($event)">
+      <option *ngFor="let pageOpt of pageSizeOptions" value= {{pageOpt}}>
+        {{pageOpt}}
+      </option>
+  </select>
+  <a>Page {{pageIndex + 1 }} of {{pageLength}}</a>
+  <i class="icon-control-start icons mt-4" (click)="startPage()"></i>  
+  <i class="icon-arrow-left-circle icons mt-4" (click)="decrement()"></i>
+  <i class="icon-arrow-right-circle icons mt-4" (click)="increment()"></i>
+  <i class="icon-control-end icons mt-4" (click)="lastPage()"></i>
+</div>

@@ -8,10 +8,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { SpinnerComponent } from './spinner/spinner.component';
+import { FilterTypeComponent } from './filter-type/filter-type.component';
+import { MsmPaginatorComponent } from './msm-paginator/msm-paginator.component';
+import { MsmSortingComponent } from './msm-sorting/msm-sorting.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule],
-    declarations: [SpinnerComponent],
-    exports: [SpinnerComponent, FormsModule, CommonModule],
+    declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent],
+    exports: [SpinnerComponent, FilterTypeComponent, FormsModule, CommonModule, MsmPaginatorComponent, MsmSortingComponent],
 })
 export class SharedModule { }

@@ -24,9 +24,10 @@ namespace MSMClientAPIService.Data
             this.context = context;
         }
         #endregion
-        public virtual Task<IEnumerable<T>> GetAll()
+        public virtual Task<IQueryable<T>> GetAll()
         {
-            return Task.FromResult(context.Set<T>().AsEnumerable());
+            IQueryable<T> query = context.Set<T>();
+            return Task.FromResult(query);
         }
 
         public virtual int Count()
@@ -34,14 +35,15 @@ namespace MSMClientAPIService.Data
             return context.Set<T>().Count();
         }
 
-        public virtual IEnumerable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
+        public virtual async Task<IQueryable<T>> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = context.Set<T>();
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
             }
-            return query.AsEnumerable();
+
+            return await Task.FromResult(query);
         }
 
         public async Task<T> GetSingle(Expression<Func<T, bool>> predicate)
@@ -60,7 +62,7 @@ namespace MSMClientAPIService.Data
             return query.Where(predicate).FirstOrDefault();
         }
 
-        public virtual async Task<IEnumerable<T>> FindBy(Expression<Func<T, bool>> predicate)
+        public virtual async Task<IQueryable<T>> FindBy(Expression<Func<T, bool>> predicate)
         {
             return await Task.FromResult(context.Set<T>().Where(predicate));
         }

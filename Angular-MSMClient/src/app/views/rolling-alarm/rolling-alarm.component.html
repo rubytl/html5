@@ -1,0 +1,100 @@
+<div class="rolling-alarm align-items-center">
+
+    <div class="rolling-alarm align-items-center">
+        <a>Filter:</a>
+        <filter-type [selectedFilterType]="alarm.selectedFilterType" (filterTypeChange)="onFilterTypeChange($event)"></filter-type>
+        <a>Site:</a>
+        <input type="text" class="form-control" (keyup.enter)="onEnter()" placeholder="Site name" [(ngModel)]="alarm.siteName">
+    </div>
+
+    <div class="rolling-alarm align-items-center">
+        <a>Priority:</a>
+        <select [(ngModel)]="alarm.selectedPriority" (change)="getFilterAlarm()">
+                <option *ngFor="let priority of priorities" value= {{priority.Description}}>
+                  {{priority.Description}}
+                </option>
+        </select>
+
+        <a>Status:</a>
+        <select [(ngModel)]="alarm.selectedStatus" (change)="getFilterAlarm()">
+                <option *ngFor="let status of statuses" value= {{status.Description}}>
+                  {{status.Description}}
+                </option>
+        </select>
+
+        <a>Trap:</a>
+        <input type="text" class="form-control" placeholder="Trap" (keyup.enter)="onEnter()" [(ngModel)]="alarm.trap">
+    </div>
+
+    <div class="rolling-alarm align-items-center">
+        <a>From:</a>
+        <angular2-date-picker [(ngModel)]="alarm.date.fromDate" (onDateSelect)="onDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
+        <a>To:</a>
+        <angular2-date-picker [(ngModel)]="alarm.date.toDate" (onDateSelect)="onDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
+    </div>
+
+    <div class="rolling-alarm align-items-center">
+        <button type="button" class="btn btn-primary" (click)="searchAlarm()">
+            <i class="fa fa-search"></i>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="createDefaultFilter()">
+                <i class="fa fa-reply"></i>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="stopSearching()">
+                    <i class="fa fa-play"></i>
+        </button>
+    </div>
+
+</div>
+<div class="rolling-alarm align-items-center items-overflow-y">
+    <table class="table table-striped table-bordered datatable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    <div class="rolling-alarm align-items-center">
+                        Time
+                        <msm-sorting (sortOption)="onSortChange($event)"></msm-sorting>
+                    </div>
+                </th>
+                <th>Trap</th>
+                <th>Value</th>
+                <th>Status</th>
+                <th>Site</th>
+                <th>Group Site</th>
+                <th>Site Priority</th>
+                <th>On/Off</th>
+                <th>Repeat Count</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let alarm of alarmSource">
+            <tr>
+                <td>
+                    <img *ngIf="alarm.eventType == 0 ||
+                            alarm.eventType == 3 ||
+                            alarm.eventType == 5 ||
+                            alarm.eventType == 7 ||
+                            alarm.eventType == 8 ||
+                            alarm.eventType == 10" src="../../../assets/img/StatusIcon/16x16_Alarm.png"><img>
+                    <img *ngIf="alarm.eventType == 2 ||
+                            alarm.eventType == 9 ||
+                            alarm.eventType == 11" src="../../../assets/img/StatusIcon/16x16_Warning.png"><img>
+                    <img *ngIf="alarm.eventType == 4" src="../../../assets/img/StatusIcon/16x16_Disabled.png"><img>
+                </td>
+                <td>{{alarm.receiveTime}}</td>
+                <td>{{alarm.alarmDescription}}</td>
+                <td>{{alarm.value}}</td>
+                <td>{{alarm.status}}</td>
+                <td>{{alarm.siteName}}</td>
+                <td>{{alarm.parentSiteName}}</td>
+                <td>{{alarm.sitePriority}}</td>
+                <td> <a *ngIf="alarm.onOffStatus">On</a>
+                    <a *ngIf="!alarm.onOffStatus">Off</a></td>
+                <td>{{alarm.repeatCount}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<msm-paginator [pageSizeOptions]="[10,20,30,40]" [pageLength]="alarm.paging.pageLength" [(pageIndex)]="alarm.paging.pageIndex"
+    (currentPageChange)="onCurrentPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></msm-paginator>

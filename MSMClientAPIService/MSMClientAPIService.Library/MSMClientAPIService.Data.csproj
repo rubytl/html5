@@ -32,4 +32,8 @@
     <Folder Include="Connected Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\MSM.Common\MSM.Common\MSM.Common.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgRedux, select } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,28 +14,15 @@ declare var google: any;
     templateUrl: './map-view.component.html',
 })
 
-export class MapViewComponent implements OnInit, OnDestroy {
+export class MapViewComponent implements OnInit {
     myMap: any;
     siteMap: SiteMap[] = [];
-    selectSiteSub: Subscription;
-    sitesSub: Subscription;
     constructor(private ngRedux: NgRedux<IAppState>) {
     }
 
     ngOnInit() {
         this.initMap();
-        this.createAllSitesMarker();
         this.notifySelectedSite();
-    }
-
-    ngOnDestroy() {
-        if (this.selectSiteSub) {
-            this.selectSiteSub.unsubscribe();
-        }
-
-        if (this.sitesSub) {
-            this.sitesSub.unsubscribe();
-        }
     }
 
     initMap() {
@@ -50,10 +37,11 @@ export class MapViewComponent implements OnInit, OnDestroy {
     }
 
     notifySelectedSite() {
-        this.selectSiteSub =
-            this.ngRedux.select(state => state.selectedSite)
-                .subscribe(
+        this.ngRedux.select(state => state.selectedSite)
+            .toPromise()
+            .then(
                 selectedSite => {
+                    this.createAllSitesMarker(selectedSite);
                     this.getSiteMarker(selectedSite);
                 });
     }
@@ -71,19 +59,20 @@ export class MapViewComponent implements OnInit, OnDestroy {
         google.maps.event.trigger(foundedMap.marker, 'click');
     }
 
-    createAllSitesMarker() {
-        this.sitesSub =
-            this.ngRedux.select(state => state.sites)
-                .subscribe(
-                (sites) => {
-                    if (sites.length === 0) {
-                        return;
-                    }
+    createAllSitesMarker(site: Site) {
+        if (site == null) {
+            return;
+        }
 
-                    sites[0].children.forEach(element => {
-                        this.createSiteMarker(element);
-                    });
-                });
+        this.createSiteMarker(site);
+
+        if (site.children === null || site.children.length === 0) {
+            return;
+        }
+
+        site.children.forEach(element => {
+            this.createSiteMarker(element);
+        });
     }
 
     createSiteMarker(site: Site) {

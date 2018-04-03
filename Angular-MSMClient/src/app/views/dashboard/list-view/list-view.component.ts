@@ -2,10 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgRedux, select } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/catch';
 
 import { ListView, Site } from '../../../models';
 import { ListViewApiService } from '../../../services/list-view.service';
 import { IAppState } from '../../../store';
+
+import { RestrictedSiteApiService } from '../../../services';
 
 @Component({
     selector: 'list-view',
@@ -19,7 +22,8 @@ export class ListViewComponent implements OnInit, OnDestroy {
     originalSiteViews: ListView[] = [];
     constructor(
         private listViewSVC: ListViewApiService,
-        private ngRedux: NgRedux<IAppState>
+        private ngRedux: NgRedux<IAppState>,
+        private siteApiService: RestrictedSiteApiService
     ) {
     }
 
@@ -43,10 +47,10 @@ export class ListViewComponent implements OnInit, OnDestroy {
         this.lvServiceSub = this.listViewSVC
             .getAllSites()
             .subscribe(
-            (sites) => {
-                this.siteListViews = sites;
-                this.originalSiteViews = sites;
-            }
+                (sites) => {
+                    this.siteListViews = sites;
+                    this.originalSiteViews = sites;
+                }
             );
     }
 
@@ -67,9 +71,10 @@ export class ListViewComponent implements OnInit, OnDestroy {
         this.selectSiteSub =
             this.ngRedux.select(state => state.selectedSite)
                 .subscribe(
-                selectedSite => {
-                    this.getSiteListViewBySiteId(selectedSite);
-                });
+                    selectedSite => {
+                        this.getSiteListViewBySiteId(selectedSite);
+                        this.siteApiService.getAllSites();
+                    });
     }
 
 }

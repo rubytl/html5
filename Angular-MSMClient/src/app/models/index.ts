@@ -1,13 +1,21 @@
 import { ListView } from './list-view';
 import { Site } from './site';
 import { SiteMap } from './map-view';
-import { UserRegistration } from './interfaces/user.registration.interface';
+import { AlarmRolling } from './interfaces/alarm.interface';
 import { Credentials } from './interfaces/credentials.interface';
+import { FilterType } from './filter.type';
+import { Paging } from './interfaces/paging.interface';
+import { Sorting } from './interfaces/sorting.interface';
+import { DateTime } from './interfaces/datetime.interface';
 
 export {
     ListView,
     Site,
     SiteMap,
-    UserRegistration,
-    Credentials
+    Credentials,
+    FilterType,
+    Paging,
+    Sorting,
+    DateTime,
+    AlarmRolling
 }

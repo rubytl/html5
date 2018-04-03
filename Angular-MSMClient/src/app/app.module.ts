@@ -12,7 +12,6 @@ import { FullLayoutModule } from './layouts/full-layout.module';
 import { RequestInterceptorService, SharedServiceModule } from './services';
 
 import { ACTION_PROVIDERS } from './actions';
-import { ListviewComponent } from './views/listview/listview.component';
 
 @NgModule({
   imports: [
@@ -24,7 +23,6 @@ import { ListviewComponent } from './views/listview/listview.component';
   ],
   declarations: [
     AppComponent,
-    ListviewComponent,
   ],
   providers: [
     {

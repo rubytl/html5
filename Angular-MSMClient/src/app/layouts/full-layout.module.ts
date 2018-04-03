@@ -19,7 +19,9 @@ import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { SiteTreeViewComponent } from '../views/site-tree-view/site-tree-view.component';
 import { TreeViewComponent } from '../views/site-tree-view/tree-view.component';
-import { SmartGridMenuComponent } from "../shared/smartgridmenu/smartgridmenu.component";
+import { SharedModule } from '../shared/shared.module';
+import { RollingAlarmComponent } from '../views/rolling-alarm/rolling-alarm.component';
+import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 
 @NgModule({
   imports: [
@@ -28,6 +30,8 @@ import { SmartGridMenuComponent } from "../shared/smartgridmenu/smartgridmenu.co
     BrowserModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    SharedModule,
+    AngularDateTimePickerModule
   ],
   declarations: [
     FullLayoutComponent,
@@ -39,7 +43,7 @@ import { SmartGridMenuComponent } from "../shared/smartgridmenu/smartgridmenu.co
     SiteTreeViewComponent,
     TreeViewComponent,
     MenuComponent,
-    SmartGridMenuComponent
+    RollingAlarmComponent
   ]
 })
 export class FullLayoutModule { }

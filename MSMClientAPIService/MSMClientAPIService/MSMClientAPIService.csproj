@@ -24,8 +24,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\MSM.Common\MSM.Common\MSM.Common.csproj" />
     <ProjectReference Include="..\MSMClientAPIService.Library\MSMClientAPIService.Data.csproj" />
     <ProjectReference Include="..\MSMClientAPIService.Mapping\MSMClientAPIService.Mapping.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MSM.Common">
+      <HintPath>..\..\MSM.Common\bin\Release\MSM.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

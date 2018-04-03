@@ -1,0 +1,21 @@
+.rolling-alarm
+{
+    display: flex;
+    flex-direction: row;
+
+    > *
+    {
+        margin-right:5px;
+    }
+
+    > msm-sorting
+    {
+        margin-left:10px;
+    }
+}
+
+.items-overflow-y
+{
+    //height: 300px;
+    overflow-y: auto;
+}

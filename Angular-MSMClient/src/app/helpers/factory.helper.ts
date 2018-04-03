@@ -31,3 +31,7 @@ export function getLoginUrl() {
 export function getRefreshTokenUrl() {
     return API_URL + "/auth/refresh";
 }
+
+export function getRollingAlarmUrl() {
+    return API_URL + "/alarm/filter";
+}

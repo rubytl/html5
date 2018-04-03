@@ -1,7 +1,9 @@
 import * as factory from './factory.helper';
 import * as treeHelper from './tree.helper';
+import * as msmHelper from './msm.helper';
 
 export {
     factory,
-    treeHelper
+    treeHelper,
+    msmHelper
 }

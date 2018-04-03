@@ -81,6 +81,7 @@ namespace MSMClientAPIService
         private void ConfigAuthentication(IServiceCollection services)
         {
             services.AddSingleton<IJwtFactory, JwtFactory>();
+
             services.AddScoped<IAuthService, AuthService>();
 
             // Get options from app settings
@@ -131,6 +132,7 @@ namespace MSMClientAPIService
             (new LoginHelper(this.Configuration)).RegisterTørkService();
             services.AddScoped<ISiteRepository, SiteRepository>();
             services.AddScoped<IUserMaintenanceRepository, UserMaintenanceRepository>();
+            services.AddScoped<IAlarmRepository, AlarmRepository>();
         }
     }
 }

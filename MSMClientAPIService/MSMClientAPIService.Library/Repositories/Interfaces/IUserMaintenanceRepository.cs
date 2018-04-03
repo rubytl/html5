@@ -6,7 +6,7 @@ using MSMClientAPIService.Data.Models;
 
 namespace MSMClientAPIService.Data.Repositories.Interfaces
 {
-    public interface IUserMaintenanceRepository:IEntityBaseRepository<Msmuser>
+    public interface IUserMaintenanceRepository : IEntityBaseRepository<Msmuser>
     {
     }
 }
