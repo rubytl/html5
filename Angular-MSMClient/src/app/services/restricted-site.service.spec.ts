@@ -2,8 +2,12 @@ import { TestBed, inject } from '@angular/core/testing';
 import { RestrictedSiteApiService } from './restricted-site.service';
 import { BaseRequestOptions, Http, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { MockRestrictedSiteApiService } from './restricted-site-mock.service';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Site } from '../models/site';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import { BaseService } from "./base.service";
 
 describe('RestrictedSiteApiService', () => {
   beforeEach(() => {
@@ -22,11 +26,27 @@ describe('RestrictedSiteApiService', () => {
     });
   });
 
-  it('Should be created', inject([RestrictedSiteApiService], (service: MockRestrictedSiteApiService) => {
+  it('should be created', inject([RestrictedSiteApiService], (service: MockRestrictedSiteApiService) => {
     expect(service).toBeTruthy();
   }));
 
   it('getAllSites should be called sucessful', inject([RestrictedSiteApiService], (service: MockRestrictedSiteApiService) => {
-    expect(service.getAllSites()).length > 0;
+    expect(service.getAllSites()).toBeTruthy();
   }));
 });
+
+@Injectable()
+export class MockRestrictedSiteApiService extends BaseService {
+
+  constructor(
+    private httpClient: HttpClient
+  ) {
+    super();
+  }
+
+  public getAllSites() {
+    return [
+      new Site({ id: 1, name: 'Hybrid' })
+    ];
+  }
+}

@@ -8,9 +8,9 @@ describe('MsmPaginatorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MsmPaginatorComponent ]
+      declarations: [MsmPaginatorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +19,19 @@ describe('MsmPaginatorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('increment page should work', () => {
+    component.pageIndex = 0;    
+    component.increment();
+    expect(component.pageIndex === 1).toBeTruthy();
+  });
+
+  it('decrement page should work', () => {
+    component.pageIndex = 10;    
+    component.decrement();
+    expect(component.pageIndex === 9).toBeTruthy();
   });
 });

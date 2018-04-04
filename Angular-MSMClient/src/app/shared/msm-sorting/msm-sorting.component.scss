@@ -1,0 +1,15 @@
+.sorting
+{
+    cursor: pointer;
+    > i
+    {
+        &.active
+        {
+            opacity: .3;
+        }
+
+        &.open {
+            opacity: .9;        
+        }
+    }
+}

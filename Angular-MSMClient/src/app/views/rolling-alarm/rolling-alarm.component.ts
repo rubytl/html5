@@ -14,9 +14,10 @@ import { AlarmRolling, Paging, Sorting } from '../../models'
 export class RollingAlarmComponent implements OnInit, OnDestroy {
   statuses = msmHelper.createAlarmStatusList();
   priorities = treeHelper.createPriorityList();
-  alarmSource: any;
   pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   alarm: AlarmRolling;
+  alarmSource: any;
+  defaultColumns = ['Time', 'Trap', 'Value', 'Status', 'Site', 'ParentSiteName', 'SitePriority', 'OnOffStatus', 'RepeatCount'];
 
   constructor(private alarmService: AlarmService) {
   }
@@ -70,7 +71,7 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
   }
 
   onSortChange(event) {
-    this.alarm.sorting.sortDirection = event;
+    this.alarm.sorting = event;
     this.getFilterAlarm();
     this.pageIndexSubject.next(0);
   }

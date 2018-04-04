@@ -54,17 +54,57 @@
                 <th>
                     <div class="rolling-alarm align-items-center">
                         Time
-                        <msm-sorting (sortOption)="onSortChange($event)"></msm-sorting>
+                        <msm-sorting [sortField]="defaultColumns[0]" (sortOption)="onSortChange($event)"></msm-sorting>
                     </div>
                 </th>
-                <th>Trap</th>
-                <th>Value</th>
-                <th>Status</th>
-                <th>Site</th>
-                <th>Group Site</th>
-                <th>Site Priority</th>
-                <th>On/Off</th>
-                <th>Repeat Count</th>
+                <th>
+                    <div class="rolling-alarm align-items-center">
+                        Trap
+                        <msm-sorting [sortField]="defaultColumns[1]" (sortOption)="onSortChange($event)"></msm-sorting>
+                    </div>
+                </th>
+                <th>
+                    <div class="rolling-alarm align-items-center">
+                        Value
+                        <msm-sorting [sortField]="defaultColumns[2]" (sortOption)="onSortChange($event)"></msm-sorting>
+                    </div>
+                </th>
+                <th>
+                    <div class="rolling-alarm align-items-center">
+                        Status
+                        <msm-sorting [sortField]="defaultColumns[3]" (sortOption)="onSortChange($event)"></msm-sorting>
+                    </div>
+                </th>
+                <th>
+                    <div class="rolling-alarm align-items-center">
+                        Site
+                        <msm-sorting [sortField]="defaultColumns[4]" (sortOption)="onSortChange($event)"></msm-sorting>
+                    </div>
+                </th>
+                <th>
+                    <div class="rolling-alarm align-items-center">
+                        Group Site
+                        <msm-sorting [sortField]="defaultColumns[5]" (sortOption)="onSortChange($event)"></msm-sorting>
+                    </div>
+                </th>
+                <th>
+                    <div class="rolling-alarm align-items-center">
+                        Site Priority
+                        <msm-sorting [sortField]="defaultColumns[6]" (sortOption)="onSortChange($event)"></msm-sorting>
+                    </div>
+                </th>
+                <th>
+                    <div class="rolling-alarm align-items-center">
+                        On/Off
+                        <msm-sorting [sortField]="defaultColumns[7]" (sortOption)="onSortChange($event)"></msm-sorting>
+                    </div>
+                </th>
+                <th>
+                    <div class="rolling-alarm align-items-center">
+                        Repeat Count
+                        <msm-sorting [sortField]="defaultColumns[8]" (sortOption)="onSortChange($event)"></msm-sorting>
+                    </div>
+                </th>
             </tr>
         </thead>
         <tbody *ngFor="let alarm of alarmSource">

@@ -19,7 +19,15 @@ describe('MsmSortingComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should beccreated', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('asc sort should work', () => {
+    expect(component.ascSort).toBeTruthy();
+  });
+
+  it('desc sort should work', () => {
+    expect(component.descSort).toBeTruthy();
   });
 });

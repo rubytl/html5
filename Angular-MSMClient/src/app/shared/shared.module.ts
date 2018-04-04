@@ -10,11 +10,16 @@ import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { FilterTypeComponent } from './filter-type/filter-type.component';
 import { MsmPaginatorComponent } from './msm-paginator/msm-paginator.component';
-import { MsmSortingComponent } from './msm-sorting/msm-sorting.component';
+import { MsmSortingComponent, SortingToggleDirective } from './msm-sorting/msm-sorting.component';
+import { NAV_DROPDOWN_DIRECTIVES } from './nav-dropdown.directive';
+import { SIDEBAR_TOGGLE_DIRECTIVES } from './sidebar.directive';
+import { AsideToggleDirective } from './aside.directive';
 
 @NgModule({
     imports: [CommonModule, FormsModule],
-    declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent],
-    exports: [SpinnerComponent, FilterTypeComponent, FormsModule, CommonModule, MsmPaginatorComponent, MsmSortingComponent],
+    declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
+        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective, SortingToggleDirective],
+    exports: [SpinnerComponent, FilterTypeComponent, FormsModule, CommonModule, MsmPaginatorComponent, MsmSortingComponent,
+        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective, SortingToggleDirective],
 })
 export class SharedModule { }
