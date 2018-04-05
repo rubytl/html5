@@ -68,6 +68,11 @@ namespace MSMClientAPIService.Controllers
         public async Task<IActionResult> RefreshAccessToken([FromBody]RefreshTokenModel token)
             => Ok(await this.authService.RefreshAccessToken(token.Token));
 
+        [HttpPost("logout")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Logout([FromBody]RefreshTokenModel token)
+          => Ok(await this.authService.Logout(token.Token));
+
         [HttpPost("revoke")]
         public IActionResult RevokeRefreshToken([FromBody]RefreshTokenModel token)
         {

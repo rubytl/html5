@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="card-group mb-0 relative">
+        <div class="card-group mb-0">
           <div class="card p-4">
             <div class="card-block">
               <h1>Login</h1>
@@ -18,7 +18,7 @@
               <div class="input-group mb-4">
                 <span class="input-group-addon"><i class="icon-lock"></i></span>
                 <input type="password" class="form-control" placeholder="Password" id="pwd" name="pwd" [(ngModel)]="credentials.password"
-                  required #pwd="ngModel">
+                  required #pwd="ngModel" (keyup.enter)="login()">
                 <div [hidden]="pwd.valid || pwd.pristine" class="alert callout">
                   Password required
                 </div>
@@ -35,7 +35,6 @@
               </div>
             </div>
           </div>
-          <app-spinner [hidden]="!isRequesting" [isRunning]="isRequesting" class="spinner"></app-spinner>
         </div>
       </div>
     </div>

@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { HttpModule } from '@angular/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -21,9 +19,7 @@ import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 
 @NgModule({
   imports: [
-    HttpModule,
     RouterModule,
-    BrowserModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     SharedModule,

@@ -40,7 +40,7 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
       .then(result => {
         this.alarmSource = result;
       })
-      .catch(ex => console.log(ex))
+      .catch(ex => console.log(ex.message))
   }
 
   createDefaultFilter() {
@@ -54,8 +54,14 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
 
   }
 
-  onDateSelect(event) {
+  onFromDateSelect(event) {
     this.alarm.date.fromDate = new Date(event);
+    this.getFilterAlarm();
+    this.pageIndexSubject.next(0);
+  }
+
+  onToDateSelect(event) {
+    this.alarm.date.toDate = new Date(event);
     this.getFilterAlarm();
     this.pageIndexSubject.next(0);
   }

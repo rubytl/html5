@@ -8,7 +8,8 @@ import { IAppState } from '../../store';
 
 @Component({
     selector: 'site-tree-view',
-    templateUrl: './site-tree-view.component.html'
+    templateUrl: './site-tree-view.component.html',
+    styleUrls: ['./site-tree-view.component.scss']
 })
 export class SiteTreeViewComponent {
     @Input() sites: Observable<Site>;
@@ -18,6 +19,6 @@ export class SiteTreeViewComponent {
     }
 
     chooseSite(site: Site) {
-       this.SelectSiteAction.chooseSite(site);
+        this.SelectSiteAction.chooseSite(site);
     }
 }

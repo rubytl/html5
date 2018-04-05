@@ -7,22 +7,18 @@ import 'rxjs/add/operator/catch';
 // fall into the situation where we have accidental multiple HTTP requests.
 import 'rxjs/add/operator/shareReplay';
 
-import { Site } from '../models';
 import { BaseService } from "./base.service";
 import { factory } from '../helpers';
+import { ProgressActions } from '../actions/progress.action';
 
 @Injectable()
 export class RestrictedSiteApiService extends BaseService {
 
-  constructor(
-    private httpClient: HttpClient
-  ) {
-    super();
+  constructor(http: HttpClient, progressAct: ProgressActions) {
+    super(http, progressAct);
   }
 
   getAllSites() {
-    return this.httpClient
-      .get(factory.getSiteUrl(), { headers: factory.createHeaderWithToken() })
-      .toPromise();
+    return this.get(factory.getSiteUrl(), factory.createHeaderWithToken());
   }
 }

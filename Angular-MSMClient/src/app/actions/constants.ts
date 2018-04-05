@@ -4,4 +4,5 @@ export const constants = {
     ADD_SITE: 'ADD_SITE',
     DELETE_SITE: 'DELETE_SITE',
     EDIT_SITE: 'EDIT_SITE',
+    IN_PROGRESS: 'IN_PROGRESS',
 }

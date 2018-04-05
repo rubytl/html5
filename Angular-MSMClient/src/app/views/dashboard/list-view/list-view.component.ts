@@ -17,7 +17,6 @@ import { RestrictedSiteApiService } from '../../../services';
 
 export class ListViewComponent implements OnInit, OnDestroy {
     selectSiteSub: Subscription;
-    lvServiceSub: Subscription;
     siteListViews: ListView[] = [];
     originalSiteViews: ListView[] = [];
     constructor(
@@ -37,16 +36,12 @@ export class ListViewComponent implements OnInit, OnDestroy {
         if (this.selectSiteSub) {
             this.selectSiteSub.unsubscribe();
         }
-
-        if (this.lvServiceSub) {
-            this.lvServiceSub.unsubscribe();
-        }
     }
 
     getAllSiteListView() {
-        this.lvServiceSub = this.listViewSVC
+        this.listViewSVC
             .getAllSites()
-            .subscribe(
+            .then(
                 (sites) => {
                     this.siteListViews = sites;
                     this.originalSiteViews = sites;

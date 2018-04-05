@@ -20,7 +20,14 @@ namespace MSMClientAPIService.Services
             this.userRepo = userRepo;
         }
 
-        public async Task<JwtResponse> RefreshAccessToken(string token)
+        public async Task<bool> Logout(string token)
+        {
+            RefreshToken refreshToken = await this.GetExistingToken(token);
+            await this.jwtFactory.RemoveRefreshToken(token);
+            return await Task.FromResult(true);
+        }
+
+        private async Task<RefreshToken> GetExistingToken(string token)
         {
             RefreshToken refreshToken = await this.jwtFactory.GetRefreshToken(token);
             if (refreshToken == null)
@@ -33,23 +40,19 @@ namespace MSMClientAPIService.Services
                 throw new Exception("Existing token was revoked");
             }
 
+            return await Task.FromResult(refreshToken);
+        }
+
+        public async Task<JwtResponse> RefreshAccessToken(string token)
+        {
+            RefreshToken refreshToken = await this.GetExistingToken(token);
             await this.jwtFactory.RemoveRefreshToken(token);
             return await this.jwtFactory.GenerateJwtToken(refreshToken.Username);
         }
 
         public async void RevokeRefreshToken(string token)
         {
-            RefreshToken refreshToken = await this.jwtFactory.GetRefreshToken(token);
-            if (refreshToken == null)
-            {
-                throw new Exception("Existing token was not found.");
-            }
-
-            if (refreshToken.Revoked)
-            {
-                throw new Exception("Existing token was already revoked.");
-            }
-
+            RefreshToken refreshToken = await this.GetExistingToken(token);
             refreshToken.Revoked = true;
         }
 

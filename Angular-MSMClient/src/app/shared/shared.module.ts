@@ -14,11 +14,12 @@ import { MsmSortingComponent, SortingToggleDirective } from './msm-sorting/msm-s
 import { NAV_DROPDOWN_DIRECTIVES } from './nav-dropdown.directive';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './sidebar.directive';
 import { AsideToggleDirective } from './aside.directive';
+import { MsmMultipleSortingComponent } from './msm-multiple-sorting/msm-multiple-sorting.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule],
     declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
-        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective, SortingToggleDirective],
+        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective, SortingToggleDirective, MsmMultipleSortingComponent],
     exports: [SpinnerComponent, FilterTypeComponent, FormsModule, CommonModule, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective, SortingToggleDirective],
 })

@@ -5204,10 +5204,21 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
+      "MSM.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/MSM.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MSM.Common.dll": {}
+        }
+      },
       "MSMClientAPIService.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
+          "MSM.Common": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.0.1",
           "Microsoft.AspNetCore.Identity": "2.0.1",
           "Microsoft.EntityFrameworkCore.Design": "2.0.1",
@@ -5231,6 +5242,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
+          "MSM.Common": "1.0.0",
           "MSMClientAPIService.Data": "1.0.0",
           "automapper": "6.2.2"
         },
@@ -13735,6 +13747,11 @@
         "windowsazure.storage.nuspec"
       ]
     },
+    "MSM.Common/1.0.0": {
+      "type": "project",
+      "path": "../../MSM.Common/MSM.Common/MSM.Common.csproj",
+      "msbuildProject": "../../MSM.Common/MSM.Common/MSM.Common.csproj"
+    },
     "MSMClientAPIService.Data/1.0.0": {
       "type": "project",
       "path": "../MSMClientAPIService.Library/MSMClientAPIService.Data.csproj",
@@ -13749,6 +13766,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 3.2.0",
+      "MSM.Common >= 1.0.0",
       "MSMClientAPIService.Data >= 1.0.0",
       "MSMClientAPIService.Mapping >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.5",
@@ -13772,11 +13790,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "E:\\Projects\\ELTEK-Angular\\MSMClientAPIService\\MSMClientAPIService\\MSMClientAPIService.csproj",
+      "projectUniqueName": "E:\\Projects\\HTML5\\MSMClientAPIService\\MSMClientAPIService\\MSMClientAPIService.csproj",
       "projectName": "MSMClientAPIService",
-      "projectPath": "E:\\Projects\\ELTEK-Angular\\MSMClientAPIService\\MSMClientAPIService\\MSMClientAPIService.csproj",
+      "projectPath": "E:\\Projects\\HTML5\\MSMClientAPIService\\MSMClientAPIService\\MSMClientAPIService.csproj",
       "packagesPath": "C:\\Users\\phangovn\\.nuget\\packages\\",
-      "outputPath": "E:\\Projects\\ELTEK-Angular\\MSMClientAPIService\\MSMClientAPIService\\obj\\",
+      "outputPath": "E:\\Projects\\HTML5\\MSMClientAPIService\\MSMClientAPIService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
@@ -13797,11 +13815,14 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "E:\\Projects\\ELTEK-Angular\\MSMClientAPIService\\MSMClientAPIService.Library\\MSMClientAPIService.Data.csproj": {
-              "projectPath": "E:\\Projects\\ELTEK-Angular\\MSMClientAPIService\\MSMClientAPIService.Library\\MSMClientAPIService.Data.csproj"
+            "E:\\Projects\\HTML5\\MSMClientAPIService\\MSMClientAPIService.Library\\MSMClientAPIService.Data.csproj": {
+              "projectPath": "E:\\Projects\\HTML5\\MSMClientAPIService\\MSMClientAPIService.Library\\MSMClientAPIService.Data.csproj"
             },
-            "E:\\Projects\\ELTEK-Angular\\MSMClientAPIService\\MSMClientAPIService.Mapping\\MSMClientAPIService.Mapping.csproj": {
-              "projectPath": "E:\\Projects\\ELTEK-Angular\\MSMClientAPIService\\MSMClientAPIService.Mapping\\MSMClientAPIService.Mapping.csproj"
+            "E:\\Projects\\HTML5\\MSM.Common\\MSM.Common\\MSM.Common.csproj": {
+              "projectPath": "E:\\Projects\\HTML5\\MSM.Common\\MSM.Common\\MSM.Common.csproj"
+            },
+            "E:\\Projects\\HTML5\\MSMClientAPIService\\MSMClientAPIService.Mapping\\MSMClientAPIService.Mapping.csproj": {
+              "projectPath": "E:\\Projects\\HTML5\\MSMClientAPIService\\MSMClientAPIService.Mapping\\MSMClientAPIService.Mapping.csproj"
             }
           }
         }

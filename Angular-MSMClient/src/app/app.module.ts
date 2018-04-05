@@ -12,11 +12,14 @@ import { FullLayoutModule } from './layouts/full-layout.module';
 import { RequestInterceptorService, SharedServiceModule } from './services';
 
 import { ACTION_PROVIDERS } from './actions';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   imports: [
     AppRoutingModule,
     NgReduxModule,
+    BrowserModule,
+    SharedModule,
     FullLayoutModule,
     HttpClientModule,
     SharedServiceModule.forRoot()

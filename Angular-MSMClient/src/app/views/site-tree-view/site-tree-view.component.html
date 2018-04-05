@@ -1,6 +1,19 @@
 <ul class="nav">
   <li *ngFor="let site of sites" class="nav-item nav-dropdown" appNavDropdown>
-    <div>
+    <div class="flexbox align-items-center">
+      <!-- Icon -->
+      <img *ngIf="site.status == 0 ||
+        site.status == 3 ||
+        site.status == 5 ||
+        site.status == 7 ||
+        site.status == 8 ||
+        site.status == 10" src="../../../assets/img/StatusIcon/16x16_Alarm.png"><img>
+      <img *ngIf="site.status == 2 ||
+        site.status == 9 ||
+        site.status == 11" src="../../../assets/img/StatusIcon/16x16_Warning.png"><img>
+      <img *ngIf="site.status == 4" src="../../../assets/img/StatusIcon/16x16_Disabled.png"><img>
+
+      <!-- Description -->
       <a *ngIf="site.children.length > 0" (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle" appNavDropdownToggle>{{site.description}}</a>
       <a *ngIf="site.children.length == 0" (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle-noContent" appNavDropdownToggle>{{site.description}}</a>
     </div>

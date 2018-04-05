@@ -7,24 +7,21 @@ import 'rxjs/add/operator/shareReplay';
 
 import { BaseService } from "./base.service";
 import { factory } from '../helpers';
+import { ProgressActions } from '../actions';
 
 @Injectable()
 export class AlarmService extends BaseService {
 
-    constructor(
-        private httpClient: HttpClient
-    ) {
-        super();
+    constructor(http: HttpClient, progressAct: ProgressActions) {
+        super(http, progressAct);
     }
 
     getFilterAlarm(filter: string, siteName: string, priority: string,
         statusCode: string, trap: string,
         fromDate: Date, toDate: Date, pageIndex: number, pageSize: number,
         sortField: string, sortDirection: string, maxAlarmId: number) {
-        return this.httpClient
-            .post(factory.getRollingAlarmUrl(),
-                JSON.stringify({ filter, siteName, priority, statusCode, trap, fromDate, toDate, pageIndex, pageSize, sortField, sortDirection, maxAlarmId }),
-                { headers: factory.createHeaderWithToken() })
-            .toPromise();
+        return this.post(factory.getRollingAlarmUrl(),
+            JSON.stringify({ filter, siteName, priority, statusCode, trap, fromDate, toDate, pageIndex, pageSize, sortField, sortDirection, maxAlarmId }),
+            factory.createHeaderWithToken());
     }
 }

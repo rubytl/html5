@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, Directive, HostListener, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Directive, HostListener, ElementRef } from '@angular/core';
 import { Sorting } from '../../models';
 
 @Component({
@@ -6,13 +6,10 @@ import { Sorting } from '../../models';
   templateUrl: './msm-sorting.component.html',
   styleUrls: ['./msm-sorting.component.scss']
 })
-export class MsmSortingComponent implements OnInit {
+export class MsmSortingComponent {
 
   @Output() sortOption = new EventEmitter<Sorting>();
   @Input() sortField: string;
-
-  ngOnInit() {
-  }
 
   ascSort() {
     this.sortOption.emit({ sortField: this.sortField, sortDirection: 'asc' });
@@ -39,7 +36,7 @@ export class SortingToggleDirective {
     var i;
     for (i = 0; i < x.length; i++) {
       x[i].classList.remove('open');
-      y[i].classList.remove('open');      
+      y[i].classList.remove('open');
     }
 
     hElement.classList.toggle('open');

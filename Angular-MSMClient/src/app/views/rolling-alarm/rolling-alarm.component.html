@@ -28,9 +28,9 @@
 
     <div class="rolling-alarm align-items-center">
         <a>From:</a>
-        <angular2-date-picker [(ngModel)]="alarm.date.fromDate" (onDateSelect)="onDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
+        <angular2-date-picker [(ngModel)]="alarm.date.fromDate" (onDateSelect)="onFromDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
         <a>To:</a>
-        <angular2-date-picker [(ngModel)]="alarm.date.toDate" (onDateSelect)="onDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
+        <angular2-date-picker [(ngModel)]="alarm.date.toDate" (onDateSelect)="onToDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
     </div>
 
     <div class="rolling-alarm align-items-center">

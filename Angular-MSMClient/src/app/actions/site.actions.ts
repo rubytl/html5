@@ -20,13 +20,10 @@ export class SiteActions {
           payload: [new Site({
             id: 0,
             description: "My Network",
+            status: 1,
             children: treeHelper.listToTree(sites)
           })]
         });
       });
-  }
-
-
-  addSite(site): void {
   }
 }
