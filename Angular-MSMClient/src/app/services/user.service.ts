@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { BaseService } from "./base.service";
 import { factory } from '../helpers';
 import { ProgressActions } from '../actions';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Injectable()
 export class UserService extends BaseService {
@@ -19,8 +20,8 @@ export class UserService extends BaseService {
 
     private loggedIn = false;
 
-    constructor(http: HttpClient, progressAct: ProgressActions, private router: Router) {
-        super(http, progressAct);
+    constructor(http: HttpClient, progressAct: ProgressActions, private router: Router, modelService: BsModalService) {
+        super(http, progressAct, modelService);
         this.loggedIn = !!sessionStorage.getItem('auth_token');
         // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
         // header component resulting in authed user nav links disappearing despite the fact user is still logged in
@@ -44,6 +45,11 @@ export class UserService extends BaseService {
             .catch(this.handleError);
     }
 
+    handleError(error) {
+        this.progressAct.updateProgress(false);
+        Promise.reject(error);
+    }
+
     refreshToken() {
         console.log("Request new token begin");
         let token = sessionStorage.getItem('token_jti');
@@ -52,18 +58,17 @@ export class UserService extends BaseService {
             .post(factory.getRefreshTokenUrl(), JSON.stringify({ token }), factory.createHeader())
             .then(res => {
                 console.log("New token generated sucessfully");
-                this.logout();
+                this.removeStorage();
                 return this.ExtractResponseResult(res);
             })
             .catch((error) => {
                 console.log("Request new token failed due to: " + error);
-                this.logoutUser();
+                this.logout();
             });
     }
 
 
     logout() {
-        sessionStorage.removeItem('auth_token');
         this.loggedIn = false;
         this._authNavStatusSource.next(false);
         let token = sessionStorage.getItem('token_jti');
@@ -71,19 +76,26 @@ export class UserService extends BaseService {
             .post(factory.getlogoutUrl(), JSON.stringify({ token }), factory.createHeader())
             .then(res => {
                 console.log("Remove token sucessfully");
+                this.redirectLoginPage();
             })
             .catch((error) => {
                 console.log("Remove token failed due to: " + error);
-            });
+                this.redirectLoginPage();
+            })
     }
 
-    logoutUser() {
-        // Remove the auth_token out of the session storage, then route to the login page
-        this.logout();
+    private redirectLoginPage()
+    {
+        this.removeStorage();
         this.router.navigate(['/pages/login']);
     }
 
-    ExtractResponseResult(res) {
+    private removeStorage() {
+        sessionStorage.removeItem('auth_token');
+        sessionStorage.removeItem('auth_token');
+    }
+
+    private ExtractResponseResult(res) {
         sessionStorage.setItem('auth_token', res.auth_token);
         sessionStorage.setItem('token_jti', res.jti);
         this.loggedIn = true;

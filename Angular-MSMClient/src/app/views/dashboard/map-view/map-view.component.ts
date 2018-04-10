@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgRedux, select } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -12,17 +12,25 @@ declare var google: any;
 @Component({
     selector: 'map-view',
     templateUrl: './map-view.component.html',
+    styleUrls: ['./map-view.component.scss']
 })
 
-export class MapViewComponent implements OnInit {
-    myMap: any;
-    siteMap: SiteMap[] = [];
+export class MapViewComponent implements OnInit, OnDestroy {
+    private myMap: any;
+    private siteMap: SiteMap[] = [];
+    private selectedSiteSub: Subscription;
     constructor(private ngRedux: NgRedux<IAppState>) {
     }
 
     ngOnInit() {
         this.initMap();
         this.notifySelectedSite();
+    }
+
+    ngOnDestroy() {
+        if (this.selectedSiteSub) {
+            this.selectedSiteSub.unsubscribe();
+        }
     }
 
     initMap() {
@@ -37,9 +45,8 @@ export class MapViewComponent implements OnInit {
     }
 
     notifySelectedSite() {
-        this.ngRedux.select(state => state.selectedSite)
-            .toPromise()
-            .then(
+        this.selectedSiteSub = this.ngRedux.select(state => state.selectedSite)
+            .subscribe(
                 selectedSite => {
                     this.createAllSitesMarker(selectedSite);
                     this.getSiteMarker(selectedSite);

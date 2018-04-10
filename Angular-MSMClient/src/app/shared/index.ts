@@ -15,12 +15,23 @@ import { NAV_DROPDOWN_DIRECTIVES } from './nav-dropdown.directive';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './sidebar.directive';
 import { AsideToggleDirective } from './aside.directive';
 import { MsmMultipleSortingComponent } from './msm-multiple-sorting/msm-multiple-sorting.component';
+import { MsmDialogComponent } from './msm-dialog/msm-dialog.component';
+import { MsmFooterComponent } from './msm-footer/msm-footer.component';
+import { MsmAsideComponent } from './msm-aside/msm-aside.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule],
     declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
-        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective, SortingToggleDirective, MsmMultipleSortingComponent],
+        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
+        SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
+        MsmFooterComponent, MsmAsideComponent],
     exports: [SpinnerComponent, FilterTypeComponent, FormsModule, CommonModule, MsmPaginatorComponent, MsmSortingComponent,
-        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective, SortingToggleDirective],
+        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
+        SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
+        MsmFooterComponent, MsmAsideComponent],
+    entryComponents:
+        [
+            MsmDialogComponent
+        ]
 })
 export class SharedModule { }

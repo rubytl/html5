@@ -12,7 +12,8 @@ import { FullLayoutModule } from './layouts/full-layout.module';
 import { RequestInterceptorService, SharedServiceModule } from './services';
 
 import { ACTION_PROVIDERS } from './actions';
-import { SharedModule } from './shared/shared.module';
+import { SharedModule } from './shared';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   imports: [
@@ -22,10 +23,11 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     FullLayoutModule,
     HttpClientModule,
-    SharedServiceModule.forRoot()
+    SharedServiceModule.forRoot(),
+    ModalModule.forRoot()
   ],
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   providers: [
     {

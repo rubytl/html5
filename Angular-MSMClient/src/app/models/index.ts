@@ -7,7 +7,7 @@ import { FilterType } from './filter.type';
 import { Paging } from './interfaces/paging.interface';
 import { Sorting } from './interfaces/sorting.interface';
 import { DateTime } from './interfaces/datetime.interface';
-
+import { DialogOption } from './interfaces/dialog.interface';
 export {
     ListView,
     Site,
@@ -17,5 +17,6 @@ export {
     Paging,
     Sorting,
     DateTime,
-    AlarmRolling
+    AlarmRolling,
+    DialogOption
 }

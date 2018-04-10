@@ -1,5 +1,8 @@
 import { FilterType } from '../models';
 import { FilterTypeEnum, AlarmStatus } from '../enums';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { MsmDialogComponent } from '../shared/msm-dialog/msm-dialog.component';
 
 export function createFilterTypeList() {
     return [
@@ -12,12 +15,12 @@ export function createFilterTypeList() {
         new FilterType("Hybrid", FilterTypeEnum.hybrid),
         new FilterType("Hybrid - Generator installed", FilterTypeEnum.hybridGen),
         new FilterType("Hybrid - PV installed", FilterTypeEnum.hybridPV),
-        new FilterType("Hybrid - Wind turbine installed", FilterTypeEnum.hybridWind),
+        new FilterType("Hybrid - Wind installed", FilterTypeEnum.hybridWind),
         new FilterType("Hybrid - AC monitoring", FilterTypeEnum.hasMainsMonitorHybrid),
         new FilterType("On grid", FilterTypeEnum.onGrid),
         new FilterType("On grid - Generator installed", FilterTypeEnum.onGridGen),
         new FilterType("On grid - PV installed", FilterTypeEnum.onGridPV),
-        new FilterType("On grid - Wind turbine installed", FilterTypeEnum.onGridWind),
+        new FilterType("On grid - Wind installed", FilterTypeEnum.onGridWind),
         new FilterType("On grid - AC monitoring", FilterTypeEnum.hasMainsMonitorGrid)
     ];
 }
@@ -37,4 +40,10 @@ export function createAlarmStatusList() {
         { Description: AlarmStatus.MajorHigh },
         { Description: AlarmStatus.MinorHigh }
     ];
+}
+
+export function openConfirmDialog(modalService: BsModalService, settings): BsModalRef {
+    settings.contents = [{ description: 'OK', value: true }];
+    const initialState = { settings };
+    return modalService.show(MsmDialogComponent, { initialState: initialState });
 }

@@ -8,12 +8,13 @@ import 'rxjs/add/operator/shareReplay';
 import { BaseService } from "./base.service";
 import { factory } from '../helpers';
 import { ProgressActions } from '../actions';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Injectable()
 export class AlarmService extends BaseService {
 
-    constructor(http: HttpClient, progressAct: ProgressActions) {
-        super(http, progressAct);
+    constructor(http: HttpClient, progressAct: ProgressActions, modelService: BsModalService) {
+        super(http, progressAct, modelService);
     }
 
     getFilterAlarm(filter: string, siteName: string, priority: string,

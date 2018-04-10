@@ -47,7 +47,7 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
     this.alarm = {
       siteName: '', trap: '',
       selectedStatus: this.statuses[0].Description.toString(),
-      selectedPriority: "All", date: { fromDate: new Date(), toDate: new Date(), settings: { format: 'dd-MM-yyyy' } },
+      selectedPriority: "All", date: { fromDate: new Date(), toDate: new Date(), settings: { bigBanner: false, timePicker: false, format: 'dd-MM-yyyy' } },
       paging: { pageSize: 10, pageIndex: 0, pageLength: 10 }, maxAlarmId: 10,
       selectedFilterType: "0", sorting: { sortField: '', sortDirection: 'desc' }
     };

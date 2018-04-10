@@ -10,12 +10,13 @@ import 'rxjs/add/operator/shareReplay';
 import { BaseService } from "./base.service";
 import { factory } from '../helpers';
 import { ProgressActions } from '../actions/progress.action';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Injectable()
 export class RestrictedSiteApiService extends BaseService {
 
-  constructor(http: HttpClient, progressAct: ProgressActions) {
-    super(http, progressAct);
+  constructor(http: HttpClient, progressAct: ProgressActions, modelService: BsModalService) {
+    super(http, progressAct, modelService);
   }
 
   getAllSites() {

@@ -10,10 +10,10 @@ import { SimpleLayoutComponent } from './simple-layout.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumb.component';
 
 // Dashboard
-import { MenuComponent } from '../shared/menu/menu.component';
+import { MsmMenuComponent } from '../shared/menu/menu.component';
 import { SiteTreeViewComponent } from '../views/site-tree-view/site-tree-view.component';
 import { TreeViewComponent } from '../views/site-tree-view/tree-view.component';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../shared';
 import { RollingAlarmComponent } from '../views/rolling-alarm/rolling-alarm.component';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 
@@ -23,7 +23,7 @@ import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     SharedModule,
-    AngularDateTimePickerModule
+    AngularDateTimePickerModule,
   ],
   declarations: [
     FullLayoutComponent,
@@ -31,7 +31,7 @@ import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
     BreadcrumbsComponent,
     SiteTreeViewComponent,
     TreeViewComponent,
-    MenuComponent,
+    MsmMenuComponent,
     RollingAlarmComponent
   ]
 })

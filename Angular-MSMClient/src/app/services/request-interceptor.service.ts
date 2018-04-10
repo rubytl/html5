@@ -18,7 +18,7 @@ export class RequestInterceptorService implements HttpInterceptor {
     isRefreshingToken: boolean = false;
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-    constructor(private userService: UserService, private router: Router) { }
+    constructor(private userService: UserService) { }
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
         return req.clone({ setHeaders: { Authorization: 'Bearer ' + token } });
@@ -34,8 +34,6 @@ export class RequestInterceptorService implements HttpInterceptor {
             .catch(error => {
                 if (error instanceof HttpErrorResponse) {
                     switch ((<HttpErrorResponse>error).status) {
-                        case 400:
-                            return this.handle400Error(error);
                         case 401:
                             return this.handle401Error(req, next);
                         default:
@@ -47,17 +45,7 @@ export class RequestInterceptorService implements HttpInterceptor {
             });
     }
 
-    async handle400Error(error): Promise<any> {
-        if (error.error && error.error.error === 'invalid_grant') {
-            // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
-            this.userService.logoutUser();
-        }
-        else {
-            return Promise.reject(error);
-        }
-    }
-
-    async handle401Error(req: HttpRequest<any>, next: HttpHandler) {
+    async handle401Error(req: HttpRequest<any>, next: HttpHandler): Promise<any> {
         if (!this.isRefreshingToken) {
             this.isRefreshingToken = true;
 
@@ -74,14 +62,14 @@ export class RequestInterceptorService implements HttpInterceptor {
                         }
                         else {
                             // If we don't get a new token, we are in trouble so logout.
-                            return this.userService.logoutUser();
+                            this.userService.logout();
                         }
                     });
             }
             catch (error) {
                 // Error happened, we are in trouble so logout
-                console.log("Request new token failed due to: " + error);                
-                return this.userService.logoutUser();
+                console.log("Request new token failed due to: " + error);
+                this.userService.logout();
             }
             finally {
                 this.isRefreshingToken = false;

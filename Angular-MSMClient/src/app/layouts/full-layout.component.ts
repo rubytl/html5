@@ -11,7 +11,7 @@ export class FullLayoutComponent {
   public disabled = false;
   public status: { isopen: boolean } = { isopen: false };
 
-  constructor(private userSVC: UserService, private router: Router) {
+  constructor(private userSVC: UserService) {
   }
 
   public toggled(open: boolean): void {
@@ -26,6 +26,5 @@ export class FullLayoutComponent {
 
   logout() {
     this.userSVC.logout();
-    this.router.navigate(['/pages/login']);
   }
 }

@@ -1,0 +1,15 @@
+<div class="alert-box">
+    <div class="modal-header">
+        <h4 class="modal-title">{{settings.title}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        {{settings.message}}
+    </div>
+    <div class="modal-footer flexbox">
+        <button type="button" *ngFor="let content of settings.contents" class="btn btn-primary px-4"
+            (click)="onClick(content)">{{content.description}}</button>
+    </div>
+</div>

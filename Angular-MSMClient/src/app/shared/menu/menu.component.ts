@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'menu-selector',
+  selector: 'msm-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
+export class MsmMenuComponent {
 
   public disabled: boolean = false;
   public status: { isopen: boolean } = { isopen: false };

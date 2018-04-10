@@ -1,8 +1,29 @@
+div.relative
+{
+    position: relative;
+}
+
 // core overrides
 $sidebar-nav-dropdown-bg:           transparent;
-$navbar-brand-logo:                 url('../img/home.png');
-$navbar-brand-width:                50px;
-$navbar-brand-logo-size:            45px auto !default;
+$navbar-brand-logo:                 url('../assets/img/home.ico');
+$navbar-brand-width:                3rem !default;
+$navbar-brand-logo-size:            2.8rem auto !default;
+$footer-height: 2.5rem;
+$sidebar-nav-link-hover-bg:          transparent !default;
+$sidebar-nav-link-hover-color:       gray !default;
+$sidebar-nav-link-active-color : #3939F0 !default;
+
+// Boostrap overriden
+$breadcrumb-padding-y:          .35rem !default;
+$breadcrumb-padding-x:          1rem !default;
+$breadcrumb-item-padding:       .35rem !default;
+$spacer: 0.5rem !default;
+$card-spacer-y:            .25rem !default;
+$card-spacer-x:            $spacer !default;
+
+.main .container-fluid {
+    padding: 0 1.5 * $spacer;
+  }
 
 body.relative
 {

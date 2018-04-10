@@ -28,7 +28,6 @@
     "angular2-datetimepicker": "^1.1.1",
     "chart.js": "2.7.2",
     "core-js": "2.5.3",
-    "moment": "2.21.0",
     "ng2-charts": "1.6.0",
     "ng2-redux": "^5.1.2",
     "ngx-bootstrap": "2.0.3",

@@ -6,7 +6,7 @@ import { LoginComponent } from './login.component';
 import { RegisterComponent } from './register.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../shared';
 
 @NgModule({
   imports: [PagesRoutingModule,

@@ -9,7 +9,6 @@ import { Credentials } from '../models';
   styleUrls: ['login.component.scss']
 })
 export class LoginComponent {
-
   errors: string;
   isRequesting: boolean;
   credentials: Credentials = { username: '', password: '' };

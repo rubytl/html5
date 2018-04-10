@@ -8,6 +8,8 @@ import { Site } from '../models/site';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { BaseService } from "./base.service";
+import { ProgressActions } from '../actions/progress.action';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 describe('RestrictedSiteApiService', () => {
   beforeEach(() => {
@@ -21,6 +23,8 @@ describe('RestrictedSiteApiService', () => {
         },
         MockBackend,
         BaseRequestOptions,
+        ProgressActions,
+        BsModalService,
         RestrictedSiteApiService
       ]
     });
@@ -37,11 +41,8 @@ describe('RestrictedSiteApiService', () => {
 
 @Injectable()
 export class MockRestrictedSiteApiService extends BaseService {
-
-  constructor(
-    private httpClient: HttpClient
-  ) {
-    super();
+  constructor(http: HttpClient, progressAct: ProgressActions, modelService: BsModalService) {
+    super(http, progressAct, modelService);
   }
 
   public getAllSites() {
