@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MSMClientAPIService.Data.Repositories.Interfaces;
+using MSM.Data.Repositories.Interfaces;
 using MSMClientAPIService.Helpers;
 using MSMClientAPIService.Mapping;
 using MSMClientAPIService.Models;

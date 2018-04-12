@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-const API_URL = environment.msmClientAPIUrl;
+const CLIENT_API_URL = environment.msmClientAPIUrl;
+const AUTH_API_URL = environment.msmAuthUrl;
 
 export function createHeaderWithToken(): HttpHeaders {
     var token = sessionStorage.getItem('auth_token');
@@ -21,21 +22,21 @@ export function createHeader(): HttpHeaders {
 }
 
 export function getSiteUrl() {
-    return API_URL + "/sites";
+    return CLIENT_API_URL + "/sites";
 }
 
 export function getLoginUrl() {
-    return API_URL + "/auth/login";
+    return AUTH_API_URL + "/auth/login";
 }
 
 export function getRefreshTokenUrl() {
-    return API_URL + "/auth/refresh";
+    return AUTH_API_URL + "/auth/refresh";
 }
 
 export function getlogoutUrl() {
-    return API_URL + "/auth/logout";
+    return AUTH_API_URL + "/auth/logout";
 }
 
 export function getRollingAlarmUrl() {
-    return API_URL + "/alarm/filter";
+    return CLIENT_API_URL + "/alarm/filter";
 }

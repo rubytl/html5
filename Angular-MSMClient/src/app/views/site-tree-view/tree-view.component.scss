@@ -1,0 +1,31 @@
+.card
+{
+    background: transparent;
+    height: 99.3%;
+    border:1px solid #c2cfd6;
+}
+
+.myNetwork
+{
+    height: calc(100vh - 125px);
+    margin-left:-14px;
+    margin-right:-14px;
+}
+
+.sidebar-minimizer
+{
+    position: relative;
+    flex: 0 0 3rem;
+    &::before{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50px;
+        height: 50px;
+        content: "\2039";
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 12.5px;
+        transition: .3s;
+    }
+}

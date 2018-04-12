@@ -1,0 +1,12 @@
+.sidebar-fixed {
+    .sidebar {
+      //  height: 85%;      
+      .sidebar-nav {
+          height: calc(100vh - #{$navbar-height});
+            }
+      }
+}
+
+body{
+  font-size: $font-size-base;
+}

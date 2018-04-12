@@ -9,15 +9,23 @@ import { SiteTreeViewComponent } from './site-tree-view.component';
 
 @Component({
     selector: 'tree-view',
-    template: '<site-tree-view [sites]="sites$ | async"></site-tree-view>'
+    templateUrl: './tree-view.component.html',
+    styleUrls: ['./tree-view.component.scss']
 })
 export class TreeViewComponent implements OnInit {
     @select('sites') sites$: Observable<Site>;
-
+    siteName = '';
     constructor(private siteAction: SiteActions) {
     }
 
     public ngOnInit() {
         this.siteAction.loadSites();
+    }
+
+    onFilterTypeChange(event) {
+    }
+
+    onEnter() {
+
     }
 }

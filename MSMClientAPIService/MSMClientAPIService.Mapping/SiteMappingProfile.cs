@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using MSMClientAPIService.Data.Models;
+using MSM.Data.Models;
 using MSMClientAPIService.Mapping.Models;
 
 namespace MSMClientAPIService.Mapping

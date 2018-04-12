@@ -4,7 +4,7 @@
             <div class="col-md-4 d-md-flex flex-row alarm-header p-0">
                 <div class="col-md alarm-header">
                     <a>Filter:</a>
-                    <filter-type [selectedFilterType]="alarm.selectedFilterType" (filterTypeChange)="onFilterTypeChange($event)"></filter-type>
+                    <filter-type (filterTypeChange)="onFilterTypeChange($event)"></filter-type>
                 </div>
                 <div class="col-md alarm-header">
                     <a>Site:</a>

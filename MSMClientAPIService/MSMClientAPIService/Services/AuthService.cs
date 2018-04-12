@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MSMClientAPIService.Data.Repositories.Interfaces;
+using MSM.Data.Repositories.Interfaces;
 using MSMClientAPIService.Helpers;
 using MSMClientAPIService.Models;
 

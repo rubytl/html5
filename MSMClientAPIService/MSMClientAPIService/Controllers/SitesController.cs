@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MSMClientAPIService.Data.Models;
-using MSMClientAPIService.Data.Repositories.Interfaces;
+using MSM.Data.Models;
+using MSM.Data.Repositories.Interfaces;
 using MSMClientAPIService.Helpers;
 using MSMClientAPIService.Mapping.Models;
 

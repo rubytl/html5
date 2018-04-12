@@ -4,20 +4,22 @@ div.relative
 }
 
 // core overrides
+$font-size-base:                  0.7rem !default;
+$sidebar-bg:                        #727272;
 $sidebar-nav-dropdown-bg:           transparent;
 $navbar-brand-logo:                 url('../assets/img/home.ico');
 $navbar-brand-width:                3rem !default;
 $navbar-brand-logo-size:            2.8rem auto !default;
-$footer-height: 2.5rem;
+$footer-height: 1rem;
 $sidebar-nav-link-hover-bg:          transparent !default;
 $sidebar-nav-link-hover-color:       gray !default;
 $sidebar-nav-link-active-color : #3939F0 !default;
 
 // Boostrap overriden
-$breadcrumb-padding-y:          .35rem !default;
-$breadcrumb-padding-x:          1rem !default;
+$breadcrumb-padding-y:          .2rem !default;
+$breadcrumb-padding-x:          .5rem !default;
 $breadcrumb-item-padding:       .35rem !default;
-$spacer: 0.5rem !default;
+$spacer: 0.2rem !default;
 $card-spacer-y:            .25rem !default;
 $card-spacer-x:            $spacer !default;
 
@@ -25,7 +27,7 @@ $card-spacer-x:            $spacer !default;
     padding: 0 1.5 * $spacer;
   }
 
-body.relative
-{
-    position: relative;
-}
+  body.relative
+  {
+      position: relative;
+  }

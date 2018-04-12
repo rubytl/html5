@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\MSM.Common\MSM.Common\MSM.Common.csproj" />
-    <ProjectReference Include="..\MSMClientAPIService.Library\MSMClientAPIService.Data.csproj" />
+    <ProjectReference Include="..\..\MSM.Data\MSM.Data.csproj" />
   </ItemGroup>
 
 </Project>

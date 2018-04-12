@@ -1,0 +1,25 @@
+<nav class="sidebar-nav">
+    <div class="card">
+        <div class="container">
+            <div class="row justify-content-start my-3 pl-1">
+                <div class="align-items-center d-md-flex flex-row">
+                    <a>Filter:</a>
+                    <filter-type class="mx-5" (filterTypeChange)="onFilterTypeChange($event)"></filter-type>
+                </div>
+            </div>
+            <div class="row justify-content-start my-3 pl-1">
+                <div class="align-items-center d-md-flex flex-row">
+                    <a>Search:</a>
+                    <input type="text" class="form-control mx-3" (keyup.enter)="onEnter()" placeholder="Site name" [(ngModel)]="siteName">
+                </div>
+            </div>
+            <div class="myNetwork">
+                <div class="card">
+                    <div class="row justify-content-start my-3 pl-2">
+                        <site-tree-view [sites]="sites$ | async"></site-tree-view>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

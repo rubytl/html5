@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MSMClientAPIService.Data.Models;
+using MSM.Data.Models;
 using MSMClientAPIService.Mapping.Models;
 using MSMHelpers;
 

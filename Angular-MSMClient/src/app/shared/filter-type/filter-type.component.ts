@@ -11,7 +11,7 @@ export class FilterTypeComponent {
 
   filterTypes = msmHelper.createFilterTypeList();
   @Output() filterTypeChange = new EventEmitter<string>();
-  @Input() selectedFilterType: string;
+  selectedFilterType = this.filterTypes[0].description;
 
   constructor() { }
 
