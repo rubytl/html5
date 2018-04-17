@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using MSM.Data.Models;
 using MSM.Data.Repositories;
 using MSM.Data.Repositories.Interfaces;
+using MSMAuthService.Dependencies;
 using MSMAuthService.Helpers;
 using MSMAuthService.Services;
 
@@ -22,6 +23,8 @@ namespace MSMAuthService
 {
     public class Startup
     {
+        private string connectionString;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,8 +35,10 @@ namespace MSMAuthService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            this.connectionString = Configuration.GetConnectionString("MultisiteDBEntities");
+
             // add framework services
-            services.AddDbContext<MultisiteDBEntitiesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MultisiteDBEntities")));
+            services.AddDbContextFactory<MultisiteDBEntitiesContext>(this.connectionString);
 
             // config jwtfactory and authenticatioin
             this.ConfigAuthentication(services);
@@ -66,8 +71,7 @@ namespace MSMAuthService
         private void ConfigAuthentication(IServiceCollection services)
         {
             services.AddSingleton<IJwtFactory, JwtFactory>();
-
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddSingleton<IAuthService, AuthService>();
 
             // Get options from app settings
             var jwtAppSettingOptions = this.Configuration.GetSection(nameof(JwtIssuerOptions));
@@ -113,7 +117,7 @@ namespace MSMAuthService
         private void AddRepositories(IServiceCollection services)
         {
             (new LoginHelper(this.Configuration)).RegisterTørkService();
-            services.AddScoped<IUserMaintenanceRepository, UserMaintenanceRepository>();
+            services.AddSingleton<IUserMaintenanceRepository, UserMaintenanceRepository>();
         }
     }
 }

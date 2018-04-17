@@ -102,8 +102,7 @@ namespace MSMClientAPIService
         private void ConfigAuthentication(IServiceCollection services)
         {
             services.AddSingleton<IJwtFactory, JwtFactory>();
-
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddSingleton<IAuthService, AuthService>();
 
             // Get options from app settings
             var jwtAppSettingOptions = this.Configuration.GetSection(nameof(JwtIssuerOptions));
