@@ -22,4 +22,8 @@ export class RestrictedSiteApiService extends BaseService {
   getAllSites() {
     return this.get(factory.getSiteUrl(), factory.createHeaderWithToken());
   }
+
+  getFilteredSites(filter, siteName) {
+    return this.get(factory.getFilteredSiteUrl(filter, siteName), factory.createHeaderWithToken());
+  }
 }

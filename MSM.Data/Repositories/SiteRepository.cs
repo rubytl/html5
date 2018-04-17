@@ -6,19 +6,25 @@ using System.Threading.Tasks;
 using MSM.Data.Models;
 using MSM.Data.Repositories.Interfaces;
 using MSMEnumerations;
+using Microsoft.EntityFrameworkCore;
 
 namespace MSM.Data.Repositories
 {
     public class SiteRepository : EntityBaseRepository<Site>, ISiteRepository
     {
-        public SiteRepository(MultisiteDBEntitiesContext context)
+        public SiteRepository(Func<MultisiteDBEntitiesContext> context)
             : base(context)
         { }
 
         public async Task<IQueryable<Site>> GetSiteListFiltered(int filter, string siteName)
         {
-            var sites = await this.AllIncluding(s => s.Parent);
-            sites = sites.Where(s => !string.IsNullOrEmpty(s.Address) && !string.IsNullOrEmpty(siteName) ? s.Description.Contains(siteName) : true);
+            //var sites = this.Context.Site.Include(".Parent.*");
+            var sites = await this.AllIncluding(s => s.Parent.Parent.Parent);
+            if (!string.IsNullOrEmpty(siteName) && !siteName.Equals("all"))
+            {
+                sites = sites.Where(s => s.Description.Contains(siteName));
+            }
+
             if (filter.Equals((int)FilterTypeEnum.all))
             {
                 return sites;

@@ -1,5 +1,4 @@
 import { ViewChild, Component, OnInit, Input } from '@angular/core';
-import { NgRedux, select } from 'ng2-redux';
 import { Observable } from 'rxjs/Observable';
 
 import { Site } from '../../models/site';

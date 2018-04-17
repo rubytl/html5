@@ -19,5 +19,7 @@ namespace MSM.Data.Repositories.Interfaces
         /// <returns></returns>
         Task<IQueryable<SnmpreceiverHistory>> GetFilteredSNMPReceiverHistory(List<int> statusCode,
             DateTime? fromTime, DateTime? endTime, long maxAlarmID);
+
+        Task<IQueryable<SnmpreceiverHistory>> GetAlarms();
     }
 }

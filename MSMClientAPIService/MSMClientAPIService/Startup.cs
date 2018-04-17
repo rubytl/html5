@@ -7,14 +7,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using MSM.Data.Dependencies;
+using MSM.Data.Hubs;
 using MSM.Data.Models;
 using MSM.Data.Repositories;
 using MSM.Data.Repositories.Interfaces;
+using MSMClientAPIService.Dependencies;
 using MSMClientAPIService.Extensions;
 using MSMClientAPIService.Helpers;
 using MSMClientAPIService.Services;
@@ -29,12 +33,15 @@ namespace MSMClientAPIService
         }
 
         public IConfiguration Configuration { get; }
+        private string connectionString;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            this.connectionString = Configuration.GetConnectionString("MultisiteDBEntities");
+
             // add framework services
-            services.AddDbContext<MultisiteDBEntitiesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MultisiteDBEntities")));
+            services.AddDbContextFactory<MultisiteDBEntitiesContext>(this.connectionString);
 
             // config jwtfactory and authenticatioin
             this.ConfigAuthentication(services);
@@ -53,11 +60,21 @@ namespace MSMClientAPIService
             //builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
             //builder.AddEntityFrameworkStores<MultisiteDBEntitiesContext>().AddDefaultTokenProviders();
 
+            services.AddLogging();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
+            services.AddMvc();
+            services.AddSignalR();
+
             // add repositories
             this.AddRepositories(services);
-            services.AddLogging();
-            services.AddCors();
-            services.AddMvc();
+            this.AddTableDependencies(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,11 +88,15 @@ namespace MSMClientAPIService
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseAuthentication();
-            app.UseCors(builder =>
-                            builder.AllowAnyOrigin()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod());
+            app.UseCors("CorsPolicy");
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<AlarmHub>("alarms");
+            });
+
             app.UseMvc();
+
+            app.UseSqlTableDependency<IDatabaseSubscription>(this.connectionString);
         }
 
         private void ConfigAuthentication(IServiceCollection services)
@@ -127,12 +148,19 @@ namespace MSMClientAPIService
             services.AddAutoMapper();
         }
 
+        private void AddTableDependencies(IServiceCollection services)
+        {
+            // dependency injection
+            services.AddSingleton<IDatabaseSubscription, MultisiteDBSubscription>();
+            services.AddSingleton<IHubContext<AlarmHub>, HubContext<AlarmHub>>();
+        }
+
         private void AddRepositories(IServiceCollection services)
         {
             (new LoginHelper(this.Configuration)).RegisterTørkService();
-            services.AddScoped<ISiteRepository, SiteRepository>();
-            services.AddScoped<IUserMaintenanceRepository, UserMaintenanceRepository>();
-            services.AddScoped<IAlarmRepository, AlarmRepository>();
+            services.AddSingleton<ISiteRepository, SiteRepository>();
+            services.AddSingleton<IUserMaintenanceRepository, UserMaintenanceRepository>();
+            services.AddSingleton<IAlarmRepository, AlarmRepository>();
         }
     }
 }

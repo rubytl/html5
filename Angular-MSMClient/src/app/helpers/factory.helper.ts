@@ -25,6 +25,18 @@ export function getSiteUrl() {
     return CLIENT_API_URL + "/sites";
 }
 
+export function getFilteredSiteUrl(filterType, siteName) {
+    var site;
+    if (siteName === "") {
+        site = "/all";
+    }
+    else {
+        site = "/" + siteName;
+    }
+
+    return CLIENT_API_URL + "/sites/filter/" + filterType + site;
+}
+
 export function getLoginUrl() {
     return AUTH_API_URL + "/auth/login";
 }
@@ -39,4 +51,8 @@ export function getlogoutUrl() {
 
 export function getRollingAlarmUrl() {
     return CLIENT_API_URL + "/alarm/filter";
+}
+
+export function getAlarmUrl() {
+    return "http://localhost:56070/alarms";
 }

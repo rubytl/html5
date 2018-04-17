@@ -20,7 +20,7 @@ namespace MSM.Data.Repositories
         /// Initializes a new instance of the <see cref="UserMaintenanceRepository"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
-        public UserMaintenanceRepository(MultisiteDBEntitiesContext context)
+        public UserMaintenanceRepository(Func<MultisiteDBEntitiesContext> context)
             : base(context)
         { }     
     }

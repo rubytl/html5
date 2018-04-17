@@ -14,7 +14,7 @@ namespace MSM.Data.Repositories
         /// Initializes a new instance of the <see cref="UserMaintenanceRepository"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
-        public AlarmRepository(MultisiteDBEntitiesContext context)
+        public AlarmRepository(Func<MultisiteDBEntitiesContext> context)
             : base(context)
         { }
 
@@ -27,7 +27,7 @@ namespace MSM.Data.Repositories
         /// <param name="maxAlarmID">The maximum alarm identifier.</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<IQueryable<SnmpreceiverHistory>> GetFilteredSNMPReceiverHistory(List<int> statusCode, 
+        public async Task<IQueryable<SnmpreceiverHistory>> GetFilteredSNMPReceiverHistory(List<int> statusCode,
             DateTime? fromTime, DateTime? endTime, long maxAlarmID)
         {
             return await this.FindBy(s => !string.IsNullOrEmpty(s.Ipaddress) &&
@@ -36,5 +36,11 @@ namespace MSM.Data.Repositories
              s.SnmptrapId > maxAlarmID &&
              statusCode.Contains(s.EventType));
         }
+
+        public async Task<IQueryable<SnmpreceiverHistory>> GetAlarms()
+        {
+            return await Task.FromResult(this.Context.SnmpreceiverHistory.Where(s => !string.IsNullOrEmpty(s.Ipaddress)).OrderByDescending(s => s.ReceiveTime).Take(20));
+        }
+
     }
 }

@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { msmHelper } from '../../helpers';
 
-
 @Component({
   selector: 'filter-type',
   templateUrl: './filter-type.component.html',
@@ -10,8 +9,8 @@ import { msmHelper } from '../../helpers';
 export class FilterTypeComponent {
 
   filterTypes = msmHelper.createFilterTypeList();
-  @Output() filterTypeChange = new EventEmitter<string>();
-  selectedFilterType = this.filterTypes[0].description;
+  @Output() filterTypeChange = new EventEmitter<number>();
+  selectedFilterType = this.filterTypes[0].value;
 
   constructor() { }
 

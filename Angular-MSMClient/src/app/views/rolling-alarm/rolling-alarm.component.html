@@ -1,65 +1,61 @@
 <div class="card">
-    <div class="container">
-        <div class="row align-items-center card-header d-md-flex flex-row">
-            <div class="col-md-4 d-md-flex flex-row alarm-header p-0">
-                <div class="col-md alarm-header">
-                    <a>Filter:</a>
-                    <filter-type (filterTypeChange)="onFilterTypeChange($event)"></filter-type>
-                </div>
-                <div class="col-md alarm-header">
-                    <a>Site:</a>
-                    <input type="text" class="form-control" (keyup.enter)="onEnter()" placeholder="Site name" [(ngModel)]="alarm.siteName">
-                </div>
+    <div class="row align-items-center card-header d-md-flex flex-row m-0">
+        <div class="col-md-7 d-md-flex flex-row alarm-header p-0">
+            <div class="alarm-header d-md-flex flex-row align-items-center">
+                <a>Filter:</a>
+                <filter-type (filterTypeChange)="onFilterTypeChange($event)"></filter-type>
+            </div>
+            <div class="alarm-header d-md-flex flex-row align-items-center">
+                <a>Site:</a>
+                <input type="text" class="form-control" (keyup.enter)="onEnter()" placeholder="Site name" [(ngModel)]="alarm.siteName">
             </div>
 
-            <div class="col-md-4 d-md-flex flex-row alarm-header p-0">
-                <div class="col-md-2 alarm-header p-0">
-                    <a>Priority:</a>
-                    <select [(ngModel)]="alarm.selectedPriority" (change)="getFilterAlarm()">
+            <div class="alarm-header d-md-flex flex-row col-md-2 align-items-center">
+                <a>Priority:</a>
+                <select class="form-control" [(ngModel)]="alarm.selectedPriority" (change)="getFilterAlarm()">
                 <option *ngFor="let priority of priorities" value= {{priority.Description}}>
                   {{priority.Description}}
                 </option>
                 </select>
-                </div>
+            </div>
 
-                <div class="col-md-4 alarm-header p-0">
-                    <a>Status:</a>
-                    <select [(ngModel)]="alarm.selectedStatus" (change)="getFilterAlarm()">
+            <div class="alarm-header d-md-flex flex-row align-items-center">
+                <a>Status:</a>
+                <select class="form-control" [(ngModel)]="alarm.selectedStatus" (change)="getFilterAlarm()">
                 <option *ngFor="let status of statuses" value= {{status.Description}}>
                   {{status.Description}}
                 </option>
                  </select>
-                </div>
-
-                <div class="col-md-5 alarm-header p-0">
-                    <a>Trap:</a>
-                    <input type="text" class="form-control" placeholder="Trap" (keyup.enter)="onEnter()" [(ngModel)]="alarm.trap">
-                </div>
             </div>
 
-            <div class="col-md-2 d-md-flex flex-row alarm-header p-0">
-                <div class="col-md alarm-header p-0">
-                    <a>From:</a>
-                    <angular2-date-picker [(ngModel)]="alarm.date.fromDate" (onDateSelect)="onFromDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
-                </div>
+            <div class="alarm-header d-md-flex flex-row align-items-center">
+                <a>Trap:</a>
+                <input type="text" class="form-control" placeholder="Trap" (keyup.enter)="onEnter()" [(ngModel)]="alarm.trap">
+            </div>
+        </div>
 
-                <div class="col-md alarm-header p-0">
-                    <a>To:</a>
-                    <angular2-date-picker [(ngModel)]="alarm.date.toDate" (onDateSelect)="onToDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
-                </div>
+        <div class="col-md-3 d-md-flex flex-row alarm-header p-0">
+            <div class="alarm-header d-md-flex flex-row align-items-center">
+                <a>From:</a>
+                <angular2-date-picker [(ngModel)]="alarm.date.fromDate" (onDateSelect)="onFromDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
             </div>
 
-            <div class="card-actions d-md-flex flex-row alarm-header p-0">
-                <button type="button" class="btn btn-primary" (click)="searchAlarm()">
+            <div class="alarm-header d-md-flex flex-row align-items-center">
+                <a>To:</a>
+                <angular2-date-picker [(ngModel)]="alarm.date.toDate" (onDateSelect)="onToDateSelect($event)" [settings]="alarm.date.settings"></angular2-date-picker>
+            </div>
+        </div>
+
+        <div class="card-actions d-md-flex flex-row alarm-header p-0">
+            <button type="button" class="btn btn-primary" (click)="searchAlarm()">
                         <i class="fa fa-search"></i>
                         </button>
-                <button type="button" class="btn btn-primary" (click)="createDefaultFilter()">
+            <button type="button" class="btn btn-primary" (click)="createDefaultFilter()">
                 <i class="fa fa-reply"></i>
                     </button>
-                <button type="button" class="btn btn-primary" (click)="stopSearching()">
+            <button type="button" class="btn btn-primary" (click)="stopSearching()">
                     <i class="fa fa-play"></i>
                     </button>
-            </div>
         </div>
     </div>
     <div class="align-items-center card-body">
@@ -68,55 +64,55 @@
                 <tr>
                     <th></th>
                     <th>
-                        <div class=" align-items-center">
+                        <div class=" align-items-center d-md-flex flex-row">
                             Time
                             <msm-sorting [sortField]="defaultColumns[0]" (sortOption)="onSortChange($event)"></msm-sorting>
                         </div>
                     </th>
                     <th>
-                        <div class=" align-items-center">
+                        <div class=" align-items-center d-md-flex flex-row">
                             Trap
                             <msm-sorting [sortField]="defaultColumns[1]" (sortOption)="onSortChange($event)"></msm-sorting>
                         </div>
                     </th>
                     <th>
-                        <div class=" align-items-center">
+                        <div class=" align-items-center d-md-flex flex-row">
                             Value
                             <msm-sorting [sortField]="defaultColumns[2]" (sortOption)="onSortChange($event)"></msm-sorting>
                         </div>
                     </th>
                     <th>
-                        <div class=" align-items-center">
+                        <div class=" align-items-center d-md-flex flex-row">
                             Status
                             <msm-sorting [sortField]="defaultColumns[3]" (sortOption)="onSortChange($event)"></msm-sorting>
                         </div>
                     </th>
                     <th>
-                        <div class=" align-items-center">
+                        <div class=" align-items-center d-md-flex flex-row">
                             Site
                             <msm-sorting [sortField]="defaultColumns[4]" (sortOption)="onSortChange($event)"></msm-sorting>
                         </div>
                     </th>
                     <th>
-                        <div class=" align-items-center">
+                        <div class=" align-items-center d-md-flex flex-row">
                             Group Site
                             <msm-sorting [sortField]="defaultColumns[5]" (sortOption)="onSortChange($event)"></msm-sorting>
                         </div>
                     </th>
                     <th>
-                        <div class=" align-items-center">
+                        <div class=" align-items-center d-md-flex flex-row">
                             Site Priority
                             <msm-sorting [sortField]="defaultColumns[6]" (sortOption)="onSortChange($event)"></msm-sorting>
                         </div>
                     </th>
                     <th>
-                        <div class=" align-items-center">
+                        <div class=" align-items-center d-md-flex flex-row">
                             On/Off
                             <msm-sorting [sortField]="defaultColumns[7]" (sortOption)="onSortChange($event)"></msm-sorting>
                         </div>
                     </th>
                     <th>
-                        <div class=" align-items-center">
+                        <div class=" align-items-center d-md-flex flex-row">
                             Repeat Count
                             <msm-sorting [sortField]="defaultColumns[8]" (sortOption)="onSortChange($event)"></msm-sorting>
                         </div>

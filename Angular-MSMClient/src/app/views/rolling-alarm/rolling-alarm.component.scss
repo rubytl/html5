@@ -2,22 +2,19 @@
 {
     > *
     {
-        margin-right:0.3rem;
-        padding:0;
-    }
-
-    > button
-    {
-        padding: 0.5rem;
-    }
-
-    > input
-    {
-        padding:0.3rem;
+        margin-right:0.1rem;
+        padding:0.1rem;
     }
 }
 
 .card-actions
 {
-    top:10%;
+    top:1rem;
+}
+
+.card-body
+{
+
+    flex: 1 1 8rem;
+    overflow: auto;
 }

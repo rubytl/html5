@@ -6,12 +6,13 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'body',
-  templateUrl: './app.component.html',  
-  styleUrls: ['./app.component.scss']  
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
   isRequesting: boolean;
-  inProgressSub: Subscription;
+  private inProgressSub: Subscription;
+
   constructor(
     private ngRedux: NgRedux<IAppState>,
     private devTool: DevToolsExtension) {

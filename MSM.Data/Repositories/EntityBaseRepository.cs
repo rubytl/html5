@@ -13,31 +13,37 @@ namespace MSM.Data
     public class EntityBaseRepository<T> : IEntityBaseRepository<T>
          where T : class, new()
     {
+        protected readonly Func<MultisiteDBEntitiesContext> contextFactory;
 
-        private MultisiteDBEntitiesContext context;
-
-        public MultisiteDBEntitiesContext Context { get => context; set => context = value; }
+        protected MultisiteDBEntitiesContext Context
+        {
+            get
+            {
+                return this.contextFactory.Invoke();
+            }
+        }
 
         #region Properties
-        public EntityBaseRepository(MultisiteDBEntitiesContext context)
+        public EntityBaseRepository(Func<MultisiteDBEntitiesContext> context)
         {
-            this.context = context;
+            this.contextFactory = context;
         }
+
         #endregion
         public virtual Task<IQueryable<T>> GetAll()
         {
-            IQueryable<T> query = context.Set<T>();
+            IQueryable<T> query = Context.Set<T>();
             return Task.FromResult(query);
         }
 
         public virtual int Count()
         {
-            return context.Set<T>().Count();
+            return Context.Set<T>().Count();
         }
 
         public virtual async Task<IQueryable<T>> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = context.Set<T>();
+            IQueryable<T> query = Context.Set<T>();
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -48,12 +54,12 @@ namespace MSM.Data
 
         public async Task<T> GetSingle(Expression<Func<T, bool>> predicate)
         {
-            return await Task.FromResult(context.Set<T>().FirstOrDefault(predicate));
+            return await Task.FromResult(Context.Set<T>().FirstOrDefault(predicate));
         }
 
         public T GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = context.Set<T>();
+            IQueryable<T> query = Context.Set<T>();
             foreach (var includeProperty in includeProperties)
             {
                 query = query.Include(includeProperty);
@@ -64,39 +70,39 @@ namespace MSM.Data
 
         public virtual async Task<IQueryable<T>> FindBy(Expression<Func<T, bool>> predicate)
         {
-            return await Task.FromResult(context.Set<T>().Where(predicate));
+            return await Task.FromResult(Context.Set<T>().Where(predicate));
         }
 
         public virtual void Add(T entity)
         {
-            EntityEntry dbEntityEntry = context.Entry<T>(entity);
-            context.Set<T>().Add(entity);
+            EntityEntry dbEntityEntry = Context.Entry<T>(entity);
+            Context.Set<T>().Add(entity);
         }
 
         public virtual void Update(T entity)
         {
-            EntityEntry dbEntityEntry = context.Entry<T>(entity);
+            EntityEntry dbEntityEntry = Context.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Modified;
         }
         public virtual void Delete(T entity)
         {
-            EntityEntry dbEntityEntry = context.Entry<T>(entity);
+            EntityEntry dbEntityEntry = Context.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Deleted;
         }
 
         public virtual void DeleteWhere(Expression<Func<T, bool>> predicate)
         {
-            IEnumerable<T> entities = context.Set<T>().Where(predicate);
+            IEnumerable<T> entities = Context.Set<T>().Where(predicate);
 
             foreach (var entity in entities)
             {
-                context.Entry<T>(entity).State = EntityState.Deleted;
+                Context.Entry<T>(entity).State = EntityState.Deleted;
             }
         }
 
         public virtual void Commit()
         {
-            context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

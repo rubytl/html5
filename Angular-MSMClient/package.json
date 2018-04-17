@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "5.2.9",
     "@angular/router": "5.2.9",
     "@angular/upgrade": "5.2.9",
+    "@aspnet/signalr-client": "^1.0.0-alpha2-final",
     "angular2-datetimepicker": "^1.1.1",
     "chart.js": "2.7.2",
     "core-js": "2.5.3",

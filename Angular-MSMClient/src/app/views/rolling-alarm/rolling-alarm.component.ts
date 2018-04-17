@@ -4,6 +4,9 @@ import { msmHelper, treeHelper } from '../../helpers';
 import { AlarmService } from '../../services';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { AlarmRolling, Paging, Sorting } from '../../models'
+import { factory } from '../../helpers';
+import { HubConnection } from '@aspnet/signalr-client';
+import * as signalR from '@aspnet/signalr-client';
 
 @Component({
   selector: 'rolling-alarm',
@@ -18,6 +21,7 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
   alarm: AlarmRolling;
   alarmSource: any;
   defaultColumns = ['Time', 'Trap', 'Value', 'Status', 'Site', 'ParentSiteName', 'SitePriority', 'OnOffStatus', 'RepeatCount'];
+  private hubConnection: HubConnection;
 
   constructor(private alarmService: AlarmService) {
   }
@@ -30,6 +34,20 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
     this.createDefaultFilter();
     this.pageIndexSubject.subscribe(value => this.alarm.paging.pageIndex = value);
     this.getFilterAlarm();
+
+    // Register the signalR
+    this.hubConnection = new HubConnection(factory.getAlarmUrl(), { transport: signalR.TransportType.LongPolling });
+
+    // start the connection
+    this.hubConnection
+      .start()
+      .then(() => console.log('Hub connection started!'))
+      .catch(err => console.log('Error while establishing connection due to ' + err));
+
+    // listen if there is any alarm changed from server
+    this.hubConnection.on('AlarmChanged', (changed: boolean) => {
+      this.getFilterAlarm();
+    });
   }
 
   async getFilterAlarm() {
@@ -44,10 +62,12 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
   }
 
   createDefaultFilter() {
+    var currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 1);
     this.alarm = {
       siteName: '', trap: '',
       selectedStatus: this.statuses[0].Description.toString(),
-      selectedPriority: "All", date: { fromDate: new Date(), toDate: new Date(), settings: { bigBanner: false, timePicker: false, format: 'dd-MM-yyyy' } },
+      selectedPriority: "All", date: { fromDate: new Date(), toDate: currentDate, settings: { bigBanner: false, timePicker: false, format: 'dd-MM-yyyy' } },
       paging: { pageSize: 10, pageIndex: 0, pageLength: 10 }, maxAlarmId: 10,
       selectedFilterType: "0", sorting: { sortField: '', sortDirection: 'desc' }
     };
@@ -99,5 +119,10 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
   }
 
   stopSearching() {
+    // stop the connection
+    this.hubConnection.stop();
+
+    // stop listenning the alarms changed from server
+    this.hubConnection.off('GetAlarms', null);
   }
 }

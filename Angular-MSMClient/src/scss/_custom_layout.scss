@@ -1,8 +1,9 @@
 .sidebar-fixed {
     .sidebar {
-      //  height: 85%;      
+      height: calc(100vh - #{$navbar-height} - #{$footer-height} - 0.5rem);
+      // height:calc(88vh);
       .sidebar-nav {
-          height: calc(100vh - #{$navbar-height});
+          height: calc(100vh - #{$navbar-height} - #{$footer-height} - 20px);
             }
       }
 }

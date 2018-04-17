@@ -7,6 +7,7 @@ using MSM.Data.Models;
 using MSM.Data.Repositories.Interfaces;
 using MSMClientAPIService.Helpers;
 using MSMClientAPIService.Mapping.Models;
+using System.Linq;
 
 namespace MSMClientAPIService.Controllers
 {
@@ -50,5 +51,69 @@ namespace MSMClientAPIService.Controllers
             var sites = await sitesRepo.GetAll();
             return Ok(this.mapper.Map<IEnumerable<SiteModel>>(sites));
         }
+
+        // GET api/sites
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("filter/{filter}/{siteName}")]
+        public async Task<IActionResult> GetFilteredSite(int filter, string siteName)
+        {
+            var sites = await sitesRepo.GetSiteListFiltered(filter, siteName);
+            List<Site> result = new List<Site>();
+            foreach (Site site in sites)
+            {
+                this.TraverseSiteParents(site, result);
+                await this.TraverseSiteChildren(site, result);
+            }
+
+            return Ok(this.mapper.Map<IEnumerable<SiteModel>>(result));
+        }
+
+        /// <summary>
+        /// Travers the site group.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        /// <returns>
+        /// The list of site
+        /// </returns>
+        private async Task TraverseSiteChildren(Site site, List<Site> chilren)
+        {
+            var directChilds = await this.sitesRepo.FindBy(s => s.ParentId == site.Id);
+            if (directChilds != null)
+            {
+                foreach (Site directChild in directChilds)
+                {
+                    if (!chilren.Contains(directChild))
+                    {
+                        chilren.Add(directChild);
+                    }
+
+                    await this.TraverseSiteChildren(directChild, chilren);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Travers the site group.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        /// <returns>
+        /// The list of site
+        /// </returns>
+        private void TraverseSiteParents(Site site, List<Site> parents)
+        {
+            if (site != null)
+            {
+                if (!parents.Contains(site))
+                {
+                    parents.Add(site);
+                }
+
+                this.TraverseSiteParents(site.Parent, parents);
+            }
+        }
     }
 }
+

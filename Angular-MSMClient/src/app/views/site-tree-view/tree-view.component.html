@@ -1,16 +1,16 @@
-<nav class="sidebar-nav">
+<nav class="">
     <div class="card">
         <div class="container">
-            <div class="row justify-content-start my-3 pl-1">
+            <div class="row justify-content-start my-3 pl-2">
                 <div class="align-items-center d-md-flex flex-row">
                     <a>Filter:</a>
-                    <filter-type class="mx-5" (filterTypeChange)="onFilterTypeChange($event)"></filter-type>
+                    <filter-type class="ml-5 mr-5" (filterTypeChange)="onFilterTypeChange($event)"></filter-type>
                 </div>
             </div>
             <div class="row justify-content-start my-3 pl-1">
                 <div class="align-items-center d-md-flex flex-row">
                     <a>Search:</a>
-                    <input type="text" class="form-control mx-3" (keyup.enter)="onEnter()" placeholder="Site name" [(ngModel)]="siteName">
+                    <input type="text" class="form-control mx-3 pl-2 col-md-10 mr-4" (keyup.enter)="onEnter()" placeholder="Site name" [(ngModel)]="siteName">
                 </div>
             </div>
             <div class="myNetwork">

@@ -5,7 +5,9 @@ export function listToTree(arr) {
         arrElem,
         mappedElem;
 
-    priorities.push({ Description: "All", Value: "-1" });
+    if (priorities.findIndex(p => p.Description === "All") < 0) {
+        priorities.push({ Description: "All", Value: "0" });
+    }
 
     if (arr === null || arr.length == 0) {
         return tree;

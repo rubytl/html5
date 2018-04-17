@@ -26,4 +26,21 @@ export class SiteActions {
         });
       });
   }
+
+
+  getFilteredSites(filterType, siteName): void {
+    this.siteApiService
+      .getFilteredSites(filterType, siteName)
+      .then((sites) => {
+        this.ngRedux.dispatch({
+          type: constants.LOAD_SITE,
+          payload: [new Site({
+            id: 0,
+            description: "My Network",
+            status: 1,
+            children: treeHelper.listToTree(sites)
+          })]
+        });
+      });
+  }
 }

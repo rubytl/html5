@@ -6,14 +6,16 @@ div.relative
 // core overrides
 $font-size-base:                  0.7rem !default;
 $sidebar-bg:                        #727272;
-$sidebar-nav-dropdown-bg:           transparent;
+$sidebar-nav-dropdown-bg:          transparent;
 $navbar-brand-logo:                 url('../assets/img/home.ico');
 $navbar-brand-width:                3rem !default;
 $navbar-brand-logo-size:            2.8rem auto !default;
 $footer-height: 1rem;
+
 $sidebar-nav-link-hover-bg:          transparent !default;
-$sidebar-nav-link-hover-color:       gray !default;
-$sidebar-nav-link-active-color : #3939F0 !default;
+$sidebar-nav-link-hover-color:     blue !default;
+// $sidebar-nav-link-active-color : red !default;
+// $sidebar-nav-link-active-bg: yellow !default;
 
 // Boostrap overriden
 $breadcrumb-padding-y:          .2rem !default;
@@ -23,11 +25,13 @@ $spacer: 0.2rem !default;
 $card-spacer-y:            .25rem !default;
 $card-spacer-x:            $spacer !default;
 
+$input-btn-padding-y:       .25rem !default;
+$input-btn-padding-x:       .75rem !default;
+
 .main .container-fluid {
     padding: 0 1.5 * $spacer;
   }
 
-  body.relative
-  {
+body.relative{
       position: relative;
-  }
+}
