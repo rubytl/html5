@@ -2,31 +2,69 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MSM.Data.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using MSMAuthService.Helpers;
+using MSMAuthService.Identity;
 using MSMAuthService.Models;
 
 namespace MSMAuthService.Services
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="MSMAuthService.Services.IAuthService" />
     public class AuthService : IAuthService
     {
+        /// <summary>
+        /// The JWT factory
+        /// </summary>
         private readonly IJwtFactory jwtFactory;
+        /// <summary>
+        /// The user manager
+        /// </summary>
+        private readonly UserManager<AppIdentityUser> userManager;
+        /// <summary>
+        /// The sign in manager
+        /// </summary>
+        private readonly SignInManager<AppIdentityUser> signInManager;
 
-        private readonly IUserMaintenanceRepository userRepo;
-
-        public AuthService(IJwtFactory jwtFactory, IUserMaintenanceRepository userRepo)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthService"/> class.
+        /// </summary>
+        /// <param name="jwtFactory">The JWT factory.</param>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="signInManager">The sign in manager.</param>
+        public AuthService(IJwtFactory jwtFactory, UserManager<AppIdentityUser> userManager,
+            SignInManager<AppIdentityUser> signInManager)
         {
             this.jwtFactory = jwtFactory;
-            this.userRepo = userRepo;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
+        /// <summary>
+        /// Logouts the specified token.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public async Task<bool> Logout(string token)
         {
+            await this.signInManager.SignOutAsync();
             RefreshToken refreshToken = await this.GetExistingToken(token);
             await this.jwtFactory.RemoveRefreshToken(token);
             return await Task.FromResult(true);
         }
 
+        /// <summary>
+        /// Gets the existing token.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">
+        /// Existing token was not found.
+        /// or
+        /// Existing token was revoked
+        /// </exception>
         private async Task<RefreshToken> GetExistingToken(string token)
         {
             RefreshToken refreshToken = await this.jwtFactory.GetRefreshToken(token);
@@ -43,6 +81,11 @@ namespace MSMAuthService.Services
             return await Task.FromResult(refreshToken);
         }
 
+        /// <summary>
+        /// Refreshes the access token.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public async Task<JwtResponse> RefreshAccessToken(string token)
         {
             RefreshToken refreshToken = await this.GetExistingToken(token);
@@ -50,6 +93,10 @@ namespace MSMAuthService.Services
             return await this.jwtFactory.GenerateJwtToken(refreshToken.Username);
         }
 
+        /// <summary>
+        /// Revokes the refresh token.
+        /// </summary>
+        /// <param name="token">The token.</param>
         public async void RevokeRefreshToken(string token)
         {
             RefreshToken refreshToken = await this.GetExistingToken(token);
@@ -71,14 +118,15 @@ namespace MSMAuthService.Services
             }
 
             //get the user to verifty
-            var userToVerify = await this.userRepo.GetSingle(s => s.Username == userName);
+            var userToVerify = await this.userManager.FindByNameAsync(userName);
             if (userToVerify == null)
             {
                 return await Task.FromResult(new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotAllowd });
             }
 
             // check the credentials
-            if (await this.userRepo.GetSingle(s => s.Password == password) == null)
+            var pwToVerity = await this.signInManager.PasswordSignInAsync(userName, password, isPersistent: false, lockoutOnFailure: false);
+            if (!pwToVerity.Succeeded)
             {
                 return await Task.FromResult(new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotAllowd });
             }
@@ -116,6 +164,57 @@ namespace MSMAuthService.Services
             //}
 
             return new CheckLoginResponse { CheckLoginResult = CheckLoginResult.Allowed };
+        }
+
+        public async Task<bool> Register(RegisterModel model)
+        {
+            var user = new AppIdentityUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+            };
+
+            var result = await this.userManager.CreateAsync(user, model.Password);
+            return await Task.FromResult(result.Succeeded);
+        }
+
+        public async Task<bool> ForgotPassword(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return false;
+            }
+
+            var user = await this.userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return false;
+            }
+
+            if (!await this.userManager.IsEmailConfirmedAsync(user))
+            {
+                return false;
+            }
+
+            return await this.ResetPassword(new ResetPasswordModel() { Email = email});
+        }
+
+        public async Task<bool> ResetPassword(ResetPasswordModel model)
+        {
+            if (string.IsNullOrEmpty(model.Email))
+            {
+                return false;
+            }
+
+            var user = await this.userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return false;
+            }
+
+            model.Code = await this.userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await this.userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            return result.Succeeded;
         }
     }
 

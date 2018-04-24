@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSMAuthService", "MSMAuthService\MSMAuthService.csproj", "{9E1C7E64-42E0-4D6E-986B-C46988ED9525}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSM.Data", "..\MSM.Data\MSM.Data.csproj", "{42322E8E-3655-4701-893B-DD233D231276}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSM.Common", "..\MSM.Common\MSM.Common\MSM.Common.csproj", "{DA749F8E-E15E-493A-8C4E-852A165E5297}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSMAuthService", "MSMAuthService\MSMAuthService.csproj", "{9E1C7E64-42E0-4D6E-986B-C46988ED9525}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{9E1C7E64-42E0-4D6E-986B-C46988ED9525}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E1C7E64-42E0-4D6E-986B-C46988ED9525}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E1C7E64-42E0-4D6E-986B-C46988ED9525}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42322E8E-3655-4701-893B-DD233D231276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42322E8E-3655-4701-893B-DD233D231276}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42322E8E-3655-4701-893B-DD233D231276}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42322E8E-3655-4701-893B-DD233D231276}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA749F8E-E15E-493A-8C4E-852A165E5297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA749F8E-E15E-493A-8C4E-852A165E5297}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA749F8E-E15E-493A-8C4E-852A165E5297}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA749F8E-E15E-493A-8C4E-852A165E5297}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

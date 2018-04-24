@@ -15,5 +15,9 @@ namespace MSMAuthService.Services
         Task<JwtResponse> RefreshAccessToken(string token);
 
         void RevokeRefreshToken(string token);
+
+        Task<bool> Register(RegisterModel model);
+        Task<bool> ForgotPassword(string email);
+        Task<bool> ResetPassword(ResetPasswordModel model);
     }
 }

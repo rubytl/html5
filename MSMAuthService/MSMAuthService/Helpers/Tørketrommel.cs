@@ -56,7 +56,7 @@ namespace Tørketrommel
         private const string CUSTOMER = "Eltek";
 
         private const int DAY = 720; // 12 hours
-        
+
         private static Tørketrommel instance; // Singleton
 
         // Timer related
@@ -70,13 +70,13 @@ namespace Tørketrommel
         private static string _productVersion;
         private static string _productPartNumber;
         private static string _license;
-        
+
         // added to avoid trying to connect to server when using licens file
         // To avoid slow startup when no server is available
         private static bool _forcedToUseLicenseFile;
 
         private static string _productBuild;
-        
+
         private static string _hwSerial;
         private static string _activeAddress;
         private static string _allMacAddress;
@@ -144,7 +144,7 @@ namespace Tørketrommel
                 return Environment.MachineName;
             }
         }
-        
+
         public string HWSerial
         {
             get
@@ -172,7 +172,7 @@ namespace Tørketrommel
                 else
                 {
                     return msgDeserialized.NumberOfClients;
-                }                
+                }
             }
         }
 
@@ -242,7 +242,7 @@ namespace Tørketrommel
             }
         }
 
-#endregion
+        #endregion
 
         public static Tørketrommel Instance()
         {
@@ -269,7 +269,7 @@ namespace Tørketrommel
                 license = eltService.GetLicenseVer2Async(product, productversion, productbuild, CUSTOMER, productSerial, Environment.UserName, Environment.MachineName, ipAddress, macAddress, allMacAddress, hdSerial, osVersion).Result;
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 license = string.Empty;
                 return false;
@@ -303,7 +303,7 @@ namespace Tørketrommel
             {
                 var filePath = fileName;
                 var currentDir = Directory.GetCurrentDirectory();
-                
+
                 // Windows service
                 if (currentDir.ToLower().Equals(@"c:\windows\system32"))
                 {

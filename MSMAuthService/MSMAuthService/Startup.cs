@@ -6,52 +6,79 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MSM.Data.Models;
-using MSM.Data.Repositories;
-using MSM.Data.Repositories.Interfaces;
 using MSMAuthService.Dependencies;
 using MSMAuthService.Helpers;
+using MSMAuthService.Identity;
+using MSMAuthService.InitialDB;
 using MSMAuthService.Services;
 
 namespace MSMAuthService
 {
     public class Startup
     {
-        private string connectionString;
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
+        private IServiceProvider serviceProvider;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            this.connectionString = Configuration.GetConnectionString("MultisiteDBEntities");
-
-            // add framework services
-            services.AddDbContextFactory<MultisiteDBEntitiesContext>(this.connectionString);
+            // config db context
+            this.ConfigDBContext(services);
 
             // config jwtfactory and authenticatioin
             this.ConfigAuthentication(services);
 
-            // add repositories
-            this.AddRepositories(services);
+            // add TørkService
+            (new LoginHelper(this.Configuration)).RegisterTørkService();
             services.AddLogging();
             services.AddCors();
             services.AddMvc();
         }
 
+        private void ConfigDBContext(IServiceCollection services)
+        {
+            // add framework services
+            //services.AddDbContextFactory<AppIdentityDbContext>(Configuration.GetConnectionString("MembershipDBEntities"));
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MembershipDBEntities")));
+
+            // add identity models
+            services.AddIdentity<AppIdentityUser, AppIdentityRole>()
+                    .AddEntityFrameworkStores<AppIdentityDbContext>();
+
+            // config identity options
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+
+                options.User.RequireUniqueEmail = true;
+
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+            });
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, RoleManager<AppIdentityRole> roleManager, UserManager<AppIdentityUser> userManager)
         {
             loggerFactory.AddDebug().AddConsole();
             if (env.IsDevelopment())
@@ -66,12 +93,13 @@ namespace MSMAuthService
                             .AllowAnyHeader()
                             .AllowAnyMethod());
             app.UseMvc();
+            DbInitializer.Seed(app, roleManager, userManager);
         }
 
         private void ConfigAuthentication(IServiceCollection services)
         {
             services.AddSingleton<IJwtFactory, JwtFactory>();
-            services.AddSingleton<IAuthService, AuthService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             // Get options from app settings
             var jwtAppSettingOptions = this.Configuration.GetSection(nameof(JwtIssuerOptions));
@@ -112,12 +140,6 @@ namespace MSMAuthService
                     configureOptions.TokenValidationParameters = tokenValidationParameters;
                     configureOptions.SaveToken = true;
                 });
-        }
-
-        private void AddRepositories(IServiceCollection services)
-        {
-            (new LoginHelper(this.Configuration)).RegisterTørkService();
-            services.AddSingleton<IUserMaintenanceRepository, UserMaintenanceRepository>();
         }
     }
 }

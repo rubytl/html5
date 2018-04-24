@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MSMAuthService.Helpers;
-using MSM.Data.Repositories;
-using MSM.Data.Repositories.Interfaces;
 using MSMAuthService.Models;
 using Microsoft.Extensions.Options;
 using MSMAuthService.Services;
@@ -80,5 +78,19 @@ namespace MSMAuthService.Controllers
             return NoContent();
         }
 
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register([FromBody]RegisterModel model)
+            => Ok(await this.authService.Register(model));
+
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(string email)
+            => Ok(await this.authService.ForgotPassword(email));
+
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+            => Ok(await this.authService.ResetPassword(model));
     }
 }
