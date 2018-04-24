@@ -22,7 +22,7 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
   alarmSource: any;
   defaultColumns = ['Time', 'Trap', 'Value', 'Status', 'Site', 'ParentSiteName', 'SitePriority', 'OnOffStatus', 'RepeatCount'];
   private hubConnection: HubConnection;
-
+  private stopHubConnection = false;
   constructor(private alarmService: AlarmService) {
   }
 
@@ -37,17 +37,7 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
 
     // Register the signalR
     this.hubConnection = new HubConnection(factory.getAlarmUrl(), { transport: signalR.TransportType.LongPolling });
-
-    // start the connection
-    this.hubConnection
-      .start()
-      .then(() => console.log('Hub connection started!'))
-      .catch(err => console.log('Error while establishing connection due to ' + err));
-
-    // listen if there is any alarm changed from server
-    this.hubConnection.on('AlarmChanged', (changed: boolean) => {
-      this.getFilterAlarm();
-    });
+    this.startHubConnection();
   }
 
   async getFilterAlarm() {
@@ -116,13 +106,32 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
   searchAlarm() {
     this.getFilterAlarm();
     this.pageIndexSubject.next(0);
+    if (this.stopHubConnection) {
+      this.startHubConnection();
+      this.stopHubConnection = false;
+    }
   }
 
-  stopSearching() {
+  startHubConnection() {
+    // start the connection
+    this.hubConnection
+      .start()
+      .then(() => console.log('Hub connection started!'))
+      .catch(err => console.log('Error while establishing connection due to ' + err));
+
+    // listen if there is any alarm changed from server
+    this.hubConnection.on('AlarmChanged', (changed: boolean) => {
+      this.getFilterAlarm();
+    });
+  }
+
+  stopConnection() {
     // stop the connection
     this.hubConnection.stop();
 
     // stop listenning the alarms changed from server
     this.hubConnection.off('GetAlarms', null);
+
+    this.stopHubConnection = true;
   }
 }

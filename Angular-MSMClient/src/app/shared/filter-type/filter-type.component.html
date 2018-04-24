@@ -1,4 +1,4 @@
-<select class="col-md-12 p-0 form-control" [(ngModel)]="selectedFilterType" (change)="updateFilterType()">
+<select class="col-sm-12 col-md-12 p-0 form-control" [(ngModel)]="selectedFilterType" (change)="updateFilterType()">
     <option *ngFor="let filterType of filterTypes" value= {{filterType.value}}>
       {{filterType.description}}
     </option>

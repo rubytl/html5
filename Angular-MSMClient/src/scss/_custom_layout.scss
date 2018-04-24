@@ -8,6 +8,51 @@
       }
 }
 
-body{
-  font-size: $font-size-base;
+.aside-menu-fixed {
+    .aside-menu {
+      height: calc(100vh - #{$navbar-height} - #{$footer-height} - 0.5rem);
+  }
+}
+
+div.relative
+{
+    position: relative;
+}
+
+.card{
+  margin-bottom: 0;
+}
+
+.main-height
+{
+  height: 53.2vh; //42
+  .msm-map
+  {
+      height: 48.2vh; //35
+      position: relative;
+  }
+}
+
+.container-height
+{
+  height: 52.8vh; // 42
+  margin-right:0px;
+  overflow: auto;
+}
+
+.main .container-fluid {
+  padding: 0 1.5 * $spacer;
+
+  .card{
+    color:$white;
+  }
+}
+
+body.relative{
+    position: relative;
+}
+
+.select, input
+{
+  height: calc(1.25rem);
 }
