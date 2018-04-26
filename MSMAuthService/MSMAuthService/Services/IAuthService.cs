@@ -1,23 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MSMAuthService.Models;
-
-namespace MSMAuthService.Services
+﻿namespace MSMAuthService.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using MSMAuthService.Models;
+
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IAuthService
     {
-        Task<bool> Logout(string token);
+        #region Methods
 
+        /// <summary>
+        /// Checks the login.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
         Task<CheckLoginResponse> CheckLogin(string userName, string password);
 
+        /// <summary>
+        /// Creates the new role.
+        /// </summary>
+        /// <param name="roleName">Name of the role.</param>
+        /// <returns></returns>
+        Task<bool> CreateNewRole(string roleName);
+
+        /// <summary>
+        /// Forgots the password.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
+        Task<bool> ForgotPassword(string email);
+
+        /// <summary>
+        /// Logouts the specified token.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
+        Task<bool> Logout(string token);
+
+        /// <summary>
+        /// Refreshes the access token.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         Task<JwtResponse> RefreshAccessToken(string token);
 
+        /// <summary>
+        /// Registers the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        Task<bool> Register(RegisterModel model);
+
+        /// <summary>
+        /// Resets the password.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        Task<bool> ResetPassword(ResetPasswordModel model);
+
+        /// <summary>
+        /// Revokes the refresh token.
+        /// </summary>
+        /// <param name="token">The token.</param>
         void RevokeRefreshToken(string token);
 
-        Task<bool> Register(RegisterModel model);
-        Task<bool> ForgotPassword(string email);
-        Task<bool> ResetPassword(ResetPasswordModel model);
+        #endregion Methods
     }
 }

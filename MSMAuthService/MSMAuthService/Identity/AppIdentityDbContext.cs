@@ -8,6 +8,7 @@ namespace MSMAuthService.Identity
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options)
             : base(options)
         {
+            Database.EnsureCreatedAsync();
         }
     }
 }

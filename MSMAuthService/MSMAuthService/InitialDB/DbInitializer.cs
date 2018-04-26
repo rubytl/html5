@@ -45,7 +45,7 @@
         /// <param name="roleManager">The role manager.</param>
         public static void SeedRoles(RoleManager<AppIdentityRole> roleManager)
         {
-            if (!roleManager.RoleExistsAsync("Administrator").Result)
+            if (!roleManager.RoleExistsAsync("Admin").Result)
             {
                 AppIdentityRole role = new AppIdentityRole();
                 role.Name = "Admin";
@@ -53,7 +53,7 @@
                 IdentityResult roleResult = roleManager.CreateAsync(role).Result;
             }
 
-            if (!roleManager.RoleExistsAsync("Factory Manager").Result)
+            if (!roleManager.RoleExistsAsync("Super User").Result)
             {
                 AppIdentityRole role = new AppIdentityRole();
                 role.Name = "Super User";
@@ -61,7 +61,7 @@
                 IdentityResult roleResult = roleManager.CreateAsync(role).Result;
             }
 
-            if (!roleManager.RoleExistsAsync("Decathlon Manager").Result)
+            if (!roleManager.RoleExistsAsync("User").Result)
             {
                 AppIdentityRole role = new AppIdentityRole();
                 role.Name = "User";
@@ -69,11 +69,11 @@
                 IdentityResult roleResult = roleManager.CreateAsync(role).Result;
             }
 
-            if (!roleManager.RoleExistsAsync("QPL").Result)
+            if (!roleManager.RoleExistsAsync("Email").Result)
             {
                 AppIdentityRole role = new AppIdentityRole();
                 role.Name = "Email";
-                role.Description = "Perform normal operations.";
+                role.Description = "Perform email role operations.";
                 IdentityResult roleResult = roleManager.CreateAsync(role).Result;
             }
         }
@@ -117,7 +117,7 @@
         public AppIdentityDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<AppIdentityDbContext>();
-            string connectionString = @"Data Source=.\\SQLEXPRESS;Initial Catalog=MembershipDB;integrated security=True;MultipleActiveResultSets=true";
+            string connectionString = @"Data Source=.\\SQLEXPRESS;Initial Catalog=MSMMembership;integrated security=True;MultipleActiveResultSets=true";
             builder.UseSqlServer(connectionString);
             return new AppIdentityDbContext(builder.Options);
         }

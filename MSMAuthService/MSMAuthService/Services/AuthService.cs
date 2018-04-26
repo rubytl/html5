@@ -29,17 +29,23 @@ namespace MSMAuthService.Services
         private readonly SignInManager<AppIdentityUser> signInManager;
 
         /// <summary>
+        /// The role manager
+        /// </summary>
+        private readonly RoleManager<AppIdentityRole> roleManager;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AuthService"/> class.
         /// </summary>
         /// <param name="jwtFactory">The JWT factory.</param>
         /// <param name="userManager">The user manager.</param>
         /// <param name="signInManager">The sign in manager.</param>
         public AuthService(IJwtFactory jwtFactory, UserManager<AppIdentityUser> userManager,
-            SignInManager<AppIdentityUser> signInManager)
+            SignInManager<AppIdentityUser> signInManager, RoleManager<AppIdentityRole> roleManager)
         {
             this.jwtFactory = jwtFactory;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.roleManager = roleManager;
         }
 
         /// <summary>
@@ -176,6 +182,15 @@ namespace MSMAuthService.Services
 
             var result = await this.userManager.CreateAsync(user, model.Password);
             return await Task.FromResult(result.Succeeded);
+        }
+
+        public async Task<bool> CreateNewRole(string roleName)
+        {
+            AppIdentityRole role = new AppIdentityRole();
+            role.Name = roleName;
+            role.Description = "Perform " + roleName +" operations.";
+            IdentityResult roleResult = this.roleManager.CreateAsync(role).Result;
+            return await Task.FromResult(roleResult.Succeeded);
         }
 
         public async Task<bool> ForgotPassword(string email)

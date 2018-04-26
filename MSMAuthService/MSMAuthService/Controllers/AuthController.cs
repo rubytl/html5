@@ -83,14 +83,19 @@ namespace MSMAuthService.Controllers
         public async Task<IActionResult> Register([FromBody]RegisterModel model)
             => Ok(await this.authService.Register(model));
 
-        [HttpPost("register")]
+        [HttpPost("forgotPw")]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(string email)
             => Ok(await this.authService.ForgotPassword(email));
 
-        [HttpPost("register")]
+        [HttpPost("resetPw")]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
             => Ok(await this.authService.ResetPassword(model));
+
+        [HttpPost("newRole")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateNewRole(string roleName)
+           => Ok(await this.authService.CreateNewRole(roleName));
     }
 }
