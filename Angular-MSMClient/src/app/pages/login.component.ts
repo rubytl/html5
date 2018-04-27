@@ -12,6 +12,8 @@ export class LoginComponent {
   errors: string;
   isRequesting: boolean;
   credentials: Credentials = { username: '', password: '' };
+  isChangingPw = false;
+  isLogin = false;
   constructor(private userSVC: UserService, private router: Router) {
   }
 
@@ -42,5 +44,15 @@ export class LoginComponent {
           this.errors = "Invalid username/password.\n Or server error, or internet connection failure has occurred";
         }
       });
+  }
+
+  changePw() {
+    this.isChangingPw = true;
+    this.isLogin = false;
+  }
+
+  backToLogin() {
+    this.isLogin = true;
+    this.isChangingPw = false;
   }
 }

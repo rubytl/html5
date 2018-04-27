@@ -211,17 +211,17 @@ namespace MSMAuthService.Services
                 return false;
             }
 
-            return await this.ResetPassword(new ResetPasswordModel() { Email = email});
+            return await this.ResetPassword(new ResetPasswordModel() { UserName = email});
         }
 
         public async Task<bool> ResetPassword(ResetPasswordModel model)
         {
-            if (string.IsNullOrEmpty(model.Email))
+            if (string.IsNullOrEmpty(model.UserName))
             {
                 return false;
             }
 
-            var user = await this.userManager.FindByEmailAsync(model.Email);
+            var user = await this.userManager.FindByNameAsync(model.UserName);
             if (user == null)
             {
                 return false;

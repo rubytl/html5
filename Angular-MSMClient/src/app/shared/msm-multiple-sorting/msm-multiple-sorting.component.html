@@ -1,6 +1,4 @@
 <div class="sorting">
-  <i name="desc" [ngClass]="{'open':isDescSorting}" class="fa fa-long-arrow-down active" sortingToggle
-    (click)="descSort()"></i>
-  <i name="asc" [ngClass]="{'open':isAscSorting}" class="fa fa-long-arrow-up active" sortingToggle
-    (click)="ascSort()"></i>
+  <i name="desc" [ngClass]="{'open':isDescSorting}" class="fa fa-long-arrow-down active" (click)="descSort()"></i>
+  <i name="asc" [ngClass]="{'open':isAscSorting}" class="fa fa-long-arrow-up active" (click)="ascSort()"></i>
 </div>
