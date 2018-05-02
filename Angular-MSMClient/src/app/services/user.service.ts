@@ -40,7 +40,17 @@ export class UserService extends BaseService {
         return this
             .post(factory.getLoginUrl(), JSON.stringify({ userName, password }), factory.createHeader())
             .then(res => {
+                sessionStorage.setItem('username',userName);
                 return this.ExtractResponseResult(res);
+            })
+            .catch(this.handleError);
+    }
+
+    resetPw(userName, newPassword, oldPassword, email): Promise<any> {
+        return this
+            .post(factory.getResetPasswordUrl(), JSON.stringify({ userName, newPassword, oldPassword, email }), factory.createHeader())
+            .then(res => {
+                return res;
             })
             .catch(this.handleError);
     }
@@ -72,6 +82,7 @@ export class UserService extends BaseService {
         this.loggedIn = false;
         this._authNavStatusSource.next(false);
         let token = sessionStorage.getItem('token_jti');
+        sessionStorage.removeItem('username');
         return this
             .post(factory.getlogoutUrl(), JSON.stringify({ token }), factory.createHeader())
             .then(res => {
@@ -84,8 +95,7 @@ export class UserService extends BaseService {
             })
     }
 
-    private redirectLoginPage()
-    {
+    private redirectLoginPage() {
         this.removeStorage();
         this.router.navigate(['/pages/login']);
     }

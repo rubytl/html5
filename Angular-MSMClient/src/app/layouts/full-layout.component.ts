@@ -10,7 +10,7 @@ export class FullLayoutComponent {
 
   public disabled = false;
   public status: { isopen: boolean } = { isopen: false };
-
+  username = sessionStorage.getItem('username');
   constructor(private userSVC: UserService) {
   }
 

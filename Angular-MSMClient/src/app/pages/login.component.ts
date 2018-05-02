@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../services';
 import { Router } from '@angular/router';
 
-import { Credentials } from '../models';
+import { Credentials, ResetCredentials } from '../models';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -10,24 +10,22 @@ import { Credentials } from '../models';
 })
 export class LoginComponent {
   errors: string;
-  isRequesting: boolean;
+  changePwResult: string;
   credentials: Credentials = { username: '', password: '' };
+  resetCredential: ResetCredentials = { username: '', password: '', newPassword: '', confirmNewPassword: '', email: '' };
   isChangingPw = false;
   isLogin = false;
   constructor(private userSVC: UserService, private router: Router) {
   }
 
   login() {
-    this.isRequesting = true;
     this.errors = '';
     this.userSVC.login(this.credentials.username, this.credentials.password)
       .then(() => {
-        this.isRequesting = false
         this.router.navigate(['/dashboard']);
       })
       .catch(ex => {
         var error = ex.error;
-        this.isRequesting = false
         if (error == "1") {
           this.errors = "You are already logged in from '{0}' computer,\ndo you want to close your other session to prevent data loss?";
           // if user agrees, then logout and login again
@@ -46,12 +44,30 @@ export class LoginComponent {
       });
   }
 
-  changePw() {
+  resetPw() {
+    this.changePwResult = '';
+    this.userSVC.resetPw(this.resetCredential.username, this.resetCredential.newPassword, this.resetCredential.password, this.resetCredential.email)
+      .then(res => {
+        if (res) {
+          this.changePwResult = 'Change password sucessfully';
+        }
+        else {
+          this.changePwResult = 'Change password unsucessfully';
+        }
+      })
+      .catch(ex => {
+        this.changePwResult = ex.error;
+      });
+  }
+
+  toChangePw() {
+    this.changePwResult = '';
     this.isChangingPw = true;
     this.isLogin = false;
   }
 
   backToLogin() {
+    this.errors = '';
     this.isLogin = true;
     this.isChangingPw = false;
   }

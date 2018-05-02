@@ -2,7 +2,7 @@ import { ListView } from './list-view';
 import { Site } from './site';
 import { SiteMap } from './map-view';
 import { AlarmRolling } from './interfaces/alarm.interface';
-import { Credentials } from './interfaces/credentials.interface';
+import { Credentials, ResetCredentials } from './interfaces/credentials.interface';
 import { FilterType } from './filter.type';
 import { Paging } from './interfaces/paging.interface';
 import { Sorting } from './interfaces/sorting.interface';
@@ -13,6 +13,7 @@ export {
     Site,
     SiteMap,
     Credentials,
+    ResetCredentials,
     FilterType,
     Paging,
     Sorting,

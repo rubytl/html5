@@ -45,11 +45,15 @@ namespace MSMAuthService.Models
         public string UserName { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
+        public string NewPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string OldPassword { get; set; }
     }
 }

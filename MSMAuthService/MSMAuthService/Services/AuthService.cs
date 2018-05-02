@@ -188,7 +188,7 @@ namespace MSMAuthService.Services
         {
             AppIdentityRole role = new AppIdentityRole();
             role.Name = roleName;
-            role.Description = "Perform " + roleName +" operations.";
+            role.Description = "Perform " + roleName + " operations.";
             IdentityResult roleResult = this.roleManager.CreateAsync(role).Result;
             return await Task.FromResult(roleResult.Succeeded);
         }
@@ -211,7 +211,7 @@ namespace MSMAuthService.Services
                 return false;
             }
 
-            return await this.ResetPassword(new ResetPasswordModel() { UserName = email});
+            return await this.ResetPassword(new ResetPasswordModel() { UserName = email });
         }
 
         public async Task<bool> ResetPassword(ResetPasswordModel model)
@@ -227,8 +227,21 @@ namespace MSMAuthService.Services
                 return false;
             }
 
+            var pwToVerity = await this.signInManager.PasswordSignInAsync(model.UserName, model.OldPassword, isPersistent: false, lockoutOnFailure: false);
+            if (!pwToVerity.Succeeded)
+            {
+                return false;
+            }
+
+            // Update the email
+            await this.userManager.SetEmailAsync(user, model.Email);
             model.Code = await this.userManager.GeneratePasswordResetTokenAsync(user);
-            var result = await this.userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            var result = await this.userManager.ResetPasswordAsync(user, model.Code, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                throw new Exception(result.Errors.ElementAt(0).Description);
+            }
+
             return result.Succeeded;
         }
     }

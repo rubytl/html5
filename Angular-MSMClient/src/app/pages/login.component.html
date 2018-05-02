@@ -27,7 +27,7 @@
               <button type="button" class="btn btn-primary" (click)="login()">Login</button>
             </div>
             <div class="col-6 text-right">
-              <button type="button" class="btn btn-link px-0" (click)="changePw()">Change password</button>
+              <button type="button" class="btn btn-link px-0" (click)="toChangePw()">Change password</button>
             </div>
           </div>
         </div>
@@ -46,28 +46,53 @@
 
           <div class="input-group mb-3">
             <span class="input-group-addon"><i class="icon-lock"></i></span>
-            <input type="password" class="form-control" placeholder="New password">
+            <input type="password" class="form-control" placeholder="New password" id="newpwd" name="newpwd" [(ngModel)]="resetCredential.newPassword"
+              required #newpwd="ngModel">
+            <div [hidden]="newpwd.valid || newpwd.pristine" class="alert callout">
+              New password required
+            </div>
           </div>
 
           <div class="input-group mb-4">
             <span class="input-group-addon"><i class="icon-lock"></i></span>
-            <input type="password" class="form-control" placeholder="Confirm new password">
+            <input type="password" class="form-control" placeholder="Confirm new password" id="cfnewpwd" name="cfnewpwd" [(ngModel)]="resetCredential.confirmNewPassword"
+              required #cfnewpwd="ngModel">
+            <div [hidden]="cfnewpwd.valid || cfnewpwd.pristine" class="alert callout">
+              Confirm new password required
+            </div>
           </div>
 
           <div class="input-group mb-4">
             <span class="input-group-addon"><i class="icon-lock"></i></span>
-            <input type="password" class="form-control" placeholder="Old password">
+            <input type="password" class="form-control" placeholder="Old password" id="oldpwd" name="oldpwd" [(ngModel)]="resetCredential.password"
+              required #oldpwd="ngModel">
+            <div [hidden]="oldpwd.valid || oldpwd.pristine" class="alert callout">
+              Old password required
+            </div>
           </div>
 
           <div class="input-group mb-3">
             <span class="input-group-addon"><i class="icon-user"></i></span>
-            <input type="text" class="form-control" placeholder="Username">
+            <input type="text" class="form-control" placeholder="Username" id="username" name="username" [(ngModel)]="resetCredential.username"
+              required #username="ngModel" (keyup.enter)="resetPw()">
+            <div [hidden]="username.valid || username.pristine" class="alert callout">
+              Username required
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+            <input type="email" class="form-control" placeholder="Email" id="email" name="email" [(ngModel)]="resetCredential.email"
+              required #email="ngModel" (keyup.enter)="resetPw()">
+            <div [hidden]="email.valid || email.pristine" class="alert callout">
+              Email required
+            </div>
           </div>
 
           <div class="row">
             <div class="col-md-4">
               <div class="card-body pl-0">
-                <button type="button" class="btn btn-primary">OK</button>
+                <button type="button" class="btn btn-primary" (click)="resetPw()">OK</button>
                 <button type="button" class="btn btn-primary" (click)="backToLogin()">Cancel</button>
               </div>
             </div>
@@ -75,8 +100,12 @@
               <button type="button" class="btn btn-link px-0" (click)="backToLogin()">Back to Login</button>
             </div>
           </div>
-
         </div>
+        <div class="card-block p-5">
+            <div *ngIf="changePwResult" class="alert alert-success" role="alert">
+              {{changePwResult}}
+            </div>
+          </div>
       </div>
 
     </div>

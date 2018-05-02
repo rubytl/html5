@@ -41,6 +41,10 @@ export function getLoginUrl() {
     return AUTH_API_URL + "/auth/login";
 }
 
+export function getResetPasswordUrl() {
+    return AUTH_API_URL + "/auth/resetPw";
+}
+
 export function getRefreshTokenUrl() {
     return AUTH_API_URL + "/auth/refresh";
 }

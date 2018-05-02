@@ -90,8 +90,8 @@ namespace MSMAuthService.Controllers
 
         [HttpPost("resetPw")]
         [AllowAnonymous]
-        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
-            => Ok(await this.authService.ResetPassword(model));
+        public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordModel model)
+            => Ok(await this.authService.ResetPassword(model));        
 
         [HttpPost("newRole")]
         [AllowAnonymous]

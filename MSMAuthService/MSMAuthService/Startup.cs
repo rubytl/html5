@@ -55,7 +55,8 @@ namespace MSMAuthService
 
             // add identity models
             services.AddIdentity<AppIdentityUser, AppIdentityRole>()
-                    .AddEntityFrameworkStores<AppIdentityDbContext>();
+                    .AddEntityFrameworkStores<AppIdentityDbContext>()
+                    .AddDefaultTokenProviders();
 
             // config identity options
             services.Configure<IdentityOptions>(options =>
