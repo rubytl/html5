@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using MSM.Data.Models;
 using MSM.Data.Repositories.Interfaces;
-using System.Linq;
 
 namespace MSM.Data.Repositories
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="MSM.Data.EntityBaseRepository{MSM.Data.Models.SnmpreceiverHistory}" />
+    /// <seealso cref="MSM.Data.Repositories.Interfaces.IAlarmRepository" />
     public class AlarmRepository : EntityBaseRepository<SnmpreceiverHistory>, IAlarmRepository
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserMaintenanceRepository"/> class.
+        /// Initializes a new instance of the <see cref="UserMaintenanceRepository" /> class.
         /// </summary>
         /// <param name="context">The context.</param>
         public AlarmRepository(Func<MultisiteDBEntitiesContext> context)
@@ -37,10 +41,13 @@ namespace MSM.Data.Repositories
              statusCode.Contains(s.EventType));
         }
 
+        /// <summary>
+        /// Gets the alarms.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IQueryable<SnmpreceiverHistory>> GetAlarms()
         {
             return await Task.FromResult(this.Context.SnmpreceiverHistory.Where(s => !string.IsNullOrEmpty(s.Ipaddress)).OrderByDescending(s => s.ReceiveTime).Take(20));
         }
-
     }
 }

@@ -5,7 +5,19 @@ using System.Threading.Tasks;
 
 namespace MSMClientAPIService.Models
 {
-    public class AlarmRequest
+    public class PagingRequest
+    {
+        public int PageIndex { get; set; }
+
+        public int PageSize { get; set; }
+    }
+
+    public class SiteViewRequest : PagingRequest
+    {
+        public List<int> SiteIds { get; set; }
+    }
+
+    public class AlarmRequest : PagingRequest
     {
         public string Filter { get; set; }
         public string SiteName { get; set; }
@@ -18,10 +30,6 @@ namespace MSMClientAPIService.Models
         public DateTime? FromDate { get; set; }
 
         public DateTime? ToDate { get; set; }
-
-        public int PageIndex { get; set; }
-
-        public int PageSize { get; set; }
 
         public string SortField { get; set; }
 

@@ -7,15 +7,34 @@ using MSM.Data.Models;
 using MSM.Data.Repositories.Interfaces;
 using MSMEnumerations;
 using Microsoft.EntityFrameworkCore;
+using MSM.Data.PresentationModel;
+using System.Data.SqlClient;
+using System.Data;
+using MSM.Data.Helpers;
 
 namespace MSM.Data.Repositories
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="MSM.Data.EntityBaseRepository{MSM.Data.Models.Site}" />
+    /// <seealso cref="MSM.Data.Repositories.Interfaces.ISiteRepository" />
     public class SiteRepository : EntityBaseRepository<Site>, ISiteRepository
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SiteRepository"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public SiteRepository(Func<MultisiteDBEntitiesContext> context)
             : base(context)
         { }
 
+        /// <summary>
+        /// Gets the site list filtered.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="siteName">Name of the site.</param>
+        /// <returns></returns>
         public async Task<IQueryable<Site>> GetSiteListFiltered(int filter, string siteName)
         {
             //var sites = this.Context.Site.Include(".Parent.*");
@@ -152,6 +171,44 @@ namespace MSM.Data.Repositories
             }
 
             return sites;
+        }
+
+        /// <summary>
+        /// Gets the sites ListView.
+        /// </summary>
+        /// <param name="siteIds">The site ids.</param>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<SiteListViewDTO>> GetSitesListView(List<int> siteIds, int pageIndex, int pageSize)
+        {
+            using (var connection = this.Context.Database.GetDbConnection())
+            {
+                using (var command = new SqlCommand())
+                {
+                    string connectionStr = connection.ConnectionString;
+                    connectionStr += ";Password=123456@Xyz";
+                    SqlConnection msmConnection = new SqlConnection(connectionStr);
+                    if (msmConnection.State != ConnectionState.Open)
+                    {
+                        await msmConnection.OpenAsync();
+                    }
+
+                    command.Connection = msmConnection;
+                    command.CommandText = "sp_GetListView";
+                    command.CommandType = CommandType.StoredProcedure;
+                    string str = string.Empty;
+                    siteIds.ForEach(s => str += s + ",");
+                    command.Parameters.Add(new SqlParameter("@siteids", str));
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        var result = reader.MapToList<SiteListViewDTO>().Skip(pageIndex * pageSize).Take(pageSize);
+                        msmConnection.Close();
+                        return result;
+                    }
+                }
+            }
         }
     }
 }

@@ -20,8 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MSM.Common\MSM.Common\MSM.Common.csproj" />
-    <ProjectReference Include="..\..\MSM.Data\MSM.Data.csproj" />
     <ProjectReference Include="..\MSMClientAPIService.Mapping\MSMClientAPIService.Mapping.csproj" />
   </ItemGroup>
 

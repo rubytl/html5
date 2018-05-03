@@ -8,6 +8,7 @@ using MSM.Data.Repositories.Interfaces;
 using MSMClientAPIService.Helpers;
 using MSMClientAPIService.Mapping.Models;
 using System.Linq;
+using MSMClientAPIService.Models;
 
 namespace MSMClientAPIService.Controllers
 {
@@ -22,7 +23,7 @@ namespace MSMClientAPIService.Controllers
         /// <summary>
         /// The sites repo
         /// </summary>
-        private ISiteRepository sitesRepo;
+        private ISiteRepository siteRepo;
 
         /// <summary>
         /// The mapper
@@ -36,7 +37,7 @@ namespace MSMClientAPIService.Controllers
         /// <param name="mapper">The mapper.</param>
         public SitesController(ISiteRepository repo, IMapper mapper)
         {
-            this.sitesRepo = repo;
+            this.siteRepo = repo;
             this.mapper = mapper;
         }
 
@@ -48,7 +49,7 @@ namespace MSMClientAPIService.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var sites = await sitesRepo.GetAll();
+            var sites = await siteRepo.GetAll();
             return Ok(this.mapper.Map<IEnumerable<SiteModel>>(sites));
         }
 
@@ -60,7 +61,7 @@ namespace MSMClientAPIService.Controllers
         [HttpGet("filter/{filter}/{siteName}")]
         public async Task<IActionResult> GetFilteredSite(int filter, string siteName)
         {
-            var sites = await sitesRepo.GetSiteListFiltered(filter, siteName);
+            var sites = await siteRepo.GetSiteListFiltered(filter, siteName);
             List<Site> result = new List<Site>();
             foreach (Site site in sites)
             {
@@ -71,6 +72,12 @@ namespace MSMClientAPIService.Controllers
             return Ok(this.mapper.Map<IEnumerable<SiteModel>>(result));
         }
 
+
+        [HttpPost("siteview")]
+        public async Task<IActionResult> GetSitesListView([FromBody] SiteViewRequest siteViewRequest)
+            => Ok(await this.siteRepo.GetSitesListView(siteViewRequest.SiteIds, siteViewRequest.PageIndex, siteViewRequest.PageSize));
+
+
         /// <summary>
         /// Travers the site group.
         /// </summary>
@@ -80,7 +87,7 @@ namespace MSMClientAPIService.Controllers
         /// </returns>
         private async Task TraverseSiteChildren(Site site, List<Site> chilren)
         {
-            var directChilds = await this.sitesRepo.FindBy(s => s.ParentId == site.Id);
+            var directChilds = await this.siteRepo.FindBy(s => s.ParentId == site.Id);
             if (directChilds != null)
             {
                 foreach (Site directChild in directChilds)

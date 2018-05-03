@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using MSM.Data.Models;
 
 namespace MSM.Data.Repositories.Interfaces
 {
+    /// <summary>
+    /// The IAlarmRepository
+    /// </summary>
+    /// <seealso cref="MSM.Data.Repositories.Interfaces.IEntityBaseRepository{MSM.Data.Models.SnmpreceiverHistory}" />
     public interface IAlarmRepository : IEntityBaseRepository<SnmpreceiverHistory>
     {
         /// <summary>
@@ -20,6 +23,10 @@ namespace MSM.Data.Repositories.Interfaces
         Task<IQueryable<SnmpreceiverHistory>> GetFilteredSNMPReceiverHistory(List<int> statusCode,
             DateTime? fromTime, DateTime? endTime, long maxAlarmID);
 
+        /// <summary>
+        /// Gets the alarms.
+        /// </summary>
+        /// <returns></returns>
         Task<IQueryable<SnmpreceiverHistory>> GetAlarms();
     }
 }
