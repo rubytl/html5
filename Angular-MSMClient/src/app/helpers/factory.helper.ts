@@ -2,6 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 const CLIENT_API_URL = environment.msmClientAPIUrl;
 const AUTH_API_URL = environment.msmAuthUrl;
+const HUB_API_URL = environment.msmHubUrl;
 
 export function createHeaderWithToken(): HttpHeaders {
     var token = sessionStorage.getItem('auth_token');
@@ -58,5 +59,9 @@ export function getRollingAlarmUrl() {
 }
 
 export function getAlarmUrl() {
-    return "http://localhost:56070/alarms";
+    return HUB_API_URL + "/alarms";
+}
+
+export function getSiteViewUrl() {
+    return CLIENT_API_URL + "/sites/siteview";
 }

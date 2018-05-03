@@ -198,14 +198,20 @@ namespace MSM.Data.Repositories
                     command.CommandText = "sp_GetListView";
                     command.CommandType = CommandType.StoredProcedure;
                     string str = string.Empty;
-                    siteIds.ForEach(s => str += s + ",");
+                    if (siteIds == null || siteIds.Count == 0)
+                    {
+                        await (await this.GetAll()).ForEachAsync(s => str += s.Id + ",");
+                    }
+                    else
+                    {
+                        siteIds.ForEach(s => str += s + ",");
+                    }
+
                     command.Parameters.Add(new SqlParameter("@siteids", str));
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        var result = reader.MapToList<SiteListViewDTO>().Skip(pageIndex * pageSize).Take(pageSize);
-                        msmConnection.Close();
-                        return result;
+                        return reader.MapToList<SiteListViewDTO>().Skip(pageIndex * pageSize).Take(pageSize);
                     }
                 }
             }

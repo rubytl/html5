@@ -7,11 +7,13 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MapViewComponent } from './map-view/map-view.component';
 import { ListViewComponent } from './list-view/list-view.component';
 import { ListViewApiService } from '../../services/list-view.service';
+import { SharedModule } from '../../shared';
 
 @NgModule({
   imports: [
     DashboardRoutingModule,
-    CommonModule
+    CommonModule,
+    SharedModule
   ],
   declarations: [
     DashboardComponent,

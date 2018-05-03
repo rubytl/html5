@@ -1,38 +1,43 @@
-<div style="height:360px; overflow-x:visible; position:relative">
-    <table class="table table-striped table-bordered datatable">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>IP</th>
-                <th>Controller Type</th>
-                <th><img src="../../../assets/img/StatusIcon/16x16_Alarm.png"><img></th>
-                <th><img src="../../../assets/img/StatusIcon/16x16_Warning.png"><img></th>
-                <th><img src="../../../assets/img/StatusIcon/16x16_Disabled.png"><img></th>
-                <th>MainPhase1[V]</th>
-                <th>BatteryVoltage[V]</th>
-                <th>RectifierCurrent[A]</th>
-                <th>LoadCurrent[A]</th>
-                <th>BatteryTemperature[°C]</th>
-                <th>SolarCurrent[A]</th>
-                <th>Last successful polling</th>
-            </tr>
-        </thead>
-        <tbody *ngFor="let siteView of siteListViews">
-            <tr>
-                <td>{{siteView.siteName}}</td>
-                <td>{{siteView.ipAddress}}</td>
-                <td>{{siteView.controllerType}}</td>
-                <td>{{siteView.noAlarm}}</td>
-                <td>{{siteView.noWarning}}</td>
-                <td>{{siteView.noOffline}}</td>
-                <td>{{siteView.mainPhase1}}</td>
-                <td>{{siteView.batteryVoltage}}</td>
-                <td>{{siteView.rectifierCurrent}}</td>
-                <td>{{siteView.loadCurrent}}</td>
-                <td>{{siteView.batteryTemperature}}</td>
-                <td>{{siteView.solarCurrent}}</td>
-                <td>{{siteView.lastPooling}}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="d-flex flex-column">
+    <div class="msm-list">
+        <table class="table table-striped table-bordered datatable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>IP</th>
+                    <th>Controller Type</th>
+                    <th><img src="../../../assets/img/StatusIcon/16x16_Alarm.png"><img></th>
+                    <th><img src="../../../assets/img/StatusIcon/16x16_Warning.png"><img></th>
+                    <th><img src="../../../assets/img/StatusIcon/16x16_Disabled.png"><img></th>
+                    <th>Main Phase1[V]</th>
+                    <th>Battery Voltage[V]</th>
+                    <th>Rectifier Current[A]</th>
+                    <th>Load Current[A]</th>
+                    <th>Battery Temperature[°C]</th>
+                    <th>Solar Current[A]</th>
+                    <th>Last successful polling</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let siteView of siteListViews">
+                <tr>
+                    <td>{{siteView.siteName}}</td>
+                    <td>{{siteView.ipAddress}}</td>
+                    <td>{{siteView.controllerType}}</td>
+                    <td>{{siteView.noAlarm}}</td>
+                    <td>{{siteView.noWarning}}</td>
+                    <td>{{siteView.noOffline}}</td>
+                    <td>{{siteView.mainPhase1}}</td>
+                    <td>{{siteView.batteryVoltage}}</td>
+                    <td>{{siteView.rectifierCurrent}}</td>
+                    <td>{{siteView.loadCurrent}}</td>
+                    <td>{{siteView.batteryTemperature}}</td>
+                    <td>{{siteView.solarCurrent}}</td>
+                    <td>{{siteView.lastPooling}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <msm-paginator class="card-header" [pageSizeOptions]="[10,20,30,40]" [pageLength]="paging.pageLength" [(pageIndex)]="paging.pageIndex"
+        (currentPageChange)="onCurrentPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></msm-paginator>
 </div>
