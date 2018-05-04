@@ -1,7 +1,7 @@
 <div class="d-flex flex-column">
     <div class="msm-list">
-        <table class="table table-striped table-bordered datatable">
-            <thead>
+        <table class="table table-striped table-bordered table-hover table-responsive table-sm">
+            <thead class="thead-default">
                 <tr>
                     <th>Name</th>
                     <th>IP</th>
@@ -18,8 +18,8 @@
                     <th>Last successful polling</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let siteView of siteListViews">
-                <tr>
+            <tbody>
+                <tr *ngFor="let siteView of siteListViews">
                     <td>{{siteView.siteName}}</td>
                     <td>{{siteView.ipAddress}}</td>
                     <td>{{siteView.controllerType}}</td>

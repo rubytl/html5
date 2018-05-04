@@ -113,8 +113,12 @@ $progress-bg:                     $gray-100;
 
 // Tables
 
-$table-bg-accent:                 $gray-100;
-$table-bg-hover:                  $gray-100;
+$table-accent-bg:                 #5D6A72;
+$table-hover-bg:                  #BADDE9;
+$table-head-bg:                   #f0f3f5;
+$table-head-color:                $black;
+$table-cell-padding:            .3rem !default;
+$table-cell-padding-sm:         .3rem !default;
 
 // Forms
 
