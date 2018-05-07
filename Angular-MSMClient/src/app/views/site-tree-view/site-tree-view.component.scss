@@ -1,14 +1,23 @@
-// .nav-item
-// {
-//     >div
-//     {
-//         &:hover
-//         {
-//             background-color: #5D5D5D;
-//         }
-//         &:active
-//         {
-//             background-color:blue;
-//         }
-//     }
-// }
+.nav
+{
+    margin-left:1rem;
+    .nav-item
+    {
+        >div
+        {
+            &:hover
+            {
+                background-color: #5D5D5D;
+            }
+            &:active
+            {
+                background-color:blue;
+            }
+        }
+        
+        div.img-ml
+        {
+            margin-left:1rem;
+        }
+    }
+}

@@ -86,7 +86,8 @@
         transition: background .3s ease-in-out;
   
         ul {
-          max-height: 0;
+          // max-height: 0;
+          display: none;
           padding: 0;
           margin: 0;
           overflow-y: hidden;
@@ -113,7 +114,6 @@
             color: $sidebar-nav-link-hover-color !important;
             background: $sidebar-nav-link-hover-bg !important;
             @include borders($sidebar-nav-link-hover-borders);
-            font-size:0.8rem;
   
             i {
               color: $sidebar-nav-link-hover-icon-color;
@@ -153,17 +153,18 @@
           &.nav-dropdown-toggle {
   
             &::before {
+              font:normal normal normal 14px/1 FontAwesome;
               position: absolute;
               top: ($sidebar-nav-link-padding-y + ($font-size-base / 4));
-              right: $sidebar-nav-link-padding-x;
-              display: block;
+              left: $sidebar-nav-link-padding-x;
+              display: inline-block;
               width: ($font-size-base);
               height: ($font-size-base);
               padding: 0;
               font-size: $font-size-base;
               line-height: ($font-size-base * 3 / 4);
               text-align: center;
-              content: "\2039";
+              content: "\f0da";
               transition: .3s;
             }
           }
@@ -173,7 +174,7 @@
                       &::before {
                         position: absolute;
                         top: ($sidebar-nav-link-padding-y + ($font-size-base / 4));
-                        right: $sidebar-nav-link-padding-x;
+                        left: $sidebar-nav-link-padding-x;
                         display: block;
                         width: ($font-size-base);
                         height: ($font-size-base);
@@ -181,7 +182,6 @@
                         font-size: $font-size-base;
                         line-height: ($font-size-base * 3 / 4);
                         text-align: center;
-                        // content: "\2039";
                         transition: .3s;
                       }
                     }
@@ -202,8 +202,8 @@
             > *
             {
               > ul, > ol {
-                // display: inline;
-                max-height: 1000px;
+                display: inline-block;
+                // max-height: 100%;
                 margin: 7px;
                 overflow-x: hidden;
               }
@@ -221,7 +221,7 @@
             >*
             {
             > .nav-link.nav-dropdown-toggle::before {
-                transform: rotate(-90deg);
+                transform: rotate(90deg);
               }
             }
 
