@@ -25,7 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.inProgressSub = this.ngRedux.select(state => state.inProgress)
+    this.inProgressSub = this.ngRedux.select(state => state.loginInProgress)
       .subscribe(value => this.isRequesting = value);
   }
 

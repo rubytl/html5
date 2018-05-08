@@ -8,7 +8,6 @@ import { IAppState } from '../../store';
 import { SiteTreeViewComponent } from './site-tree-view.component';
 import { FilterTypeEnum } from '../../enums';
 import { treeHelper } from '../../helpers';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'tree-view',

@@ -7,13 +7,13 @@ import 'rxjs/add/operator/shareReplay';
 
 import { BaseService } from "./base.service";
 import { factory } from '../helpers';
-import { ProgressActions } from '../actions';
+import { ProgressActions, AlarmInProgressActions } from '../actions';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Injectable()
 export class AlarmService extends BaseService {
 
-    constructor(http: HttpClient, progressAct: ProgressActions, modelService: BsModalService) {
+    constructor(http: HttpClient, progressAct: ProgressActions, modelService: BsModalService, private alarmProgress: AlarmInProgressActions) {
         super(http, progressAct, modelService);
     }
 
@@ -24,5 +24,13 @@ export class AlarmService extends BaseService {
         return this.post(factory.getRollingAlarmUrl(),
             JSON.stringify({ filter, siteName, priority, statusCode, trap, fromDate, toDate, pageIndex, pageSize, sortField, sortDirection, maxAlarmId }),
             factory.createHeaderWithToken());
+    }
+
+    startProgress() {
+        this.alarmProgress.updateProgress(true);
+    }
+
+    finishProgress() {
+        this.alarmProgress.updateProgress(false);
     }
 }

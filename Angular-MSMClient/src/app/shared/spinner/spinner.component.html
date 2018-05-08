@@ -1,2 +1,13 @@
-<div [hidden]="!isDelayedRunning" class="loader">
+<!-- <div *ngIf="isMainContent" [hidden]="!isDelayedRunning" class="mainLoader">
+</div>
+<div *ngIf="!isMainContent" [hidden]="!isDelayedRunning" class="sidebarLoader">
+</div> -->
+
+<div [ngSwitch]="name">
+    <div *ngSwitchCase="'main'" [hidden]="!isDelayedRunning" class="mainLoader">
+    </div>
+    <div *ngSwitchCase="'sidebar'" [hidden]="!isDelayedRunning" class="sidebarLoader">
+    </div>
+    <div *ngSwitchCase="'alarm'" [hidden]="!isDelayedRunning" class="alarmLoader">
+    </div>
 </div>

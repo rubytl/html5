@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 import { BaseService } from "./base.service";
 import { factory } from '../helpers';
-import { ProgressActions } from '../actions';
+import { ProgressActions, LoginInProgressActions } from '../actions';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Injectable()
@@ -20,7 +20,8 @@ export class UserService extends BaseService {
 
     private loggedIn = false;
 
-    constructor(http: HttpClient, progressAct: ProgressActions, private router: Router, modelService: BsModalService) {
+    constructor(http: HttpClient, progressAct: ProgressActions, private router: Router,
+        modelService: BsModalService, private loginProgress: LoginInProgressActions) {
         super(http, progressAct, modelService);
         this.loggedIn = !!sessionStorage.getItem('auth_token');
         // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
@@ -40,7 +41,7 @@ export class UserService extends BaseService {
         return this
             .post(factory.getLoginUrl(), JSON.stringify({ userName, password }), factory.createHeader())
             .then(res => {
-                sessionStorage.setItem('username',userName);
+                sessionStorage.setItem('username', userName);
                 return this.ExtractResponseResult(res);
             })
             .catch(this.handleError);
@@ -56,7 +57,7 @@ export class UserService extends BaseService {
     }
 
     handleError(error) {
-        this.progressAct.updateProgress(false);
+        this.finishProgress();
         Promise.reject(error);
     }
 
@@ -96,6 +97,7 @@ export class UserService extends BaseService {
     }
 
     private redirectLoginPage() {
+        this.finishProgress();                        
         this.removeStorage();
         this.router.navigate(['/pages/login']);
     }
@@ -111,6 +113,14 @@ export class UserService extends BaseService {
         this.loggedIn = true;
         this._authNavStatusSource.next(true);
         return res.jti;
+    }
+
+    startProgress() {
+        this.loginProgress.updateProgress(true);
+    }
+
+    finishProgress() {
+        this.loginProgress.updateProgress(false);
     }
 }
 

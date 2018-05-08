@@ -1,4 +1,4 @@
-.loader
+.mainLoader
 {
     position: absolute;
     top:30%;
@@ -9,6 +9,36 @@
     border-bottom: 16px solid #3498db;
     width: 200px;
     height: 200px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+.sidebarLoader
+{
+    position: absolute;
+    top:45%;
+    left:25%;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    border-bottom: 16px solid #3498db;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+.alarmLoader
+{
+    position: absolute;
+    top:40%;
+    left:50%;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    border-bottom: 16px solid #3498db;
+    width: 100px;
+    height: 100px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
 }

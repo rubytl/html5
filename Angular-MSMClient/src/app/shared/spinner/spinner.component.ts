@@ -13,9 +13,9 @@ export class SpinnerComponent implements OnDestroy {
   private currentTimeout: number;
   public isDelayedRunning: boolean = false;
 
-  @Input()
-  public delay: number = 150;
+  @Input() public delay: number = 150;
 
+  @Input() name: string = 'main';
   @Input()
   public set isRunning(value: boolean) {
     if (!value) {

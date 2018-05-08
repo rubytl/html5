@@ -31,7 +31,10 @@
 
 <div class="app-body">
   <div class="sidebar">
-    <tree-view></tree-view>
+    <div class="relative">
+      <tree-view></tree-view>
+      <app-spinner [name]="'sidebar'" [hidden]="!isSiteLoading" [isRunning]="isSiteLoading" class="spinner"></app-spinner>
+    </div>
   </div>
 
   <!-- Main content -->
@@ -49,10 +52,14 @@
     </ol>
 
     <div class="container-fluid">
-      <div class="main-height">
+      <div class="main-height relative">
         <router-outlet></router-outlet>
+        <app-spinner [hidden]="!isMainLoading" [isRunning]="isMainLoading" class="spinner"></app-spinner>
       </div>
-      <rolling-alarm></rolling-alarm>
+      <div class="relative">
+        <rolling-alarm></rolling-alarm>
+        <app-spinner [hidden]="!isAlarmLoading" [name]="'alarm'" [isRunning]="isAlarmLoading" class="spinner"></app-spinner>
+      </div>
     </div>
   </main>
   <msm-aside></msm-aside>

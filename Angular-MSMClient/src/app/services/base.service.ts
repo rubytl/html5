@@ -18,32 +18,40 @@ export abstract class BaseService {
     });
   }
 
-  protected handleError(error) {
+  protected startProgress() {
+    this.progressAct.updateProgress(true);
+  }
+
+  protected finishProgress() {
     this.progressAct.updateProgress(false);
+  }
+
+  protected handleError(error) {
+    this.finishProgress();
 
     // Show the model dialog here
     this.openConfirmDialog(error);
   }
 
   protected post(url, data, headers): Promise<any> {
-    this.progressAct.updateProgress(true);
+    this.startProgress();
     return this.http
       .post(url, data, { headers: headers })
       .toPromise()
       .then(res => {
-        this.progressAct.updateProgress(false);
+        this.finishProgress();
         return res;
       })
       .catch(error => this.handleError(error));
   }
 
   protected get(url, headers): Promise<any> {
-    this.progressAct.updateProgress(true);
+    this.startProgress();
     return this.http
       .get(url, { headers: headers })
       .toPromise()
       .then(res => {
-        this.progressAct.updateProgress(false);
+        this.finishProgress();
         return res;
       })
       .catch(error => this.handleError(error));
