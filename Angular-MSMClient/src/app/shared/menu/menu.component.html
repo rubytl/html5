@@ -7,15 +7,21 @@
         <span class="d-md-down-none">Inspect</span>
       </a>
     <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-      <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i>Alarms</a>
-      <!-- <div class="dropdown-menu dropdown-menu-right" dropdownToggle (click)="false">
-          <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i>Details</a>
-      </div> -->
-      <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-        <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-      </ul>
-      <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Battery</a>
-      <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/inspect/ecb']"><i class="fa fa-tasks"></i>ECB...</a>
+      <div class="relative dropdown-menu-level">
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-bell-o"></i>Alarms</a>
+        <ul class="dropdown-menu">
+          <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i>Details...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-ellipsis-v"></i>Ranking...</a>
+        </ul>
+      </div>
+      <div class="relative dropdown-menu-level">
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-battery-full"></i>Battery</a>
+        <ul class="dropdown-menu">
+          <a class="dropdown-item" href="#"><i class="fa fa-clock-o"></i>Backup time...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-half"></i>Charge/Discharge...</a>
+        </ul>
+      </div>
+      <a class="dropdown-item" routerLinkActive="active" y [routerLink]="['/inspect/ecb']"><i class="fa fa-tasks"></i>ECB...</a>
       <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/inspect/energy']"><i class="fa fa-comments"></i>Energy trend...</a>
       <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i>Events...</a>
       <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Generator...</a>
@@ -26,8 +32,6 @@
     </div>
   </li>
 
-  <li class="menuDivider">
-  </li>
   <!--Analyze-->
   <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
     <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false">
@@ -35,16 +39,29 @@
         <span class="d-md-down-none">Analyze</span>
       </a>
     <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-      <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i>Compare</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Site health</a>
+      <div class="relative dropdown-menu-level">
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-battery-full"></i>Compare</a>
+        <ul class="dropdown-menu">
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Battery tempearture...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Energy...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Generator...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Grid availability...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Configuration...</a>
+        </ul>
+      </div>
+      <div class="relative dropdown-menu-level">
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-battery-full"></i>Site health</a>
+        <ul class="dropdown-menu">
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Battery condition...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Performance...</a>
+        </ul>
+      </div>
       <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i>Site maintenance</a>
       <a class="dropdown-item" href="#"><i class="fa fa-comments"></i>Change logs</a>
       <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i>KPI</a>
     </div>
   </li>
 
-  <li class="menuDivider">
-  </li>
   <!--View-->
   <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
     <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false">
@@ -57,8 +74,6 @@
     </div>
   </li>
 
-  <li class="menuDivider">
-  </li>
   <!--System-->
   <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
     <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false">
@@ -66,14 +81,32 @@
         <span class="d-md-down-none">System</span>
       </a>
     <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-      <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i>Administration</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Sites</a>
+      <div class="relative dropdown-menu-level">
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-battery-full"></i>Administration</a>
+        <ul class="dropdown-menu">
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Site setup...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Site templates...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Users...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Reports...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>KPI targets...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>MIB packages...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Devices...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>SNMP data setup...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>SNMP template setup...</a>
+        </ul>
+      </div>
+      <div class="relative dropdown-menu-level">
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-battery-full"></i>Sites</a>
+        <ul class="dropdown-menu">
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Firmware upgrade...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Configuration upload...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>SNMP config...</a>
+        </ul>
+      </div>
       <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Options</a>
     </div>
   </li>
 
-  <li class="menuDivider">
-  </li>
   <!--Help-->
   <li class="nav-item" (onToggle)="toggled($event)">
     <a href="http://onlinedocs.eltek.com/wip4/mywip/multisite/" class="nav-link">
