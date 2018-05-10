@@ -1,0 +1,46 @@
+.dropdown-toggle
+{
+  &::after{
+    margin-right: $dropdown-toggle-margin-right;
+  }
+}
+
+.dropdown-menu-level
+{
+  ul {
+    position: absolute;
+    display: none;
+    top: $dropdown-menu-level-padding-y;
+    left: $dropdown-menu-level-padding-x;
+    transition: max-height .3s ease-in-out;
+    }
+
+  &:hover
+  {
+    ul {
+      display: block;
+    }
+  }
+
+  .dropdown-item-level {
+              &::after {
+                font:normal normal normal 14px/1 FontAwesome;
+                position: absolute;
+                top: ($sidebar-nav-link-padding-x - ($font-size-base / 4));
+                right: $sidebar-nav-link-padding-y;
+                display: inline-block;
+                width: ($font-size-base);
+                height: ($font-size-base);
+                padding: 0;
+                font-size: $font-size-base;
+                line-height: ($font-size-base * 3 / 4);
+                text-align: center;
+                content: "\f0da";
+                transition: .3s;
+              }
+
+              &:empty::after {
+                margin-left: 0;
+              }
+  }
+}

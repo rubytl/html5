@@ -1,0 +1,14 @@
+.sidebar-fixed {
+    .sidebar {
+      height: calc(100vh - #{$navbar-height} - #{$footer-height} - 0.5rem);
+      .sidebar-nav {
+          height: calc(100vh - #{$navbar-height} - #{$footer-height} - 20px);
+            }
+      }
+}
+
+.aside-menu-fixed {
+    .aside-menu {
+      height: calc(100vh - #{$navbar-height} - #{$footer-height} - 0.5rem);
+  }
+}
