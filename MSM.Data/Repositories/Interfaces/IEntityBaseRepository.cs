@@ -1,24 +1,97 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MSM.Data.Repositories.Interfaces
+﻿namespace MSM.Data.Repositories.Interfaces
 {
-    public interface IEntityBaseRepository<T> where T : class, new() 
+    using System;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// IEntityBaseRepository
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public interface IEntityBaseRepository<T>
+        where T : class, new()
     {
-        Task<IQueryable<T>> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
-        Task<IQueryable<T>> GetAll();
-        int Count();
-        Task<T> GetSingle(Expression<Func<T, bool>> predicate);
-        T GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
-        Task<IQueryable<T>> FindBy(Expression<Func<T, bool>> predicate);
+        #region Methods
+
+        /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
         void Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
-        void DeleteWhere(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
+        /// Alls the including.
+        /// </summary>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns></returns>
+        IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
+
+        /// <summary>
+        /// Commits this instance.
+        /// </summary>
         void Commit();
+
+        /// <summary>
+        /// Counts this instance.
+        /// </summary>
+        /// <returns></returns>
+        int Count();
+
+        /// <summary>
+        /// Counts the where.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns></returns>
+        Task<int> CountWhereAsync(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
+        /// Deletes the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        void Delete(T entity);
+
+        /// <summary>
+        /// Deletes the where.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        void DeleteWhere(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
+        /// Finds the by.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns></returns>
+        Task<IQueryable<T>> FindByAsync(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
+        /// Gets all.
+        /// </summary>
+        /// <returns></returns>
+        Task<IQueryable<T>> GetAll();
+
+        /// <summary>
+        /// Gets the single.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns></returns>
+        Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate);
+
+
+        /// <summary>
+        /// Gets the single.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <param name="includeProperties">The include properties.</param>
+        /// <returns></returns>
+        Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
+
+        /// <summary>
+        /// Updates the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        void Update(T entity);
+
+        #endregion Methods
     }
 }

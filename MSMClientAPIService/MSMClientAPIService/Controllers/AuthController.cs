@@ -15,6 +15,7 @@ using MSM.Data.Repositories.Interfaces;
 using MSMClientAPIService.Models;
 using Microsoft.Extensions.Options;
 using MSMClientAPIService.Services;
+using MSMClientAPIService.Enums;
 
 namespace MSMClientAPIService.Controllers
 {

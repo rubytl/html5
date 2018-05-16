@@ -30,10 +30,10 @@ namespace MSM.Data
         }
 
         #endregion
-        public virtual Task<IQueryable<T>> GetAll()
+        public virtual async Task<IQueryable<T>> GetAll()
         {
             IQueryable<T> query = Context.Set<T>();
-            return Task.FromResult(query);
+            return await Task.FromResult(query);
         }
 
         public virtual int Count()
@@ -41,7 +41,12 @@ namespace MSM.Data
             return Context.Set<T>().Count();
         }
 
-        public virtual async Task<IQueryable<T>> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
+        public virtual async Task<int> CountWhereAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await this.Context.Set<T>().Where(predicate).CountAsync();
+        }
+
+        public virtual IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = Context.Set<T>();
             foreach (var includeProperty in includeProperties)
@@ -49,15 +54,15 @@ namespace MSM.Data
                 query = query.Include(includeProperty);
             }
 
-            return await Task.FromResult(query);
+            return query;
         }
 
-        public async Task<T> GetSingle(Expression<Func<T, bool>> predicate)
+        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate)
         {
-            return await Task.FromResult(Context.Set<T>().FirstOrDefault(predicate));
+            return await Context.Set<T>().FirstOrDefaultAsync(predicate);
         }
 
-        public T GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = Context.Set<T>();
             foreach (var includeProperty in includeProperties)
@@ -65,10 +70,10 @@ namespace MSM.Data
                 query = query.Include(includeProperty);
             }
 
-            return query.Where(predicate).FirstOrDefault();
+            return await query.Where(predicate).FirstOrDefaultAsync();
         }
 
-        public virtual async Task<IQueryable<T>> FindBy(Expression<Func<T, bool>> predicate)
+        public virtual async Task<IQueryable<T>> FindByAsync(Expression<Func<T, bool>> predicate)
         {
             return await Task.FromResult(Context.Set<T>().Where(predicate));
         }
@@ -76,7 +81,7 @@ namespace MSM.Data
         public virtual void Add(T entity)
         {
             EntityEntry dbEntityEntry = Context.Entry<T>(entity);
-            Context.Set<T>().Add(entity);
+            Context.Set<T>().AddAsync(entity);
         }
 
         public virtual void Update(T entity)
@@ -102,7 +107,7 @@ namespace MSM.Data
 
         public virtual void Commit()
         {
-            Context.SaveChanges();
+            this.Context.SaveChangesAsync();
         }
     }
 }

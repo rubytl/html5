@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using MSM.Data.Repositories.Interfaces;
+using MSMClientAPIService.Enums;
 using MSMClientAPIService.Helpers;
 using MSMClientAPIService.Models;
 
@@ -71,14 +70,14 @@ namespace MSMClientAPIService.Services
             }
 
             //get the user to verifty
-            var userToVerify = await this.userRepo.GetSingle(s => s.Username == userName);
+            var userToVerify = await this.userRepo.GetSingleAsync(s => s.Username == userName);
             if (userToVerify == null)
             {
                 return await Task.FromResult(new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotAllowd });
             }
 
             // check the credentials
-            if (await this.userRepo.GetSingle(s => s.Password == password) == null)
+            if (await this.userRepo.GetSingleAsync(s => s.Password == password) == null)
             {
                 return await Task.FromResult(new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotAllowd });
             }
@@ -117,57 +116,5 @@ namespace MSMClientAPIService.Services
 
             return new CheckLoginResponse { CheckLoginResult = CheckLoginResult.Allowed };
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CheckLoginResponse
-    {
-        /// <summary>
-        /// Gets or sets the name of the machine.
-        /// </summary>
-        /// <value>
-        /// The name of the machine.
-        /// </value>
-        public string MachineName { get; set; }
-        /// <summary>
-        /// Gets or sets the check login result.
-        /// </summary>
-        /// <value>
-        /// The check login result.
-        /// </value>
-        public CheckLoginResult CheckLoginResult { get; set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum CheckLoginResult
-    {
-        /// <summary>
-        /// The allowed
-        /// </summary>
-        Allowed = 0,
-
-        /// <summary>
-        /// The already logged in
-        /// </summary>
-        AlreadyLoggedIn = 1,
-
-        /// <summary>
-        /// The not valid license
-        /// </summary>
-        NotValidLicense = 2,
-
-        /// <summary>
-        /// The user limit reached
-        /// </summary>
-        UserLimitReached = 3,
-
-        /// <summary>
-        /// The not allowd
-        /// </summary>
-        NotAllowd = 4
     }
 }

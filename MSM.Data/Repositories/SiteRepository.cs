@@ -38,7 +38,7 @@ namespace MSM.Data.Repositories
         public async Task<IQueryable<Site>> GetSiteListFiltered(int filter, string siteName)
         {
             //var sites = this.Context.Site.Include(".Parent.*");
-            var sites = await this.AllIncluding(s => s.Parent.Parent.Parent);
+            var sites = this.AllIncluding(s => s.Parent.Parent.Parent);
             if (!string.IsNullOrEmpty(siteName) && !siteName.Equals("all"))
             {
                 sites = sites.Where(s => s.Description.Contains(siteName));

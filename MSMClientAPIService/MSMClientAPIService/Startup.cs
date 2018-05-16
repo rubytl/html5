@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Text;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -73,7 +72,7 @@ namespace MSMClientAPIService
             services.AddSignalR();
 
             // add repositories
-            this.AddRepositories(services);
+            this.AddDependencyInjection(services);
             this.AddTableDependencies(services);
         }
 
@@ -143,8 +142,6 @@ namespace MSMClientAPIService
                     configureOptions.TokenValidationParameters = tokenValidationParameters;
                     configureOptions.SaveToken = true;
                 });
-
-            services.AddAutoMapper();
         }
 
         private void AddTableDependencies(IServiceCollection services)
@@ -154,12 +151,13 @@ namespace MSMClientAPIService
             services.AddSingleton<IHubContext<AlarmHub>, HubContext<AlarmHub>>();
         }
 
-        private void AddRepositories(IServiceCollection services)
+        private void AddDependencyInjection(IServiceCollection services)
         {
             (new LoginHelper(this.Configuration)).RegisterTørkService();
             services.AddSingleton<ISiteRepository, SiteRepository>();
             services.AddSingleton<IUserMaintenanceRepository, UserMaintenanceRepository>();
             services.AddSingleton<IAlarmRepository, AlarmRepository>();
+            services.AddSingleton<ISiteService, SiteService>();
         }
     }
 }

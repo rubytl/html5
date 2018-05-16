@@ -2,25 +2,82 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using MSM.Data.Models;
 using MSMClientAPIService.Mapping.Models;
 
 namespace MSMClientAPIService.Mapping
 {
-    public class SiteMappingProfile : Profile
+    /// <summary>
+    /// SiteMappingProfile
+    /// </summary>
+    public static class SiteMappingProfile
     {
-        public SiteMappingProfile()
+        /// <summary>
+        /// Maps the site model to site.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        /// <returns></returns>
+        public static Site MapSiteModelToSite(SiteModel site)
         {
-            this.CreateMap<Site, SiteModel>()
-                .ForMember(s => s.Id, m => m.MapFrom(site => site.Id))
-                .ReverseMap()
-                .ForMember(s => s.ParentId, m => m.MapFrom(site => site.ParentId))
-                .ReverseMap()
-                .ForMember(s => s.Description, m => m.MapFrom(site => site.Description))
-                .ReverseMap()
-                .ForMember(s => s.IsToplevel, m => m.MapFrom(site => site.IsToplevel))
-                .ReverseMap();
+            return new Site()
+            {
+                Id = site.Id,
+                ParentId = site.ParentId,
+                Description = site.Description,
+                IsToplevel = site.IsToplevel,
+                Status = site.Status,
+                Address = site.Address,
+                Latitude = site.Latitude,
+                Longitude = site.Longitude,
+                SystemType = site.SystemType,
+                TemplateId = site.TemplateId,
+                SitePriority = site.SitePriority,
+                JsonService = site.JsonService,
+                JsonPassword = site.JsonPassword,
+                Ssl = site.Ssl,
+                JsonUserName = site.JsonUserName,
+                NotificationEnabled = site.NotificationEnabled,
+                NotificationName = site.NotificationName,
+                SharedCategories = site.SharedCategories,
+                ControllerType = site.ControllerType,
+                SnmpTemplateId = site.SnmpTemplateId,
+                SnmpDataTemplateId = site.SnmpDataTemplateId,
+                SecurityProtocol = site.SecurityProtocol
+            };
+        }
+
+        /// <summary>
+        /// Maps the site to site model.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        /// <returns></returns>
+        public static SiteModel MapSiteToSiteModel(Site site)
+        {
+            return new SiteModel()
+            {
+                Id = site.Id,
+                ParentId = site.ParentId,
+                Description = site.Description,
+                IsToplevel = site.IsToplevel,
+                Status = site.Status,
+                Address = site.Address,
+                Latitude = site.Latitude,
+                Longitude = site.Longitude,
+                SystemType = site.SystemType,
+                TemplateId = site.TemplateId,
+                SitePriority = site.SitePriority,
+                JsonService = site.JsonService,
+                JsonPassword = site.JsonPassword,
+                Ssl = site.Ssl,
+                JsonUserName = site.JsonUserName,
+                NotificationEnabled = site.NotificationEnabled,
+                NotificationName = site.NotificationName,
+                SharedCategories = site.SharedCategories,
+                ControllerType = site.ControllerType,
+                SnmpTemplateId = site.SnmpTemplateId,
+                SnmpDataTemplateId = site.SnmpDataTemplateId,
+                SecurityProtocol = site.SecurityProtocol
+            };
         }
     }
 }
