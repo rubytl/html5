@@ -8,10 +8,10 @@
       </a>
     <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
       <div class="relative dropdown-menu-level">
-        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-bell-o"></i>Alarms</a>
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-warning"></i>Alarms</a>
         <ul class="dropdown-menu">
-          <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i>Details...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-ellipsis-v"></i>Ranking...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-list"></i>Details...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-list-ol"></i>Ranking...</a>
         </ul>
       </div>
       <div class="relative dropdown-menu-level">
@@ -21,13 +21,13 @@
           <a class="dropdown-item" href="#"><i class="fa fa-battery-half"></i>Charge/Discharge...</a>
         </ul>
       </div>
-      <a class="dropdown-item" routerLinkActive="active" y [routerLink]="['/inspect/ecb']"><i class="fa fa-tasks"></i>ECB...</a>
-      <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/inspect/energy']"><i class="fa fa-comments"></i>Energy trend...</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i>Events...</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Generator...</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i>Grid availability...</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-comments"></i>Run hours...</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-comments"></i>Inventory...</a>
+      <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/inspect/ecb']"><i class="fa fa-bars"></i>ECB...</a>
+      <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/inspect/energy']"><i class="fa fa-area-chart"></i>Energy trend...</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-calendar-check-o"></i>Events...</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-sun-o"></i>Generator...</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-table"></i>Grid availability...</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-clock-o"></i>Run hours...</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-th-large"></i>Inventory...</a>
       <a class="dropdown-item" href="#"><i class="fa fa-camera"></i>Camera...</a>
     </div>
   </li>
@@ -40,25 +40,25 @@
       </a>
     <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
       <div class="relative dropdown-menu-level">
-        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-battery-full"></i>Compare</a>
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-balance-scale"></i>Compare</a>
         <ul class="dropdown-menu">
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Battery tempearture...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Energy...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Generator...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Grid availability...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Configuration...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-battery-quarter"></i>Battery temperature...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-area-chart"></i>Energy...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-sun-o"></i>Generator...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-table"></i>Grid availability...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-gears"></i>Configuration...</a>
         </ul>
       </div>
       <div class="relative dropdown-menu-level">
-        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-battery-full"></i>Site health</a>
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-heartbeat"></i>Site health</a>
         <ul class="dropdown-menu">
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Battery condition...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Performance...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-medkit"></i>Battery condition...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-pie-chart"></i>Performance...</a>
         </ul>
       </div>
-      <a class="dropdown-item" href="#"><i class="fa fa-tasks"></i>Site maintenance</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-comments"></i>Change logs</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i>KPI</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i>Site maintenance</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-newspaper-o"></i>Change logs</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-percent"></i>KPI</a>
     </div>
   </li>
 
@@ -69,49 +69,53 @@
         <span class="d-md-down-none">View</span>
       </a>
     <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-      <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i>Traps</a>
-      <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Sites</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-cubes"></i>Traps</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-gear"></i>Sites</a>
     </div>
   </li>
 
   <!--System-->
   <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
     <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false">
-        <i class="icon-settings"></i>
+        <i class="fa fa-cogs"></i>
         <span class="d-md-down-none">System</span>
       </a>
     <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
       <div class="relative dropdown-menu-level">
-        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-battery-full"></i>Administration</a>
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-user"></i>Administration</a>
         <ul class="dropdown-menu">
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Site setup...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Site templates...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Users...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Reports...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>KPI targets...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>MIB packages...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Devices...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>SNMP data setup...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>SNMP template setup...</a>
+          <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/system/admin/sitesetup']"><i class="fa fa-cog"></i>Site setup...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-bars"></i>Site templates...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-group"></i>Users...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-calendar-check-o"></i>Reports...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-percent"></i>KPI targets...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-file"></i>MIB packages...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-tablet"></i>Devices...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-cog"></i>SNMP data setup...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-spinner"></i>SNMP template setup...</a>
         </ul>
       </div>
       <div class="relative dropdown-menu-level">
-        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-battery-full"></i>Sites</a>
+        <a class="dropdown-item dropdown-item-level" href="#"><i class="fa fa-gear"></i>Sites</a>
         <ul class="dropdown-menu">
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Firmware upgrade...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Configuration upload...</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>SNMP config...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-archive"></i>Firmware upgrade...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-upload"></i>Configuration upload...</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-cog"></i>SNMP config...</a>
         </ul>
       </div>
-      <a class="dropdown-item" href="#"><i class="fa fa-battery-full"></i>Options</a>
+      <a class="dropdown-item" href="#"><i class="fa fa-list-alt"></i>Options</a>
     </div>
   </li>
 
   <!--Help-->
-  <li class="nav-item" (onToggle)="toggled($event)">
-    <a href="http://onlinedocs.eltek.com/wip4/mywip/multisite/" class="nav-link">
+  <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
+    <a href class="nav-link dropdown-toggle" dropdownToggle (click)="false">
         <i class="fa fa-question-circle-o"></i>
         <span class="d-md-down-none">Help</span>
       </a>
+    <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+      <a class="dropdown-item" href="#"><i class="fa fa-dashboard"></i>About Multisite Monitor</a>
+      <a class="dropdown-item" href="http://onlinedocs.eltek.com/wip4/mywip/multisite/"><i class="fa fa-support"></i>Online help</a>
+    </div>
   </li>
 </ul>

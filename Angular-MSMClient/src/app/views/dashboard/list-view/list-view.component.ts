@@ -1,16 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgRedux, select } from 'ng2-redux';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/catch';
-import { BehaviorSubject } from 'rxjs/Rx';
-
-import { ListView, Site } from '../../../models';
+import { Component } from '@angular/core';
+import { NgRedux } from 'ng2-redux';
 import { ListViewApiService } from '../../../services/list-view.service';
 import { IAppState } from '../../../store';
-import { Paging, Sorting } from '../../../models'
-
-import { RestrictedSiteApiService } from '../../../services';
+import { CommonComponent } from '../../common/common.component';
 
 @Component({
     selector: 'list-view',
@@ -18,48 +10,37 @@ import { RestrictedSiteApiService } from '../../../services';
     styleUrls: ['./list-view.component.scss']
 })
 
-export class ListViewComponent implements OnInit, OnDestroy {
-    selectSiteSub: Subscription;
+export class ListViewComponent extends CommonComponent {
     siteListViews: any;
-    paging: Paging;
-    pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     siteIds = [];
     constructor(
         private listViewSVC: ListViewApiService,
-        private ngRedux: NgRedux<IAppState>
+        ngRedux: NgRedux<IAppState>
     ) {
+        super(ngRedux);
     }
 
     ngOnInit() {
-        this.paging = { pageSize: 10, pageIndex: 0, pageLength: 10 };
-        this.pageIndexSubject.subscribe(value => this.paging.pageIndex = value);
+        super.ngOnInit();
         this.filterSiteView();
-        this.notifySelectedSite();
     }
 
-    ngOnDestroy() {
-        // prevent memory leak when component destroyed
-        this.selectSiteSub.unsubscribe();
-        this.pageIndexSubject.unsubscribe();
-    }
-
-    async filterSiteView() {
-        await this.listViewSVC.getAllSitesView(this.siteIds, this.paging.pageIndex, this.paging.pageSize)
+    filterSiteView() {
+        this.listViewSVC.getAllSitesView(this.siteIds, this.paging.pageIndex, this.paging.pageSize)
             .then(res => this.siteListViews = res);
     }
 
-    onCurrentPageChange(event) {
-        this.paging.pageIndex = event;
+    onSelectedSite(selectedSite) {
+        this.siteIds = [];
+        this.trarveChildren(selectedSite);
         this.filterSiteView();
     }
 
-    onPageSizeChange(event) {
-        this.paging.pageSize = event;
+    onAfterPageChanged() {
         this.filterSiteView();
-        this.pageIndexSubject.next(0);
     }
 
-    private trarveChildren(site: Site) {
+    private trarveChildren(site) {
         if (site === null) {
             return;
         }
@@ -71,17 +52,6 @@ export class ListViewComponent implements OnInit, OnDestroy {
                 this.trarveChildren(element);
             });
         }
-    }
-
-    notifySelectedSite() {
-        this.selectSiteSub =
-            this.ngRedux.select(state => state.selectedSite)
-                .subscribe(
-                    selectedSite => {
-                        this.siteIds = [];
-                        this.trarveChildren(selectedSite);
-                        this.filterSiteView();
-                    });
     }
 
 }

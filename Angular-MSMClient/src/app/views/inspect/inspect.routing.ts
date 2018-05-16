@@ -9,9 +9,6 @@ const routes: Routes = [
   {
     path: '',
     component: InspectComponent,
-    data: {
-      // title: 'Inspect'
-    },
     children: [
       {
         path: 'ecb',

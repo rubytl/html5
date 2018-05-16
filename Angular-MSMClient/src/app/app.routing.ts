@@ -31,22 +31,22 @@ export const routes: Routes = [
         path: 'inspect',
         loadChildren: './views/inspect/inspect.modude#InspectModule'
       },
+      // {
+      //   path: 'analyze',
+      //   loadChildren: './views/analyze/analyze.module#AnalyzeModule'
+      // },
+      // {
+      //   path: 'view',
+      //   loadChildren: './views/view/view.module#ViewModule'
+      // },
       {
-        path: 'widgets',
-        loadChildren: './views/widgets/widgets.module#WidgetsModule'
+        path: 'system',
+        loadChildren: './views/system/system.module#SystemModule'
       },
-      {
-        path: 'charts',
-        loadChildren: './views/chartjs/chartjs.module#ChartJSModule'
-      },
-      {
-        path: 'smartgrid',
-        loadChildren: './views/smartgrid/smartgrid.module#SmartgridModule'
-      },
-      {
-        path: 'multigrid',
-        loadChildren: './views/multigrid/multigrid.module#MultigridModule'
-      }
+      // {
+      //   path: 'help',
+      //   loadChildren: './views/help/help.module#HelpModule'
+      // },
     ]
   },
   {
