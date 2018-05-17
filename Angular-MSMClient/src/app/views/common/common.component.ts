@@ -11,6 +11,7 @@ export class CommonComponent implements OnInit, OnDestroy {
     siteListViews: any;
     paging: Paging;
     pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    siteIds = [];
     constructor(private ngRedux: NgRedux<IAppState>) {
     }
 
@@ -26,7 +27,7 @@ export class CommonComponent implements OnInit, OnDestroy {
         this.pageIndexSubject.unsubscribe();
     }
 
-    notifySelectedSite() {
+    private notifySelectedSite() {
         this.selectSiteSub =
             this.ngRedux.select(state => state.selectedSite)
                 .subscribe(
@@ -35,24 +36,37 @@ export class CommonComponent implements OnInit, OnDestroy {
                     });
     }
 
-    onCurrentPageChange(event) {
+    private onCurrentPageChange(event) {
         this.paging.pageIndex = event;
         this.onAfterPageChanged();
     }
 
-    onPageSizeChange(event) {
+    private onPageSizeChange(event) {
         this.paging.pageSize = event;
         this.onAfterPageChanged();
         this.pageIndexSubject.next(0);
     }
 
     // base method to handle data after page changed
-    onAfterPageChanged() {
+    protected onAfterPageChanged() {
     }
 
     // base method to handle data after selected site changed
-    onSelectedSite(selectedSite) {
+    protected onSelectedSite(selectedSite) {
         return selectedSite;
     }
 
+    protected trarveChildren(site) {
+        if (site === null) {
+            return;
+        }
+
+        this.siteIds.push(site.id);
+        if (site.children != null) {
+            site.children.forEach(element => {
+                this.siteIds.push(element.id);
+                this.trarveChildren(element);
+            });
+        }
+    }
 }

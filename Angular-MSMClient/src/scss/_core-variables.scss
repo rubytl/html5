@@ -17,8 +17,12 @@ $spacer: 0.2rem !default;
 $card-spacer-y:            .25rem !default;
 $card-spacer-x:            $spacer !default;
 
-$input-btn-padding-y:       .25rem !default;
-$input-btn-padding-x:       .75rem !default;
+// $input-btn-padding-y:       .25rem !default;
+// $input-btn-padding-x:       .75rem !default;
+
+$input-btn-padding-y:       .1rem !default;
+$input-btn-padding-x:       .1rem !default;
+
 $sidebar-nav-link-padding-y: 0.3rem;
 $sidebar-nav-link-padding-x:1rem;
 $input-height:    calc(1.2rem);

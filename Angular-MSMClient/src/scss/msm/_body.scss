@@ -15,34 +15,44 @@ body.relative{
         position: relative;
     }
     
-    .main-height
-    {
-      height: 53.2vh; //42
-      .msm-map
-      {
-          height: 48.2vh; //35
-          position: relative;
-      }
-    
-      .msm-list
-      {
-        height: 44.8vh; //35
-        position: relative;
-      }
-    }
-    
-    .container-height
-    {
-      height: 52.8vh; // 42
-      margin-right:0px;
-      overflow: auto;
-    }
-    
     .main .container-fluid {
       padding: 0 1.5 * $spacer;
     
+      .main-height
+      {
+        height: 51.2vh; //42
+        position: relative;
+        .msm-map
+        {
+          height: 46.5vh; //35
+        }
+  
+        .msm-list
+        {
+          height: 42.5vh;
+          overflow: auto;
+        }
+  
+        .msm-content
+        {
+          height: 45.5vh;
+          overflow: auto;
+        }
+  
+        .msm-content-no-paging
+        {
+          height: 52.8vh; // 42
+          margin-right:0px;
+          overflow: auto;
+        }
+      }
+
       .card{
         color:$white;
       }
+
+      // .card-header  {
+      //       margin-left:-0.2rem;
+      // }
     }
 }

@@ -28,6 +28,10 @@ export class RestrictedSiteApiService extends BaseService {
     return this.get(factory.getFilteredSiteUrl(filter, siteName), factory.createHeaderWithToken());
   }
 
+  getSiteByIds(siteids, pageIndex, pageSize) {
+    return this.post(factory.getSiteByIdsUrl(), JSON.stringify({ siteids, pageIndex, pageSize }), factory.createHeaderWithToken());
+  }
+
   startProgress() {
     this.siteProgress.updateProgress(true);
   }

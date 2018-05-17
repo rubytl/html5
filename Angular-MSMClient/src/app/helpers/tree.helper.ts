@@ -1,4 +1,5 @@
 var priorities = [];
+var siteGroups = [];
 export function listToTree(arr) {
     var tree = [],
         mappedArr = {},
@@ -18,6 +19,10 @@ export function listToTree(arr) {
         arrElem = arr[i];
         if (priorities.findIndex(p => p.Description === arrElem.sitePriority.toString()) < 0) {
             priorities.push({ Description: arrElem.sitePriority.toString(), Value: arrElem.sitePriority });
+        }
+
+        if (arrElem.address === null && siteGroups.findIndex(s => s.id === arrElem.id) < 0) {
+            siteGroups.push(arrElem);
         }
 
         mappedArr[arrElem.id] = arrElem;
@@ -43,4 +48,8 @@ export function listToTree(arr) {
 
 export function createPriorityList() {
     return priorities;
+}
+
+export function createSiteGroups() {
+    return siteGroups;
 }

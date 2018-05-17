@@ -26,6 +26,10 @@ export function getSiteUrl() {
     return CLIENT_API_URL + "/sites";
 }
 
+export function getSiteByIdsUrl() {
+    return CLIENT_API_URL + "/sites/siteByIds";
+}
+
 export function getFilteredSiteUrl(filterType, siteName) {
     var site;
     if (siteName === "") {

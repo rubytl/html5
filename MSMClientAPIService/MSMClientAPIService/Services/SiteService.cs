@@ -32,6 +32,13 @@ namespace MSMClientAPIService.Services
             return await this.siteRepo.GetSitesListView(siteViewRequest.SiteIds, siteViewRequest.PageIndex, siteViewRequest.PageSize);
         }
 
+        public async Task<IList<SiteModel>> GetSiteByIds(SiteViewRequest siteViewRequest)
+        {
+            var sites = await siteRepo.FindByAsync(s => siteViewRequest.SiteIds.Contains(s.Id));
+            sites = sites.Skip(siteViewRequest.PageIndex * siteViewRequest.PageSize).Take(siteViewRequest.PageSize);
+            return this.DoMappingSiteToSiteModel(sites);
+        }
+
         /// <summary>
         /// Travers the site group.
         /// </summary>
