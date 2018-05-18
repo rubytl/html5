@@ -45,6 +45,10 @@ namespace MSMClientAPIService.Controllers
         public async Task<IActionResult> Get()
             => Ok(await this.siteService.GetSites());
 
+        [HttpPost("siteByIds")]
+        public async Task<IActionResult> GetSiteByIds([FromBody] SiteViewRequest siteViewRequest)
+            => Ok(await this.siteService.GetSiteByIds(siteViewRequest));
+
         // GET api/sites
         /// <summary>
         /// Gets this instance.

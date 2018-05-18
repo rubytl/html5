@@ -13,7 +13,7 @@ import { ProgressActions } from '../actions/progress.action';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Injectable()
-export class SiteApiService extends BaseService {
+export class SiteService extends BaseService {
 
     constructor(http: HttpClient, progressAct: ProgressActions, modelService: BsModalService) {
         super(http, progressAct, modelService);

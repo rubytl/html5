@@ -23,32 +23,76 @@
       </thead>
       <tbody>
         <tr *ngFor="let site of siteSource">
-          <td><i class="fa fa-caret-right"></i></td>
+          <td><i class="fa fa-caret-right p-3"></i></td>
           <td>{{site.id}}</td>
-          <td><input type="text" class="form-control" value={{site.description}}>
+          <td><input type="text" class="form-control" value={{site.description}}></td>
+          <td>
+            <select class="form-control" [ngModel]="site.sitePriority">
+            <option *ngFor="let priority of prioritySource" value= {{priority}}>
+              {{priority}}
+            </option>
+          </select>
           </td>
-          <td>{{site.sitePriority}}</td>
-          <td>{{site.address}}</td>
-          <td>{{site.controllerType}}</td>
-          <td>{{site.latitude}}</td>
-          <td>{{site.longitude}}</td>
-          <td> <select class="form-control" [ngModel]="site.parentId">
+          <td><input type="text" class="form-control" value={{site.address}}></td>
+          <td>
+            <select class="form-control" [ngModel]="site.controllerType">
+              <option *ngFor="let controller of controllerSource" value= {{controller.value}}>
+                {{controller.description}}
+              </option>
+            </select>
+          </td>
+
+          <td><input type="text" class="form-control" value={{site.latitude}}></td>
+          <td><input type="text" class="form-control" value={{site.longitude}}></td>
+          <td>
+            <select class="form-control" [ngModel]="site.parentId">
               <option *ngFor="let group of siteGroups" value= {{group.id}}>
                 {{group.description}}
               </option>
-               </select></td>
-          <td></td>
-          <td></td>
-          <td></td>
+            </select>
+          </td>
+          <td>
+            <select class="form-control" [ngModel]="site.templateId">
+                  <option *ngFor="let template of templateSource" value= {{template.templateId}}>
+                    {{template.templateName}}
+                  </option>
+            </select>
+          </td>
+          <td>
+            <select class="form-control" [ngModel]="site.snmpTemplateId">
+              <option *ngFor="let snmpConfig of snmpConfigSource" value= {{snmpConfig.templateId}}>
+                {{snmpConfig.templateName}}
+              </option>
+            </select>
+          </td>
+          <td>
+            <select class="form-control" [ngModel]="site.snmpDataTemplateId">
+              <option *ngFor="let snmpDataConfig of snmpDataConfigSource" value= {{snmpDataConfig.snmpDataTemplateId}}>
+                {{snmpDataConfig.name}}
+              </option>
+            </select>
+          </td>
           <td><input type="checkbox" class="form-control" checked={{site.ssl}}></td>
-          <td>{{site.jsonUserName}}</td>
+          <td><input type="text" class="form-control" value={{site.jsonUserName}}></td>
           <td><input type="password" class="form-control" value={{site.jsonPassword}}></td>
-          <td></td>
+          <td>
+            <button class="btn"><i class="fa fa-camera"></i></button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>
 
-  <msm-paginator class="card-header" [pageSizeOptions]="[10,20,30,40]" [pageLength]="paging.pageLength" [(pageIndex)]="paging.pageIndex"
-    (currentPageChange)="onCurrentPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></msm-paginator>
+<div class="card">
+  <div class="card-header d-flex flex-row">
+    <button class="btn  btn-pill mr-4"><i class="fa fa-plus"></i> Add Site</button>
+    <button class="btn  btn-pill mr-4"><i class="fa fa-minus"> Delete Site</i></button>
+    <button class="btn  btn-pill mr-4"><i class="fa fa-sitemap"> Add Group</i></button>
+    <button class="btn  btn-pill mr-4"><i class="fa fa-file-excel-o"></i> Export To Excel</button>
+    <button class="btn  btn-pill mr-4"><i class="fa fa-save"></i> Save Changes</button>
+    <button class="btn  btn-pill"><i class="fa fa-undo"></i> Reject Changes</button>
+    <msm-paginator class="ml-auto" [pageSizeOptions]="[10,20,30,40]" [pageLength]="paging.pageLength" [(pageIndex)]="paging.pageIndex"
+      (currentPageChange)="onCurrentPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></msm-paginator>
+  </div>
 </div>

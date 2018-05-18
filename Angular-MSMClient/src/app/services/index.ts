@@ -1,18 +1,24 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { RestrictedSiteApiService } from './restricted-site.service';
+import { RestrictedSiteService } from './restricted-site.service';
 import { UserService } from './user.service';
 import { AuthGuard } from './auth.service';
 import { RequestInterceptorService } from './request-interceptor.service';
 import { AlarmService } from './alarm.service';
-import { SiteApiService } from './site.service';
+import { SiteService } from './site.service';
+import { TemplateService } from './template.service';
+import { SnmpConfigService } from './snmp.config.service';
+import { SnmpDataService } from './snmp.data.service';
 
 export {
     RequestInterceptorService,
-    RestrictedSiteApiService,
+    RestrictedSiteService,
     UserService,
     AuthGuard,
     AlarmService,
-    SiteApiService
+    SiteService,
+    TemplateService,
+    SnmpConfigService,
+    SnmpDataService
 };
 
 @NgModule({})
@@ -20,8 +26,9 @@ export class SharedServiceModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: SharedServiceModule,
-            providers: [RestrictedSiteApiService, UserService,
-                AuthGuard, AlarmService, SiteApiService]
+            providers: [RestrictedSiteService, UserService,
+                AuthGuard, AlarmService, SiteService,
+                TemplateService, SnmpConfigService, SnmpDataService]
         };
     }
 }

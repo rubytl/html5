@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store';
-import { RestrictedSiteApiService } from '../services/restricted-site.service';
+import { RestrictedSiteService } from '../services/restricted-site.service';
 import { Site } from '../models/site';
 import { constants } from './constants';
 import { treeHelper } from '../helpers';
@@ -9,7 +9,7 @@ import { treeHelper } from '../helpers';
 @Injectable()
 export class SiteActions {
   constructor(private ngRedux: NgRedux<IAppState>,
-    private siteApiService: RestrictedSiteApiService) { }
+    private siteApiService: RestrictedSiteService) { }
 
   loadSites(): void {
     this.siteApiService

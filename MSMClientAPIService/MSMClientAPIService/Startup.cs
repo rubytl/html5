@@ -101,7 +101,6 @@ namespace MSMClientAPIService
         private void ConfigAuthentication(IServiceCollection services)
         {
             services.AddSingleton<IJwtFactory, JwtFactory>();
-            services.AddSingleton<IAuthService, AuthService>();
 
             // Get options from app settings
             var jwtAppSettingOptions = this.Configuration.GetSection(nameof(JwtIssuerOptions));
@@ -154,10 +153,18 @@ namespace MSMClientAPIService
         private void AddDependencyInjection(IServiceCollection services)
         {
             (new LoginHelper(this.Configuration)).RegisterTørkService();
+            
+            // services helper
+            services.AddSingleton<ISiteService, SiteService>();
+            services.AddSingleton<IAuthService, AuthService>();
+
+            // repositories
             services.AddSingleton<ISiteRepository, SiteRepository>();
             services.AddSingleton<IUserMaintenanceRepository, UserMaintenanceRepository>();
             services.AddSingleton<IAlarmRepository, AlarmRepository>();
-            services.AddSingleton<ISiteService, SiteService>();
+            services.AddSingleton<ITemplateRepository, TemplateRepository>();
+            services.AddSingleton<ISnmpDataTemplateRepository, SnmpDataTemplateRepository>();
+            services.AddSingleton<ISnmpConfigTemplateRepository, SnmpConfigTemplateRepository>();
         }
     }
 }

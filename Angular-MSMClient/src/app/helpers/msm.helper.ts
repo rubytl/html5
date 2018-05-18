@@ -1,5 +1,5 @@
 import { FilterType } from '../models';
-import { FilterTypeEnum, AlarmStatus } from '../enums';
+import { FilterTypeEnum, AlarmStatus, ControllerTypeEnum } from '../enums';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { MsmDialogComponent } from '../shared/msm-dialog/msm-dialog.component';
@@ -40,6 +40,29 @@ export function createAlarmStatusList() {
         { Description: AlarmStatus.MajorHigh },
         { Description: AlarmStatus.MinorHigh }
     ];
+}
+
+export function createControllerTypeList() {
+    return [
+        { description: "Others", value: ControllerTypeEnum.others },
+        { description: "Compack", value: ControllerTypeEnum.compack },
+        { description: "Orion", value: ControllerTypeEnum.orion },
+        { description: "SmartPack 2", value: ControllerTypeEnum.smartpack2 },
+        { description: "SmartPack S", value: ControllerTypeEnum.smartpacks },
+        { description: "SmartPack", value: ControllerTypeEnum.smartpack },
+        { description: "SmartPack (MCF5235)", value: ControllerTypeEnum.mcf5235 },
+        { description: "SmartPack (MCF5208)", value: ControllerTypeEnum.mcf5208 }
+
+    ];
+}
+export function createPriorityList() {
+    return [
+        1,
+        2,
+        3,
+        4,
+        5
+    ]
 }
 
 export function openConfirmDialog(modalService: BsModalService, settings): BsModalRef {

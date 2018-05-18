@@ -3,6 +3,12 @@ import { ProgressActions } from '../actions';
 import { DialogOption } from '../models';
 import { msmHelper } from '../helpers';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import 'rxjs/Rx';
+import 'rxjs/add/operator/catch';
+// put this next to the other RxJs operator imports
+// With the shareReplay operator in place, we would no longer
+// fall into the situation where we have accidental multiple HTTP requests.
+import 'rxjs/add/operator/shareReplay';
 
 export abstract class BaseService {
 
