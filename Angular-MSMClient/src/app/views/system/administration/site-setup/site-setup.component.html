@@ -27,36 +27,19 @@
           <td>{{site.id}}</td>
           <td><input type="text" class="form-control" value={{site.description}}></td>
           <td>
-            <select class="form-control" [ngModel]="site.sitePriority">
-            <option *ngFor="let priority of prioritySource" value= {{priority}}>
-              {{priority}}
-            </option>
-          </select>
+            <msm-priority [priority]="site.sitePriority"></msm-priority>
           </td>
           <td><input type="text" class="form-control" value={{site.address}}></td>
           <td>
-            <select class="form-control" [ngModel]="site.controllerType">
-              <option *ngFor="let controller of controllerSource" value= {{controller.value}}>
-                {{controller.description}}
-              </option>
-            </select>
+            <msm-controller-type [controller]="site.controllerType"></msm-controller-type>
           </td>
-
           <td><input type="text" class="form-control" value={{site.latitude}}></td>
           <td><input type="text" class="form-control" value={{site.longitude}}></td>
           <td>
-            <select class="form-control" [ngModel]="site.parentId">
-              <option *ngFor="let group of siteGroups" value= {{group.id}}>
-                {{group.description}}
-              </option>
-            </select>
+            <msm-sitegroup [groupId]="site.parentId"></msm-sitegroup>
           </td>
           <td>
-            <select class="form-control" [ngModel]="site.templateId">
-                  <option *ngFor="let template of templateSource" value= {{template.templateId}}>
-                    {{template.templateName}}
-                  </option>
-            </select>
+            <msm-site-template [templateId]="site.templateId"></msm-site-template>
           </td>
           <td>
             <select class="form-control" [ngModel]="site.snmpTemplateId">
@@ -86,7 +69,7 @@
 
 <div class="card">
   <div class="card-header d-flex flex-row">
-    <button class="btn  btn-pill mr-4"><i class="fa fa-plus"></i> Add Site</button>
+    <button class="btn  btn-pill mr-4" (click)="onAddNewSite()"><i class="fa fa-plus"></i> Add Site</button>
     <button class="btn  btn-pill mr-4"><i class="fa fa-minus"> Delete Site</i></button>
     <button class="btn  btn-pill mr-4"><i class="fa fa-sitemap"> Add Group</i></button>
     <button class="btn  btn-pill mr-4"><i class="fa fa-file-excel-o"></i> Export To Excel</button>

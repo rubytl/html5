@@ -1,0 +1,5 @@
+<select class="form-control" [(ngModel)]="templateId" (change)="onTemplateChanged()">
+    <option *ngFor="let template of templateSource" value= {{template.templateId}}>
+      {{template.templateName}}
+    </option>
+</select>

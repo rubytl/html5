@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../shared';
 
 import {
-  SiteSetupComponent, AdministrationRoutingModule, AdministrationComponent
+  SiteSetupComponent, AdministrationRoutingModule,
+  AdministrationComponent
 } from '.';
 
 @NgModule({
   imports: [
     AdministrationRoutingModule,
-    CommonModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [
     SiteSetupComponent,
-    AdministrationComponent
+    AdministrationComponent,
   ]
 })
 export class AdministrationModule { }

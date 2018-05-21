@@ -16,12 +16,14 @@ export class CommonComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.onComponentInit();
         this.paging = { pageSize: 10, pageIndex: 0, pageLength: 10 };
         this.pageIndexSubject.subscribe(value => this.paging.pageIndex = value);
         this.notifySelectedSite();
     }
 
     ngOnDestroy() {
+        this.onComponentDestroy();
         // prevent memory leak when component destroyed
         this.selectSiteSub.unsubscribe();
         this.pageIndexSubject.unsubscribe();
@@ -45,6 +47,14 @@ export class CommonComponent implements OnInit, OnDestroy {
         this.paging.pageSize = event;
         this.onAfterPageChanged();
         this.pageIndexSubject.next(0);
+    }
+
+    // base method to handle component init
+    protected onComponentInit() {
+    }
+
+    // base method to handle component destroy
+    protected onComponentDestroy() {
     }
 
     // base method to handle data after page changed

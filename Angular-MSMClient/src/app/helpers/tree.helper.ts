@@ -1,14 +1,12 @@
 var priorities = [];
 var siteGroups = [];
+priorities.splice(0, 0, { Description: "All", Value: "0" });
+siteGroups.splice(0, 0, { Description: "", id: -1 });
 export function listToTree(arr) {
     var tree = [],
         mappedArr = {},
         arrElem,
         mappedElem;
-
-    if (priorities.findIndex(p => p.Description === "All") < 0) {
-        priorities.push({ Description: "All", Value: "0" });
-    }
 
     if (arr === null || arr.length == 0) {
         return tree;

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { IAppState } from '../../../../store';
 import { CommonComponent } from '../../../common/common.component';
-import { SiteService, TemplateService, SnmpConfigService, SnmpDataService } from '../../../../services';
-import { treeHelper, msmHelper } from '../../../../helpers';
+import { SiteService, SnmpConfigService, SnmpDataService } from '../../../../services';
+import { NewSiteComponent } from '../new-site/new-site.component';
 
 @Component({
   selector: 'app-site-setup',
@@ -12,22 +13,18 @@ import { treeHelper, msmHelper } from '../../../../helpers';
 })
 export class SiteSetupComponent extends CommonComponent {
   siteSource: any;
-  siteGroups = treeHelper.createSiteGroups();
-  templateSource: any;
   snmpConfigSource: any;
   snmpDataConfigSource: any;
-  controllerSource = msmHelper.createControllerTypeList();
-  prioritySource = msmHelper.createPriorityList();
-  
-  constructor(private siteService: SiteService, private templateService: TemplateService,
-    private snmpConfigService: SnmpConfigService, private snmpDataService: SnmpDataService, ngRedux: NgRedux<IAppState>
+
+  constructor(private siteService: SiteService,
+    private snmpConfigService: SnmpConfigService, private snmpDataService: SnmpDataService,
+    private modalService: BsModalService, ngRedux: NgRedux<IAppState>
   ) {
     super(ngRedux);
   }
 
   ngOnInit() {
     super.ngOnInit();
-    this.getTemplates();
     this.getSnmpConfigs();
     this.getSnmpDataConfigs();
   }
@@ -40,11 +37,6 @@ export class SiteSetupComponent extends CommonComponent {
 
   protected onAfterPageChanged() {
     this.getSiteByIds();
-  }
-
-  private getTemplates() {
-    this.templateService.getTemplates()
-      .then(res => this.templateSource = res);
   }
 
   private getSiteByIds() {
@@ -60,5 +52,9 @@ export class SiteSetupComponent extends CommonComponent {
   private getSnmpDataConfigs() {
     this.snmpDataService.getSnmpDataConfig()
       .then(res => this.snmpDataConfigSource = res);
+  }
+
+  onAddNewSite() {
+    return this.modalService.show(NewSiteComponent);
   }
 }

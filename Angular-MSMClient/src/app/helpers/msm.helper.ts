@@ -44,6 +44,7 @@ export function createAlarmStatusList() {
 
 export function createControllerTypeList() {
     return [
+        { description: "", value: null },
         { description: "Others", value: ControllerTypeEnum.others },
         { description: "Compack", value: ControllerTypeEnum.compack },
         { description: "Orion", value: ControllerTypeEnum.orion },

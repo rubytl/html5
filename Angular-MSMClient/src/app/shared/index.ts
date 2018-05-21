@@ -18,20 +18,33 @@ import { MsmMultipleSortingComponent } from './msm-multiple-sorting/msm-multiple
 import { MsmDialogComponent } from './msm-dialog/msm-dialog.component';
 import { MsmFooterComponent } from './msm-footer/msm-footer.component';
 import { MsmAsideComponent } from './msm-aside/msm-aside.component';
+import { MsmPriorityComponent } from './msm-priority/msm-priority.component';
+import { MsmControllerTypeComponent } from './msm-controller-type/msm-controller-type.component';
+import { MsmSitegroupComponent } from './msm-sitegroup/msm-sitegroup.component';
+import { MsmSiteTemplateComponent } from './msm-site-template/msm-site-template.component';
+
+// In some cases entryComponents under lazy loaded modules will not work,
+// as a workaround I need to put these components here
+import { NewSiteComponent } from '../views/system/administration/new-site/new-site.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule],
     declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
         SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
-        MsmFooterComponent, MsmAsideComponent],
+        MsmFooterComponent, MsmAsideComponent, NewSiteComponent,
+        MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
+        MsmSiteTemplateComponent],
     exports: [SpinnerComponent, FilterTypeComponent, FormsModule, CommonModule, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
         SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
-        MsmFooterComponent, MsmAsideComponent],
+        MsmFooterComponent, MsmAsideComponent,
+        MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
+        MsmSiteTemplateComponent],
     entryComponents:
         [
-            MsmDialogComponent
+            MsmDialogComponent,
+            NewSiteComponent
         ]
 })
 export class SharedModule { }
