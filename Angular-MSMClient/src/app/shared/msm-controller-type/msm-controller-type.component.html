@@ -1,4 +1,4 @@
-<select class="form-control" [(ngModel)]="controller" (change)="onControllerChanged()">
+<select class="form-control" [(ngModel)]="value" (change)="onValueChanged()">
     <option *ngFor="let controller of controllerSource" value= {{controller.value}}>
       {{controller.description}}
     </option>

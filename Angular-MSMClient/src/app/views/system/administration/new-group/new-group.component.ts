@@ -3,11 +3,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { MsmDialogComponent } from '../../dialog.component';
 
 @Component({
-  selector: 'msm-new-site',
-  templateUrl: './new-site.component.html',
-  styleUrls: ['./new-site.component.scss']
+  selector: 'msm-new-group',
+  templateUrl: './new-group.component.html',
+  styleUrls: ['./new-group.component.scss']
 })
-export class NewSiteComponent extends MsmDialogComponent {
+export class NewSiteGroupComponent extends MsmDialogComponent {
   constructor(bsModalRef: BsModalRef) {
     super(bsModalRef);
   }

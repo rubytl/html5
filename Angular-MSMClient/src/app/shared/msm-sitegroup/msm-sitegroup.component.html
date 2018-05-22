@@ -1,4 +1,4 @@
-<select class="form-control" [(ngModel)]="groupId" (change)="onGroupChanged()">
+<select class="form-control" [(ngModel)]="value" (change)="onValueChanged()">
     <option *ngFor="let group of siteGroups" value= {{group.id}}>
       {{group.description}}
     </option>

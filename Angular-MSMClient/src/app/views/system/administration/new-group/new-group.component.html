@@ -1,0 +1,31 @@
+<div class="card mb-0">
+  <div class="card-header row mx-0">
+    <h6><strong>New...</strong></h6>
+    <button type="button" class="close ml-auto" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="card container">
+      <h6 class="mb-3"><strong>Add Site Group</strong></h6>
+      <div class="card-body">
+        <div class="row">
+          <p class="col-4">ID</p>
+          <input type="text" class="form-control col-8" placeholder="ID">
+        </div>
+        <div class="row">
+          <p class="col-4"><strong>Site/Group Name</strong></p>
+          <input type="text" class="form-control col-8" placeholder="Site/Group Name">
+        </div>
+        <div class="row">
+          <p class="col-4">Group</p>
+          <msm-sitegroup class="col-8 p-0 form-control"></msm-sitegroup>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row p-3 mx-0 my-3 justify-content-end">
+    <button class="btn btn-pill mr-4" (click)="onClick(save)"><i class="fa fa-save"></i> Submit</button>
+    <button class="btn btn-pill mr-4" (click)="onClick(close)"><i class="fa fa-close"> Reject</i></button>
+  </div>
+</div>

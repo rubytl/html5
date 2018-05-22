@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, Directive, HostListener, ElementRef } from '@angular/core';
+import { Component, OnDestroy, Input, Output, EventEmitter, Directive, HostListener, ElementRef } from '@angular/core';
 import { Sorting } from '../../models';
 
 @Component({
@@ -6,10 +6,14 @@ import { Sorting } from '../../models';
   templateUrl: './msm-sorting.component.html',
   styleUrls: ['./msm-sorting.component.scss']
 })
-export class MsmSortingComponent {
+export class MsmSortingComponent implements OnDestroy {
 
   @Output() sortOption = new EventEmitter<Sorting>();
   @Input() sortField: string;
+
+  ngOnDestroy() {
+    this.sortOption.unsubscribe();
+  }
 
   ascSort() {
     this.sortOption.emit({ sortField: this.sortField, sortDirection: 'asc' });

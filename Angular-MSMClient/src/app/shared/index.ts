@@ -22,10 +22,13 @@ import { MsmPriorityComponent } from './msm-priority/msm-priority.component';
 import { MsmControllerTypeComponent } from './msm-controller-type/msm-controller-type.component';
 import { MsmSitegroupComponent } from './msm-sitegroup/msm-sitegroup.component';
 import { MsmSiteTemplateComponent } from './msm-site-template/msm-site-template.component';
+import { MsmSnmpTemplateComponent } from './msm-snmp-template/msm-snmp-template.component';
+import { MsmSnmpDataTemplateComponent } from './msm-snmp-data-template/msm-snmp-data-template.component';
 
 // In some cases entryComponents under lazy loaded modules will not work,
 // as a workaround I need to put these components here
 import { NewSiteComponent } from '../views/system/administration/new-site/new-site.component';
+import { NewSiteGroupComponent } from '../views/system/administration/new-group/new-group.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule],
@@ -34,17 +37,19 @@ import { NewSiteComponent } from '../views/system/administration/new-site/new-si
         SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
         MsmFooterComponent, MsmAsideComponent, NewSiteComponent,
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
-        MsmSiteTemplateComponent],
+        MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
+        NewSiteGroupComponent],
     exports: [SpinnerComponent, FilterTypeComponent, FormsModule, CommonModule, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
         SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
         MsmFooterComponent, MsmAsideComponent,
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
-        MsmSiteTemplateComponent],
+        MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent],
     entryComponents:
         [
             MsmDialogComponent,
-            NewSiteComponent
+            NewSiteComponent,
+            NewSiteGroupComponent
         ]
 })
 export class SharedModule { }

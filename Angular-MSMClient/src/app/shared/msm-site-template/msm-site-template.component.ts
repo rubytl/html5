@@ -1,32 +1,19 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { treeHelper } from '../../helpers';
+import { Component } from '@angular/core';
 import { TemplateService } from '../../services';
+import { MsmTemplateComponent } from '../template.component';
 
 @Component({
   selector: 'msm-site-template',
   templateUrl: './msm-site-template.component.html',
   styleUrls: ['./msm-site-template.component.scss']
 })
-export class MsmSiteTemplateComponent implements OnInit, OnDestroy {
+export class MsmSiteTemplateComponent extends MsmTemplateComponent {
   templateSource: any;
-  @Output() templateChange = new EventEmitter<number>();
-  @Input() templateId: number;
   constructor(private templateService: TemplateService) {
+    super();
   }
 
-  ngOnInit() {
-    this.getTemplates();
-  }
-
-  ngOnDestroy() {
-    this.templateChange.unsubscribe();
-  }
-
-  onTemplateChanged() {
-    this.templateChange.next(this.templateId);
-  }
-
-  private getTemplates() {
+  protected onComponentInit() {
     this.templateService.getTemplates()
       .then(res => this.templateSource = res);
   }

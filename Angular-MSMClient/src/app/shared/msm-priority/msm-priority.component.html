@@ -1,4 +1,4 @@
-<select class="form-control" [(ngModel)]="priority" (change)="onPriorityChanged()">
+<select class="form-control" [(ngModel)]="value" (change)="onValueChanged()">
     <option *ngFor="let priority of prioritySource" value= {{priority}}>
       {{priority}}
     </option>

@@ -1,5 +1,6 @@
-import { Component, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { treeHelper, msmHelper } from '../../helpers';
+import { Component } from '@angular/core';
+import { msmHelper } from '../../helpers';
+import { MsmTemplateComponent } from '../template.component';
 
 @Component({
   selector: 'msm-priority',
@@ -7,16 +8,6 @@ import { treeHelper, msmHelper } from '../../helpers';
   styleUrls: ['./msm-priority.component.scss']
 })
 
-export class MsmPriorityComponent implements OnDestroy {
+export class MsmPriorityComponent extends MsmTemplateComponent {
   prioritySource = msmHelper.createPriorityList();
-  @Output() priorityChange = new EventEmitter<number>();
-  @Input() priority: number;
-
-  ngOnDestroy() {
-    this.priorityChange.unsubscribe();
-  }
-
-  onPriorityChanged() {
-    this.priorityChange.next(this.priority);
-  }
 }

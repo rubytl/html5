@@ -27,33 +27,25 @@
           <td>{{site.id}}</td>
           <td><input type="text" class="form-control" value={{site.description}}></td>
           <td>
-            <msm-priority [priority]="site.sitePriority"></msm-priority>
+            <msm-priority [value]="site.sitePriority"></msm-priority>
           </td>
           <td><input type="text" class="form-control" value={{site.address}}></td>
           <td>
-            <msm-controller-type [controller]="site.controllerType"></msm-controller-type>
+            <msm-controller-type [value]="site.controllerType"></msm-controller-type>
           </td>
           <td><input type="text" class="form-control" value={{site.latitude}}></td>
           <td><input type="text" class="form-control" value={{site.longitude}}></td>
           <td>
-            <msm-sitegroup [groupId]="site.parentId"></msm-sitegroup>
+            <msm-sitegroup [value]="site.parentId"></msm-sitegroup>
           </td>
           <td>
-            <msm-site-template [templateId]="site.templateId"></msm-site-template>
+            <msm-site-template [value]="site.templateId"></msm-site-template>
           </td>
           <td>
-            <select class="form-control" [ngModel]="site.snmpTemplateId">
-              <option *ngFor="let snmpConfig of snmpConfigSource" value= {{snmpConfig.templateId}}>
-                {{snmpConfig.templateName}}
-              </option>
-            </select>
+            <msm-snmp-template [value]="site.snmpTemplateId"></msm-snmp-template>
           </td>
           <td>
-            <select class="form-control" [ngModel]="site.snmpDataTemplateId">
-              <option *ngFor="let snmpDataConfig of snmpDataConfigSource" value= {{snmpDataConfig.snmpDataTemplateId}}>
-                {{snmpDataConfig.name}}
-              </option>
-            </select>
+            <msm-snmp-data-template [value]="site.snmpDataTemplateId"></msm-snmp-data-template>
           </td>
           <td><input type="checkbox" class="form-control" checked={{site.ssl}}></td>
           <td><input type="text" class="form-control" value={{site.jsonUserName}}></td>
@@ -71,7 +63,7 @@
   <div class="card-header d-flex flex-row">
     <button class="btn  btn-pill mr-4" (click)="onAddNewSite()"><i class="fa fa-plus"></i> Add Site</button>
     <button class="btn  btn-pill mr-4"><i class="fa fa-minus"> Delete Site</i></button>
-    <button class="btn  btn-pill mr-4"><i class="fa fa-sitemap"> Add Group</i></button>
+    <button class="btn  btn-pill mr-4" (click)="onAddNewGroup()"><i class="fa fa-sitemap"> Add Group</i></button>
     <button class="btn  btn-pill mr-4"><i class="fa fa-file-excel-o"></i> Export To Excel</button>
     <button class="btn  btn-pill mr-4"><i class="fa fa-save"></i> Save Changes</button>
     <button class="btn  btn-pill"><i class="fa fa-undo"></i> Reject Changes</button>
