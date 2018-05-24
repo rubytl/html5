@@ -47,6 +47,14 @@ export function getSiteViewUrl() {
     return CLIENT_API_URL + "/sites/siteview";
 }
 
+export function getLastSiteID() {
+    return CLIENT_API_URL + "/sites/lastId";
+}
+
+export function getNewSiteUrl() {
+    return CLIENT_API_URL + "/sites/add";
+}
+
 // Authentication urls
 export function getLoginUrl() {
     return AUTH_API_URL + "/auth/login";

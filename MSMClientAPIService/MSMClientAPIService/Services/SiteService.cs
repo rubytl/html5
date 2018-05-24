@@ -39,6 +39,11 @@ namespace MSMClientAPIService.Services
             return this.DoMappingSiteToSiteModel(sites);
         }
 
+        public int GetLastSiteID()
+        {
+            return siteRepo.GetLastSiteID();
+        }
+
         /// <summary>
         /// Travers the site group.
         /// </summary>
@@ -111,7 +116,7 @@ namespace MSMClientAPIService.Services
         {
             var site = await this.siteRepo.GetSingleAsync(s => s.Id == siteId);
             this.siteRepo.Update(site);
-            this.siteRepo.Commit();
+            await this.siteRepo.CommitAsync();
             return await Task.FromResult(true);
         }
 
@@ -119,20 +124,23 @@ namespace MSMClientAPIService.Services
         {
             var site = await this.siteRepo.GetSingleAsync(s => s.Id == siteId);
             this.siteRepo.Delete(site);
-            this.siteRepo.Commit();
+            await this.siteRepo.CommitAsync();
             return await Task.FromResult(true);
         }
 
         public async Task<AddSiteResult> AddNewSite(SiteModel site)
         {
-            AddSiteResult result = await this.CanAddSite();
-            if (result == AddSiteResult.Ok)
-            {
-                this.siteRepo.Add(SiteMappingProfile.MapSiteModelToSite(site));
-                this.siteRepo.Commit();
-            }
+            //AddSiteResult result = await this.CanAddSite();
+            //if (result == AddSiteResult.Ok)
+            //{
+            //    await this.siteRepo.AddAsync(SiteMappingProfile.MapSiteModelToSite(site));
+            //    await this.siteRepo.Commit();
+            //}
 
-            return await Task.FromResult(result);
+            await this.siteRepo.AddAsync(SiteMappingProfile.MapSiteModelToSite(site));
+            await this.siteRepo.CommitAsync();
+
+            return await Task.FromResult(AddSiteResult.Ok);
         }
         private async Task<AddSiteResult> CanAddSite()
         {

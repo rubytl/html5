@@ -216,5 +216,17 @@ namespace MSM.Data.Repositories
                 }
             }
         }
+
+        public int GetLastSiteID()
+        {
+            return (from siteTemp in this.Context.Site
+                                orderby siteTemp.Id descending
+                                select siteTemp.Id).FirstOrDefault();
+        }
+
+        //public override async Task AddAsync(Site entity)
+        //{
+        //    await this.Context.Site.AddAsync(entity);
+        //}
     }
 }

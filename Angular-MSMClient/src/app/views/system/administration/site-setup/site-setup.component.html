@@ -47,7 +47,7 @@
           <td>
             <msm-snmp-data-template [value]="site.snmpDataTemplateId"></msm-snmp-data-template>
           </td>
-          <td><input type="checkbox" class="form-control" checked={{site.ssl}}></td>
+          <td><input type="checkbox" class="form-control" [checked]="site.ssl"></td>
           <td><input type="text" class="form-control" value={{site.jsonUserName}}></td>
           <td><input type="password" class="form-control" value={{site.jsonPassword}}></td>
           <td>

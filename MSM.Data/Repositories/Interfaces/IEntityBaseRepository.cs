@@ -18,7 +18,7 @@
         /// Adds the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        void Add(T entity);
+        Task AddAsync(T entity);
 
         /// <summary>
         /// Alls the including.
@@ -30,7 +30,7 @@
         /// <summary>
         /// Commits this instance.
         /// </summary>
-        void Commit();
+        Task CommitAsync();
 
         /// <summary>
         /// Counts this instance.

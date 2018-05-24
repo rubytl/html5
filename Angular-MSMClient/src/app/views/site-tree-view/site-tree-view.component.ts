@@ -1,9 +1,7 @@
 import { ViewChild, Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
 import { Site } from '../../models/site';
-import { SiteActions, SelectSiteActions } from '../../actions';
-import { IAppState } from '../../store';
+import { SelectSiteActions } from '../../actions';
 
 @Component({
     selector: 'site-tree-view',
@@ -13,8 +11,7 @@ import { IAppState } from '../../store';
 export class SiteTreeViewComponent {
     @Input() sites: Observable<Site>;
 
-    constructor(private siteAction: SiteActions,
-        private SelectSiteAction: SelectSiteActions) {
+    constructor(private SelectSiteAction: SelectSiteActions) {
     }
 
     chooseSite(site: Site) {

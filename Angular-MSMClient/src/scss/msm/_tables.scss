@@ -12,4 +12,12 @@
             padding:0.1rem;
         }
     }
+
+    .table-active {
+        tbody tr {
+          :active, .active {
+            background-color: #20a8d8;
+          }
+        }
+      }
 }

@@ -11,53 +11,54 @@
       <div class="card-body">
         <div class="row">
           <p class="col-4">ID</p>
-          <input type="text" class="form-control col-8" placeholder="ID">
+          <input type="text" class="form-control col-8" [value]="newSite.id" readonly>
         </div>
         <div class="row">
           <p class="col-4"><strong>Site/Group Name</strong></p>
-          <input type="text" class="form-control col-8" placeholder="Site/Group Name">
+          <input type="text" class="form-control col-8" [(ngModel)]="newSite.description" placeholder="Site/Group Name">
         </div>
         <div class="row">
           <p class="col-4">IP Address</p>
-          <input type="text" class="form-control col-8" placeholder="IP Address">
+          <input type="text" class="form-control col-8" [(ngModel)]="newSite.address" placeholder="IP Address">
         </div>
         <div class="row">
           <p class="col-4">Group</p>
-          <msm-sitegroup class="col-8 p-0 form-control"></msm-sitegroup>
+          <msm-sitegroup [(value)]="newSite.parentId" (valueChanged)="onValueChanged($event, 'parent')" class="col-8 p-0 form-control"></msm-sitegroup>
         </div>
         <div class="row">
           <p class="col-4">Controller Type</p>
-          <msm-controller-type class="col-8 p-0 form-control"></msm-controller-type>
+          <msm-controller-type [value]="newSite.controllerType" (valueChanged)="onValueChanged($event, 'controllerType')" class="col-8 p-0 form-control"></msm-controller-type>
         </div>
         <div class="row">
           <p class="col-4">Template</p>
-          <msm-site-template class="col-8 p-0 form-control"></msm-site-template>
+          <msm-site-template [value]="newSite.templateId" (valueChanged)="onValueChanged($event, 'template')" class="col-8 p-0 form-control"></msm-site-template>
         </div>
         <div class="row">
           <p class="col-4">Snmp Template Config</p>
-          <msm-snmp-template class="col-8 p-0 form-control"></msm-snmp-template>
+          <msm-snmp-template [value]="newSite.snmpTemplateId" (valueChanged)="onValueChanged($event, 'snmpTemplate')" class="col-8 p-0 form-control"></msm-snmp-template>
         </div>
         <div class="row">
           <p class="col-4">Snmp Data Setup</p>
-          <msm-snmp-data-template class="col-8 p-0 form-control"></msm-snmp-data-template>
+          <msm-snmp-data-template [value]="newSite.snmpDataTemplateId" (valueChanged)="onValueChanged($event, 'snmpDataTemplate')"
+            class="col-8 p-0 form-control"></msm-snmp-data-template>
         </div>
         <div class="row">
           <p class="col-4">Enable HTTPS</p>
-          <input type="checkbox" class="mr-auto my-4">
-        </div> 
+          <input type="checkbox" [(ngModel)]="newSite.ssl" class="mr-auto my-4">
+        </div>
         <div class="row">
           <p class="col-4"><strong>Site's Username</strong></p>
-          <input type="text" class="form-control col-8" placeholder="Multisite" value="Multisite">
+          <input type="text" class="form-control col-8" placeholder="Site's Username" [(ngModel)]="newSite.jsonUserName">
         </div>
         <div class="row">
           <p class="col-4"><strong>Site's Password</strong></p>
-          <input type="password" class="form-control col-8" placeholder="Password" value="Admin123">
+          <input type="password" class="form-control col-8" placeholder="Site's Password" [(ngModel)]="newSite.jsonPassword">
         </div>
       </div>
     </div>
   </div>
   <div class="row p-3 mx-0 my-3 justify-content-end">
-    <button class="btn btn-pill mr-4" (click)="onClick(save)"><i class="fa fa-save"></i> Submit</button>
-    <button class="btn btn-pill mr-4" (click)="onClick(close)"><i class="fa fa-close"> Reject</i></button>
+    <button class="btn btn-pill mr-4" (click)="onAddNewSite()"><i class="fa fa-save"></i> Submit</button>
+    <button class="btn btn-pill mr-4" (click)="onClick(false)"><i class="fa fa-close"> Reject</i></button>
   </div>
 </div>

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MsmSitegroupComponent } from './msm-sitegroup.component';
+import { MsmSiteTemplateComponent } from './msm-site-template.component';
 
-describe('MsmSitegroupComponent', () => {
-  let component: MsmSitegroupComponent;
-  let fixture: ComponentFixture<MsmSitegroupComponent>;
+describe('MsmSiteTemplateComponent', () => {
+  let component: MsmSiteTemplateComponent;
+  let fixture: ComponentFixture<MsmSiteTemplateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MsmSitegroupComponent ]
+      declarations: [MsmSiteTemplateComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MsmSitegroupComponent);
+    fixture = TestBed.createComponent(MsmSiteTemplateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

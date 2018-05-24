@@ -12,16 +12,16 @@ import 'rxjs/add/operator/shareReplay';
 
 export abstract class BaseService {
 
-  constructor(private http: HttpClient, public progressAct: ProgressActions, private modelService: BsModalService) {
+  constructor(private http: HttpClient, private progressAct: ProgressActions, private modelService: BsModalService) {
   }
 
   // Open the confirm diaglog
   protected openConfirmDialog(error) {
     let settings = { title: 'Error', message: error.message };
     var modalRef = msmHelper.openConfirmDialog(this.modelService, settings);
-    modalRef.content.onClose.subscribe(result => {
-      console.log('results', result);
-    });
+    // modalRef.content.onClose.subscribe(result => {
+    //   console.log('results', result);
+    // });
   }
 
   protected startProgress() {

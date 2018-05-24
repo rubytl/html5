@@ -17,16 +17,14 @@ namespace MSM.Data
 
         protected MultisiteDBEntitiesContext Context
         {
-            get
-            {
-                return this.contextFactory.Invoke();
-            }
+            get; set;
         }
 
         #region Properties
         public EntityBaseRepository(Func<MultisiteDBEntitiesContext> context)
         {
             this.contextFactory = context;
+            this.Context = this.contextFactory.Invoke();
         }
 
         #endregion
@@ -78,10 +76,10 @@ namespace MSM.Data
             return await Task.FromResult(Context.Set<T>().Where(predicate));
         }
 
-        public virtual void Add(T entity)
+        public virtual async Task AddAsync(T entity)
         {
             EntityEntry dbEntityEntry = Context.Entry<T>(entity);
-            Context.Set<T>().AddAsync(entity);
+            await Context.Set<T>().AddAsync(entity);
         }
 
         public virtual void Update(T entity)
@@ -105,9 +103,9 @@ namespace MSM.Data
             }
         }
 
-        public virtual void Commit()
+        public virtual async Task CommitAsync()
         {
-            this.Context.SaveChangesAsync();
+            await this.Context.SaveChangesAsync();
         }
     }
 }

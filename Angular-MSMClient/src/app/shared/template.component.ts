@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angu
 export class MsmTemplateComponent implements OnInit, OnDestroy {
     @Output() valueChanged = new EventEmitter<any>();
     @Input() value: any;
+
     ngOnInit() {
         this.onComponentInit();
     }

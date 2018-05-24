@@ -17,7 +17,7 @@ namespace MSMClientAPIService.Services
         Task<AddSiteResult> AddNewSite(SiteModel site);
         Task<bool> UpdateSite(int siteId);
         Task<bool> DeleteSite(int siteId);
-
+        int GetLastSiteID();
         Task<IList<SiteModel>> GetSiteByIds(SiteViewRequest siteViewRequest);
     }
 }

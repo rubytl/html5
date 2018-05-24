@@ -14,7 +14,6 @@ import { NewSiteGroupComponent } from '../new-group/new-group.component';
 })
 export class SiteSetupComponent extends CommonComponent {
   siteSource: any;
-
   constructor(private siteService: SiteService, private modalService: BsModalService, ngRedux: NgRedux<IAppState>
   ) {
     super(ngRedux);

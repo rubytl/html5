@@ -9,6 +9,7 @@ export class MsmDialogComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.onClose = new Subject();
+        this.onComponentInit();
     }
 
     ngOnDestroy() {
@@ -18,5 +19,8 @@ export class MsmDialogComponent implements OnInit, OnDestroy {
     onClick(content) {
         this.onClose.next(content);
         this.bsModalRef.hide();
+    }
+
+    protected onComponentInit() {
     }
 }

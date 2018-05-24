@@ -10,6 +10,8 @@ using System.Linq;
 using MSMClientAPIService.Models;
 using MSMClientAPIService.Mapping;
 using MSMClientAPIService.Services;
+using MSMClientAPIService.Enums;
+using System;
 
 namespace MSMClientAPIService.Controllers
 {
@@ -69,8 +71,18 @@ namespace MSMClientAPIService.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("add")]
-        public IActionResult AddNewSite([FromBody]SiteModel site)
-            => Ok(this.siteService.AddNewSite(site));
+        public async Task<IActionResult> AddNewSite([FromBody]SiteModel site)
+        {
+            var result = await this.siteService.AddNewSite(site);
+            if (result == AddSiteResult.Ok)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
 
         // GET api/sites
         /// <summary>
@@ -89,6 +101,10 @@ namespace MSMClientAPIService.Controllers
         [HttpPost("delete")]
         public IActionResult DeleteSite(int siteId)
             => Ok(this.siteService.DeleteSite(siteId));
+
+        [HttpGet("lastId")]
+        public IActionResult GetLastSiteID()
+            => Ok(this.siteService.GetLastSiteID());
     }
 }
 
