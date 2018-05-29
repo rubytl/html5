@@ -65,8 +65,14 @@ export function createPriorityList() {
     ]
 }
 
-export function openConfirmDialog(modalService: BsModalService, settings): BsModalRef {
+export function openNotificationDialog(modalService: BsModalService, settings): BsModalRef {
     settings.contents = [{ description: 'OK', value: true }];
+    const initialState = { settings };
+    return modalService.show(MsmDialogComponent, { initialState: initialState });
+}
+
+export function openConfirmDialog(modalService: BsModalService, settings): BsModalRef {
+    settings.contents = [{ description: 'OK', value: true }, { description: 'Cancel', value: false }];
     const initialState = { settings };
     return modalService.show(MsmDialogComponent, { initialState: initialState });
 }

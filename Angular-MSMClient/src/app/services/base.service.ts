@@ -16,9 +16,9 @@ export abstract class BaseService {
   }
 
   // Open the confirm diaglog
-  protected openConfirmDialog(error) {
+  protected openNotificationDialog(error) {
     let settings = { title: 'Error', message: error.message };
-    var modalRef = msmHelper.openConfirmDialog(this.modelService, settings);
+    var modalRef = msmHelper.openNotificationDialog(this.modelService, settings);
     // modalRef.content.onClose.subscribe(result => {
     //   console.log('results', result);
     // });
@@ -36,7 +36,7 @@ export abstract class BaseService {
     this.finishProgress();
 
     // Show the model dialog here
-    this.openConfirmDialog(error);
+    this.openNotificationDialog(error);
   }
 
   protected post(url, data, headers): Promise<any> {

@@ -7,7 +7,7 @@ import { IAppState } from './inital-state';
 import { siteInProgressReducer } from './site-in-progress.reducer';
 import { loginInProgressReducer } from './login-in-progress.reducer';
 import { alarmInProgressReducer } from './alarm-in-progress.reducer';
-
+import { editSiteReducer } from './site-edit.reducer';
 export {
     IAppState
 }
@@ -15,6 +15,7 @@ export {
 export const rootReducer = combineReducers<IAppState>({
     sites: siteReducer,
     selectedSite: selectedSiteReducer,
+    editSite: editSiteReducer,
     inProgress: inProgressReducer,
     siteInProgress: siteInProgressReducer,
     loginInProgress: loginInProgressReducer,
@@ -24,6 +25,7 @@ export const rootReducer = combineReducers<IAppState>({
 export const enhancers = [
     persistState('sites', { key: 'ng2-redux' }),
     persistState('selectedSite', { key: 'ng2-redux' }),
+    persistState('editSite', { key: 'ng2-redux' }),
     persistState('inProgress', { key: 'ng2-redux' }),
     persistState('siteInProgress', { key: 'ng2-redux' }),
     persistState('loginInProgress', { key: 'ng2-redux' }),

@@ -34,11 +34,11 @@ namespace MSM.Data.Repositories
         public async Task<IQueryable<SnmpreceiverHistory>> GetFilteredSNMPReceiverHistory(List<int> statusCode,
             DateTime? fromTime, DateTime? endTime, long maxAlarmID)
         {
-            return await this.FindByAsync(s => !string.IsNullOrEmpty(s.Ipaddress) &&
+            return await Task.FromResult(this.FindBy(s => !string.IsNullOrEmpty(s.Ipaddress) &&
              (fromTime.HasValue ? s.ReceiveTime >= fromTime : true) &&
              (endTime.HasValue ? s.ReceiveTime <= endTime : true) &&
              s.SnmptrapId > maxAlarmID &&
-             statusCode.Contains(s.EventType));
+             statusCode.Contains(s.EventType)));
         }
 
         /// <summary>

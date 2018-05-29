@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MSM.Common.Helpers;
 using MSM.Data.Models;
 using MSM.Data.PresentationModel;
 using MSM.Data.Repositories.Interfaces;
@@ -9,6 +10,7 @@ using MSMClientAPIService.Enums;
 using MSMClientAPIService.Mapping;
 using MSMClientAPIService.Mapping.Models;
 using MSMClientAPIService.Models;
+using MSMEnumerations;
 using Tørketrommel;
 
 namespace MSMClientAPIService.Services
@@ -16,9 +18,13 @@ namespace MSMClientAPIService.Services
     public class SiteService : ISiteService
     {
         private ISiteRepository siteRepo;
-        public SiteService(ISiteRepository siteRepo)
+        private INetworkDeviceRepository networkDeviceRepo;
+        private ISiteNotificationRepository siteNotiRepo;
+        public SiteService(ISiteRepository siteRepo, INetworkDeviceRepository networkDeviceRepo, ISiteNotificationRepository siteNotiRepo)
         {
             this.siteRepo = siteRepo;
+            this.networkDeviceRepo = networkDeviceRepo;
+            this.siteNotiRepo = siteNotiRepo;
         }
 
         public async Task<IList<SiteModel>> GetSites()
@@ -32,9 +38,9 @@ namespace MSMClientAPIService.Services
             return await this.siteRepo.GetSitesListView(siteViewRequest.SiteIds, siteViewRequest.PageIndex, siteViewRequest.PageSize);
         }
 
-        public async Task<IList<SiteModel>> GetSiteByIds(SiteViewRequest siteViewRequest)
+        public IList<SiteModel> GetSiteByIds(SiteViewRequest siteViewRequest)
         {
-            var sites = await siteRepo.FindByAsync(s => siteViewRequest.SiteIds.Contains(s.Id));
+            var sites = siteRepo.FindBy(s => siteViewRequest.SiteIds.Contains(s.Id));
             sites = sites.Skip(siteViewRequest.PageIndex * siteViewRequest.PageSize).Take(siteViewRequest.PageSize);
             return this.DoMappingSiteToSiteModel(sites);
         }
@@ -51,9 +57,9 @@ namespace MSMClientAPIService.Services
         /// <returns>
         /// The list of site
         /// </returns>
-        private async Task TraverseSiteChildren(Site site, List<Site> chilren)
+        private void TraverseSiteChildren(Site site, List<Site> chilren)
         {
-            var directChilds = await this.siteRepo.FindByAsync(s => s.ParentId == site.Id);
+            var directChilds = this.siteRepo.FindBy(s => s.ParentId == site.Id);
             if (directChilds != null)
             {
                 foreach (Site directChild in directChilds)
@@ -63,7 +69,7 @@ namespace MSMClientAPIService.Services
                         chilren.Add(directChild);
                     }
 
-                    await this.TraverseSiteChildren(directChild, chilren);
+                    this.TraverseSiteChildren(directChild, chilren);
                 }
             }
         }
@@ -95,7 +101,7 @@ namespace MSMClientAPIService.Services
             foreach (Site site in sites)
             {
                 this.TraverseSiteParents(site, result);
-                await this.TraverseSiteChildren(site, result);
+                this.TraverseSiteChildren(site, result);
             }
 
             return this.DoMappingSiteToSiteModel(sites);
@@ -137,11 +143,55 @@ namespace MSMClientAPIService.Services
             //    await this.siteRepo.Commit();
             //}
 
+            if (!string.IsNullOrEmpty(site.Address))
+            {
+                var shouldDefineSecurityProtocol = ControllerTypeHelper.ShouldDefineSecurityProtocol((ControllerTypeEnum)site.ControllerType);
+                if (shouldDefineSecurityProtocol)
+                {
+                    var securityProtocol = SecurityProtocolEnum.Ssl3;
+                    var controllerInfo = await this.networkDeviceRepo.GetSingleAsync(s => s.Ipaddress == site.Address);
+                    if (controllerInfo != null)
+                    {
+                        securityProtocol = controllerInfo.UseTls12 ? SecurityProtocolEnum.Tls12 : SecurityProtocolEnum.Ssl3;
+                    }
+
+                    site.SecurityProtocol = (byte)securityProtocol;
+                }
+            }
+
+            // Update NotificationID base on parent's Site/Group
+            await this.AddNewNotification(site);
             await this.siteRepo.AddAsync(SiteMappingProfile.MapSiteModelToSite(site));
             await this.siteRepo.CommitAsync();
 
             return await Task.FromResult(AddSiteResult.Ok);
         }
+
+        private async Task AddNewNotification(SiteModel site)
+        {
+            if (site.ParentId.HasValue)
+            {
+                var notificationParent = this.siteNotiRepo.FindBy(sn => sn.SiteId == site.ParentId);
+
+                // Insert new notification
+                foreach (var newItem in notificationParent)
+                {
+                    SiteNotification newSiteNotification = new SiteNotification
+                    {
+                        SiteId = site.Id,
+                        NotificationId = newItem.NotificationId,
+                        InheritedNotification = newItem.InheritedNotification,
+                        InheritedReceiver = newItem.InheritedReceiver,
+                        DefaultReceiver = newItem.DefaultReceiver,
+                        Enabled = newItem.Enabled,
+                    };
+
+                    // Add New
+                    await this.siteNotiRepo.AddAsync(newSiteNotification);
+                }
+            }
+        }
+
         private async Task<AddSiteResult> CanAddSite()
         {
             try

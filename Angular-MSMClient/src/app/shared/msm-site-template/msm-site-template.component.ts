@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TemplateService } from '../../services';
 import { MsmTemplateComponent } from '../template.component';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'msm-site-template',
@@ -9,11 +10,12 @@ import { MsmTemplateComponent } from '../template.component';
 })
 export class MsmSiteTemplateComponent extends MsmTemplateComponent {
   templateSource: any;
-  constructor(private templateService: TemplateService) {
-    super();
+  constructor(fb: FormBuilder, private templateService: TemplateService) {
+    super(fb);
+    this.onComponentLoaded();
   }
 
-  protected onComponentInit() {
+  private onComponentLoaded() {
     this.templateService.getTemplates()
       .then(res => this.templateSource = res);
   }

@@ -1,73 +1,75 @@
-<div class="d-flex flex-column">
-  <div class="msm-content">
-    <table class="table table-striped table-bordered table-hover table-responsive table-sm">
-      <thead class="thead-default">
-        <tr>
-          <th></th>
-          <th>ID</th>
-          <th>Site/Group Name</th>
-          <th>Priority</th>
-          <th>Address</th>
-          <th>Controller Type</th>
-          <th>Latitude</th>
-          <th>Longtitude</th>
-          <th>Group</th>
-          <th>Template</th>
-          <th>SNMP template</th>
-          <th>SNMP data setup</th>
-          <th>Enable HTTPS</th>
-          <th>Site's username</th>
-          <th>Site's password</th>
-          <th>Camera</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let site of siteSource">
-          <td><i class="fa fa-caret-right p-3"></i></td>
-          <td>{{site.id}}</td>
-          <td><input type="text" class="form-control" value={{site.description}}></td>
-          <td>
-            <msm-priority [value]="site.sitePriority"></msm-priority>
-          </td>
-          <td><input type="text" class="form-control" value={{site.address}}></td>
-          <td>
-            <msm-controller-type [value]="site.controllerType"></msm-controller-type>
-          </td>
-          <td><input type="text" class="form-control" value={{site.latitude}}></td>
-          <td><input type="text" class="form-control" value={{site.longitude}}></td>
-          <td>
-            <msm-sitegroup [value]="site.parentId"></msm-sitegroup>
-          </td>
-          <td>
-            <msm-site-template [value]="site.templateId"></msm-site-template>
-          </td>
-          <td>
-            <msm-snmp-template [value]="site.snmpTemplateId"></msm-snmp-template>
-          </td>
-          <td>
-            <msm-snmp-data-template [value]="site.snmpDataTemplateId"></msm-snmp-data-template>
-          </td>
-          <td><input type="checkbox" class="form-control" [checked]="site.ssl"></td>
-          <td><input type="text" class="form-control" value={{site.jsonUserName}}></td>
-          <td><input type="password" class="form-control" value={{site.jsonPassword}}></td>
-          <td>
-            <button class="btn"><i class="fa fa-camera"></i></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<form [formGroup]="siteForm" (ngSubmit)="onSaveChanges()">
+  <div class="d-flex flex-column">
+    <div class="msm-content">
+      <table class="table table-striped table-bordered table-hover table-responsive table-sm">
+        <thead class="thead-default">
+          <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Site/Group Name</th>
+            <th>Priority</th>
+            <th>Address</th>
+            <th>Controller Type</th>
+            <th>Latitude</th>
+            <th>Longtitude</th>
+            <th>Group</th>
+            <th>Template</th>
+            <th>SNMP template</th>
+            <th>SNMP data setup</th>
+            <th>Enable HTTPS</th>
+            <th>Site's username</th>
+            <th>Site's password</th>
+            <th>Camera</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="siteSource">
+          <tr *ngFor="let site of siteSource.controls; let i=index" [formGroupName]="i" (click)="onRowClick(i)">
+            <td><i class="fa fa-caret-right p-3"></i></td>
+            <td>{{site.get('id').value}}</td>
+            <td><input type="text" class="form-control" formControlName="description"></td>
+            <td>
+              <msm-priority [value]="site.get('sitePriority').value"></msm-priority>
+            </td>
+            <td><input type="text" class="form-control" formControlName="address"></td>
+            <td>
+              <msm-controller-type [value]="site.get('controllerType').value"></msm-controller-type>
+            </td>
+            <td><input type="text" class="form-control" formControlName="latitude"></td>
+            <td><input type="text" class="form-control" formControlName="longitude"></td>
+            <td>
+              <msm-sitegroup [value]="site.get('parentId').value"></msm-sitegroup>
+            </td>
+            <td>
+              <msm-site-template [value]="site.get('templateId').value"></msm-site-template>
+            </td>
+            <td>
+              <msm-snmp-template [value]="site.get('snmpTemplateId').value"></msm-snmp-template>
+            </td>
+            <td>
+              <msm-snmp-data-template [value]="site.get('snmpDataTemplateId').value"></msm-snmp-data-template>
+            </td>
+            <td><input type="checkbox" class="form-control" formControlName="ssl"></td>
+            <td><input type="text" class="form-control" formControlName="jsonUserName"></td>
+            <td><input type="password" class="form-control" formControlName="jsonPassword"></td>
+            <td>
+              <button class="btn"><i class="fa fa-camera"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 
-<div class="card">
-  <div class="card-header d-flex flex-row">
-    <button class="btn  btn-pill mr-4" (click)="onAddNewSite()"><i class="fa fa-plus"></i> Add Site</button>
-    <button class="btn  btn-pill mr-4"><i class="fa fa-minus"> Delete Site</i></button>
-    <button class="btn  btn-pill mr-4" (click)="onAddNewGroup()"><i class="fa fa-sitemap"> Add Group</i></button>
-    <button class="btn  btn-pill mr-4"><i class="fa fa-file-excel-o"></i> Export To Excel</button>
-    <button class="btn  btn-pill mr-4"><i class="fa fa-save"></i> Save Changes</button>
-    <button class="btn  btn-pill"><i class="fa fa-undo"></i> Reject Changes</button>
-    <msm-paginator class="ml-auto" [pageSizeOptions]="[10,20,30,40]" [pageLength]="paging.pageLength" [(pageIndex)]="paging.pageIndex"
-      (currentPageChange)="onCurrentPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></msm-paginator>
+  <div class="card">
+    <div class="card-header d-flex flex-row">
+      <button class="btn  btn-pill mr-4" (click)="onAddNewSite()"><i class="fa fa-plus"></i> Add Site</button>
+      <button class="btn  btn-pill mr-4" (click)="onDeleteSite()"><i class="fa fa-minus"> Delete Site</i></button>
+      <button class="btn  btn-pill mr-4" (click)="onAddNewGroup()"><i class="fa fa-sitemap"> Add Group</i></button>
+      <button class="btn  btn-pill mr-4"><i class="fa fa-file-excel-o"></i> Export To Excel</button>
+      <button class="btn  btn-pill mr-4" type="submit" [disabled]="siteForm.pristine"><i class="fa fa-save"></i> Save Changes</button>
+      <button class="btn  btn-pill" [disabled]="siteForm.pristine" (click)="onRejectChanges()"><i class="fa fa-undo"></i> Reject Changes</button>
+      <msm-paginator class="ml-auto" [pageSizeOptions]="[10,20,30,40]" [pageLength]="paging.pageLength" [(pageIndex)]="paging.pageIndex"
+        (currentPageChange)="onCurrentPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></msm-paginator>
+    </div>
   </div>
-</div>
+</form>

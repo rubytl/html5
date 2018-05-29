@@ -153,18 +153,20 @@ namespace MSMClientAPIService
         private void AddDependencyInjection(IServiceCollection services)
         {
             (new LoginHelper(this.Configuration)).RegisterTørkService();
-            
+
             // services helper
-            services.AddSingleton<ISiteService, SiteService>();
-            services.AddSingleton<IAuthService, AuthService>();
+            services.AddScoped<ISiteService, SiteService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             // repositories
-            services.AddSingleton<ISiteRepository, SiteRepository>();
-            services.AddSingleton<IUserMaintenanceRepository, UserMaintenanceRepository>();
+            services.AddScoped<ISiteRepository, SiteRepository>();
+            services.AddScoped<IUserMaintenanceRepository, UserMaintenanceRepository>();
             services.AddSingleton<IAlarmRepository, AlarmRepository>();
-            services.AddSingleton<ITemplateRepository, TemplateRepository>();
-            services.AddSingleton<ISnmpDataTemplateRepository, SnmpDataTemplateRepository>();
-            services.AddSingleton<ISnmpConfigTemplateRepository, SnmpConfigTemplateRepository>();
+            services.AddScoped<ITemplateRepository, TemplateRepository>();
+            services.AddScoped<ISnmpDataTemplateRepository, SnmpDataTemplateRepository>();
+            services.AddScoped<ISnmpConfigTemplateRepository, SnmpConfigTemplateRepository>();
+            services.AddScoped<INetworkDeviceRepository, NetworkDeviceRepository>();
+            services.AddScoped<ISiteNotificationRepository, SiteNotificationRepository>();
         }
     }
 }

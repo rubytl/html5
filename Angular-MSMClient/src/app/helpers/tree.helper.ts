@@ -1,12 +1,13 @@
 var priorities = [];
 var siteGroups = [];
+var mappedArr;
+var tree;
 priorities.splice(0, 0, { Description: "All", Value: "0" });
 siteGroups.splice(0, 0, { Description: "", id: -1 });
 export function listToTree(arr) {
-    var tree = [],
-        mappedArr = {},
-        arrElem,
-        mappedElem;
+    tree = [];
+    mappedArr = {};
+    var arrElem, mappedElem;
 
     if (arr === null || arr.length == 0) {
         return tree;
@@ -19,7 +20,8 @@ export function listToTree(arr) {
             priorities.push({ Description: arrElem.sitePriority.toString(), Value: arrElem.sitePriority });
         }
 
-        if (arrElem.address === null && siteGroups.findIndex(s => s.id === arrElem.id) < 0) {
+        if ((arrElem.address === null || arrElem.address === "")
+            && siteGroups.findIndex(s => s.id === arrElem.id) < 0) {
             siteGroups.push(arrElem);
         }
 
@@ -50,4 +52,32 @@ export function createPriorityList() {
 
 export function createSiteGroups() {
     return siteGroups;
+}
+
+export function addNewSite(newSite) {
+    if (newSite.parentId && mappedArr[newSite.parentId]) {
+        mappedArr[newSite.parentId]['children'].push(newSite);
+    }
+    // If the element is at the root level, add it to first level elements array.
+    else {
+        tree.push(newSite);
+    }
+
+    if (newSite.address === null || newSite.address === "") {
+        this.siteGroups.push(newSite);
+    }
+}
+
+export function removeSite(newSite) {
+    if (newSite.parentId && mappedArr[newSite.parentId]) {
+        mappedArr[newSite.parentId]['children'].remove(newSite);
+    }
+    // If the element is at the root level, add it to first level elements array.
+    else {
+        tree.reduce(newSite);
+    }
+
+    if (newSite.address === null || newSite.address === "") {
+        this.siteGroups.reduce(newSite);
+    }
 }

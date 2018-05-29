@@ -3,7 +3,7 @@ import { NgRedux } from 'ng2-redux';
 import { Subject } from 'rxjs/Subject';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 export class MsmDialogComponent implements OnInit, OnDestroy {
-    private onClose: Subject<boolean>;
+    private onClose: Subject<any>;
     constructor(private bsModalRef: BsModalRef) {
     }
 

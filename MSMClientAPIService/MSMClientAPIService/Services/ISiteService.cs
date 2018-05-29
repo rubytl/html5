@@ -18,6 +18,6 @@ namespace MSMClientAPIService.Services
         Task<bool> UpdateSite(int siteId);
         Task<bool> DeleteSite(int siteId);
         int GetLastSiteID();
-        Task<IList<SiteModel>> GetSiteByIds(SiteViewRequest siteViewRequest);
+        IList<SiteModel> GetSiteByIds(SiteViewRequest siteViewRequest);
     }
 }

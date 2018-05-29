@@ -3,7 +3,7 @@
         <div class="col-md-7 d-md-flex flex-row alarm-header p-0">
             <div class="alarm-header d-md-flex flex-row align-items-center">
                 <a>Filter:</a>
-                <filter-type (filterTypeChange)="onFilterTypeChange($event)"></filter-type>
+                <filter-type (valueChanged)="onFilterTypeChange($event)"></filter-type>
             </div>
             <div class="alarm-header d-md-flex flex-row align-items-center">
                 <a>Site:</a>

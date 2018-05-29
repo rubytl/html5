@@ -6,6 +6,7 @@ import { Site } from '../../../../models';
 import { ControllerTypeEnum } from '../../../../enums';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { msmHelper } from '../../../../helpers';
+import { EditSiteActions } from '../../../../actions';
 
 @Component({
   selector: 'msm-new-site',
@@ -14,7 +15,8 @@ import { msmHelper } from '../../../../helpers';
 })
 export class NewSiteComponent extends MsmDialogComponent {
   newSite: Site;
-  constructor(bsModalRef: BsModalRef, private siteService: SiteService, private modelService: BsModalService) {
+  constructor(bsModalRef: BsModalRef, private siteService: SiteService,
+    private modelService: BsModalService, private editSiteAction: EditSiteActions) {
     super(bsModalRef);
   }
 
@@ -25,24 +27,29 @@ export class NewSiteComponent extends MsmDialogComponent {
 
   onAddNewSite() {
     this.siteService.addNewSite(this.newSite)
-      .then(res => this.openConfirmDialog('Success', 'Site saved successfully'))
+      .then(res => {
+        if (res === 4) {
+          this.editSiteAction.addNewSite(this.newSite);
+          this.openNotificationDialog('Success', 'Site saved successfully');
+        }
+      })
       .catch(ex => {
         var error = ex.error;
         if (error === 1) {
-          this.openConfirmDialog('Error', "Site limit exceeded");
+          this.openNotificationDialog('Error', "Max number of sites reached on this version.\nPlease contacts MSM support (MSM.Support@eltek.com)");
         }
         else if (error === 2) {
-          this.openConfirmDialog('Error', "License invalid");
+          this.openNotificationDialog('Error', "No valid license for MSM was found.\nPlease contacts MSM support (MSM.Support@eltek.com)");
         }
         else if (error === 3) {
-          this.openConfirmDialog('Error', "License expired");
+          this.openNotificationDialog('Error', "License has been expired for MSM.\nPlease contacts MSM support (MSM.Support@eltek.com)");
         }
         else {
-          this.openConfirmDialog('Error', "Site failed to check");
+          this.openNotificationDialog('Error', "Failed to check if Site can be added or not.\nPlease contacts MSM support (MSM.Support@eltek.com)");
         }
       });
 
-    this.onClick(null);
+    this.onClick(this.newSite);
   }
 
   protected onValueChanged(event, name) {
@@ -67,8 +74,8 @@ export class NewSiteComponent extends MsmDialogComponent {
   }
 
   // Open the confirm diaglog
-  private openConfirmDialog(tittle, message) {
+  private openNotificationDialog(tittle, message) {
     let settings = { title: tittle, message: message };
-    msmHelper.openConfirmDialog(this.modelService, settings);
+    msmHelper.openNotificationDialog(this.modelService, settings);
   }
 }

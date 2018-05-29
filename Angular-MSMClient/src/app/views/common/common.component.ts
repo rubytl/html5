@@ -11,7 +11,6 @@ export class CommonComponent implements OnInit, OnDestroy {
     siteListViews: any;
     paging: Paging;
     pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    siteIds = [];
     constructor(private ngRedux: NgRedux<IAppState>) {
     }
 
@@ -66,16 +65,15 @@ export class CommonComponent implements OnInit, OnDestroy {
         return selectedSite;
     }
 
-    protected trarveChildren(site) {
+    protected trarveChildren(site, siteIds) {
         if (site === null) {
             return;
         }
 
-        this.siteIds.push(site.id);
+        siteIds.push(site.id);
         if (site.children != null) {
             site.children.forEach(element => {
-                this.siteIds.push(element.id);
-                this.trarveChildren(element);
+                this.trarveChildren(element, siteIds);
             });
         }
     }

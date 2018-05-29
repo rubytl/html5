@@ -68,17 +68,16 @@ namespace MSM.Data
                 query = query.Include(includeProperty);
             }
 
-            return await query.Where(predicate).FirstOrDefaultAsync();
+            return await query.FirstOrDefaultAsync(predicate);
         }
 
-        public virtual async Task<IQueryable<T>> FindByAsync(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
-            return await Task.FromResult(Context.Set<T>().Where(predicate));
+            return Context.Set<T>().Where(predicate);
         }
 
         public virtual async Task AddAsync(T entity)
         {
-            EntityEntry dbEntityEntry = Context.Entry<T>(entity);
             await Context.Set<T>().AddAsync(entity);
         }
 

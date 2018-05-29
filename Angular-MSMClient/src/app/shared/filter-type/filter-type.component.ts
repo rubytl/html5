@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { msmHelper } from '../../helpers';
 import { MsmTemplateComponent } from '../template.component';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'filter-type',
@@ -9,5 +10,8 @@ import { MsmTemplateComponent } from '../template.component';
 })
 export class FilterTypeComponent extends MsmTemplateComponent {
   filterTypes = msmHelper.createFilterTypeList();
-  value = this.filterTypes[0].value;
+  constructor(fb: FormBuilder) {
+    super(fb);
+    this.templateForm = fb.group({ value: this.filterTypes[0].value });
+  }
 }

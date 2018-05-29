@@ -48,8 +48,8 @@ namespace MSMClientAPIService.Controllers
             => Ok(await this.siteService.GetSites());
 
         [HttpPost("siteByIds")]
-        public async Task<IActionResult> GetSiteByIds([FromBody] SiteViewRequest siteViewRequest)
-            => Ok(await this.siteService.GetSiteByIds(siteViewRequest));
+        public IActionResult GetSiteByIds([FromBody] SiteViewRequest siteViewRequest)
+            => Ok(this.siteService.GetSiteByIds(siteViewRequest));
 
         // GET api/sites
         /// <summary>

@@ -6,6 +6,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { SpinnerComponent } from './spinner/spinner.component';
 import { FilterTypeComponent } from './filter-type/filter-type.component';
@@ -31,7 +33,7 @@ import { NewSiteComponent } from '../views/system/administration/new-site/new-si
 import { NewSiteGroupComponent } from '../views/system/administration/new-group/new-group.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
     declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
         SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
@@ -39,7 +41,7 @@ import { NewSiteGroupComponent } from '../views/system/administration/new-group/
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
         MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
         NewSiteGroupComponent],
-    exports: [SpinnerComponent, FilterTypeComponent, FormsModule, CommonModule, MsmPaginatorComponent, MsmSortingComponent,
+    exports: [FormsModule, CommonModule, ReactiveFormsModule, SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
         SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
         MsmFooterComponent, MsmAsideComponent,

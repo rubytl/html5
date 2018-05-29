@@ -62,7 +62,7 @@
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns></returns>
-        Task<IQueryable<T>> FindByAsync(Expression<Func<T, bool>> predicate);
+        IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
 
         /// <summary>
         /// Gets all.

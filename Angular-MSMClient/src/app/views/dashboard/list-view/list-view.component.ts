@@ -12,6 +12,7 @@ import { CommonComponent } from '../../common/common.component';
 
 export class ListViewComponent extends CommonComponent {
     siteListViews: any;
+    private siteIds = [];
     constructor(
         private listViewSVC: ListViewApiService,
         ngRedux: NgRedux<IAppState>
@@ -31,7 +32,7 @@ export class ListViewComponent extends CommonComponent {
 
     onSelectedSite(selectedSite) {
         this.siteIds = [];
-        this.trarveChildren(selectedSite);
+        this.trarveChildren(selectedSite, this.siteIds);
         this.filterSiteView();
     }
 
