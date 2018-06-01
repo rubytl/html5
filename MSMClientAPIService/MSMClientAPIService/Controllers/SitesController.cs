@@ -89,18 +89,18 @@ namespace MSMClientAPIService.Controllers
         /// Gets this instance.
         /// </summary>
         /// <returns></returns>
-        [HttpPut("update")]
-        public IActionResult UpdateSite(int siteId)
-            => Ok(this.siteService.UpdateSite(siteId));
+        [HttpPut]
+        public async Task<IActionResult> UpdateSites([FromBody]SiteUpdateRequest updateReq)
+            => Ok(await this.siteService.UpdateSites(updateReq.Sites));
 
         // GET api/sites
         /// <summary>
         /// Gets this instance.
         /// </summary>
         /// <returns></returns>
-        [HttpPost("delete")]
-        public IActionResult DeleteSite(int siteId)
-            => Ok(this.siteService.DeleteSite(siteId));
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSites([System.Web.Http.FromUri]List<int> siteIds)
+            => Ok(await this.siteService.DeleteSites(siteIds));
 
         [HttpGet("lastId")]
         public IActionResult GetLastSiteID()

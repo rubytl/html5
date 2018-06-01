@@ -17,7 +17,7 @@ export class ListViewComponent extends CommonComponent {
         private listViewSVC: ListViewApiService,
         ngRedux: NgRedux<IAppState>
     ) {
-        super(ngRedux);
+        super(ngRedux, null);
     }
 
     ngOnInit() {

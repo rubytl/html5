@@ -21,7 +21,12 @@ export class NewSiteComponent extends MsmDialogComponent {
   }
 
   protected onComponentInit() {
-    this.newSite = new Site({ sitePriority: 3, controllerType: ControllerTypeEnum.smartpack, templateId: "0001", ssl: true, jsonUserName: 'Multisite', jsonPassword: "Ah83siO@kda%938kJdsA" });
+    this.newSite = new Site({
+      id: null, parentId: null, sitePriority: 3, controllerType: ControllerTypeEnum.smartpack,
+      address: '', templateId: "0001",
+      latitude: '', longitude: '', snmpTemplateId: null, snmpDataTemplateId: '',
+      ssl: true, jsonUserName: 'Multisite', jsonPassword: "Ah83siO@kda%938kJdsA"
+    });
     this.siteService.getLastSiteID().then(res => this.newSite.id = res + 1);
   }
 

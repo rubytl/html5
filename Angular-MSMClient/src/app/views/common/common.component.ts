@@ -1,17 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { Subscription } from 'rxjs/Subscription';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import 'rxjs/add/operator/catch';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Paging, Sorting } from '../../models'
 import { IAppState } from '../../store';
+import { msmHelper } from '../../helpers';
 
 export class CommonComponent implements OnInit, OnDestroy {
     selectSiteSub: Subscription;
     siteListViews: any;
     paging: Paging;
     pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    constructor(private ngRedux: NgRedux<IAppState>) {
+    constructor(private ngRedux: NgRedux<IAppState>, public modalService: BsModalService) {
     }
 
     ngOnInit() {
@@ -76,5 +78,17 @@ export class CommonComponent implements OnInit, OnDestroy {
                 this.trarveChildren(element, siteIds);
             });
         }
+    }
+
+    // Open the confirm diaglog
+    protected openConfirmDialog(title, message) {
+        let settings = { title: title, message: message };
+        return msmHelper.openConfirmDialog(this.modalService, settings);
+    }
+
+    // Open the confirm diaglog
+    protected openNotificationDialog(title, message) {
+        let settings = { title: title, message: message };
+        return msmHelper.openNotificationDialog(this.modalService, settings);
     }
 }

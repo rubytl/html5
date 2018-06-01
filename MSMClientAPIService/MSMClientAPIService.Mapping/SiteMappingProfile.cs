@@ -17,6 +17,36 @@ namespace MSMClientAPIService.Mapping
         /// </summary>
         /// <param name="site">The site.</param>
         /// <returns></returns>
+        public static void MapSiteModelToExistingSite(SiteModel site, Site siteEntity)
+        {
+            siteEntity.ParentId = site.ParentId;
+            siteEntity.Description = site.Description;
+            siteEntity.IsToplevel = site.IsToplevel;
+            siteEntity.Status = site.Status;
+            siteEntity.Address = site.Address;
+            siteEntity.Latitude = site.Latitude;
+            siteEntity.Longitude = site.Longitude;
+            siteEntity.SystemType = site.SystemType;
+            siteEntity.TemplateId = site.TemplateId;
+            siteEntity.SitePriority = site.SitePriority;
+            siteEntity.JsonService = site.JsonService;
+            siteEntity.JsonPassword = site.JsonPassword;
+            siteEntity.Ssl = site.Ssl;
+            siteEntity.JsonUserName = site.JsonUserName;
+            siteEntity.NotificationEnabled = site.NotificationEnabled;
+            siteEntity.NotificationName = site.NotificationName;
+            siteEntity.SharedCategories = site.SharedCategories;
+            siteEntity.ControllerType = site.ControllerType;
+            siteEntity.SnmpTemplateId = site.SnmpTemplateId;
+            siteEntity.SnmpDataTemplateId = site.SnmpDataTemplateId;
+            siteEntity.SecurityProtocol = site.SecurityProtocol;
+        }
+
+        /// <summary>
+        /// Maps the site model to site.
+        /// </summary>
+        /// <param name="site">The site.</param>
+        /// <returns></returns>
         public static Site MapSiteModelToSite(SiteModel site)
         {
             return new Site()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MSMClientAPIService.Mapping.Models;
 
 namespace MSMClientAPIService.Models
 {
@@ -15,6 +16,11 @@ namespace MSMClientAPIService.Models
     public class SiteViewRequest : PagingRequest
     {
         public List<int> SiteIds { get; set; }
+    }
+
+    public class SiteUpdateRequest
+    {
+        public List<SiteModel> Sites { get; set; }
     }
 
     public class AlarmRequest : PagingRequest

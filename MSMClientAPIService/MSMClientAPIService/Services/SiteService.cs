@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using MSM.Common.Helpers;
 using MSM.Data.Models;
 using MSM.Data.PresentationModel;
@@ -118,18 +119,25 @@ namespace MSMClientAPIService.Services
             return result;
         }
 
-        public async Task<bool> UpdateSite(int siteId)
+        public async Task<bool> UpdateSites(List<SiteModel> sites)
         {
-            var site = await this.siteRepo.GetSingleAsync(s => s.Id == siteId);
-            this.siteRepo.Update(site);
+            foreach (var site in sites)
+            {
+                var siteEntity = await this.siteRepo.GetSingleAsync(s => site.Id == s.Id);
+                if (siteEntity != null)
+                {
+                    SiteMappingProfile.MapSiteModelToExistingSite(site, siteEntity);
+                }
+            }
+
+            // Attempt to save changes to the database
             await this.siteRepo.CommitAsync();
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteSite(int siteId)
+        public async Task<bool> DeleteSites(List<int> siteIds)
         {
-            var site = await this.siteRepo.GetSingleAsync(s => s.Id == siteId);
-            this.siteRepo.Delete(site);
+            this.siteRepo.DeleteWhere(s => siteIds.Contains(s.Id));
             await this.siteRepo.CommitAsync();
             return await Task.FromResult(true);
         }

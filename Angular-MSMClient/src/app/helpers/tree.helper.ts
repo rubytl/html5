@@ -68,16 +68,28 @@ export function addNewSite(newSite) {
     }
 }
 
-export function removeSite(newSite) {
-    if (newSite.parentId && mappedArr[newSite.parentId]) {
-        mappedArr[newSite.parentId]['children'].remove(newSite);
-    }
-    // If the element is at the root level, add it to first level elements array.
-    else {
-        tree.reduce(newSite);
+function removeItemById(arr, id) {
+    if (arr === undefined || arr.length === 0) {
+        return;
     }
 
-    if (newSite.address === null || newSite.address === "") {
-        this.siteGroups.reduce(newSite);
-    }
+    var index = arr.findIndex(s => s.id === id);
+    if (index !== -1) arr.splice(index, 1);
 }
+
+export function removeSite(deletedSites) {
+    deletedSites.forEach(deletedSite => {
+        if (deletedSite.parentId && mappedArr[deletedSite.parentId]) {
+            removeItemById(mappedArr[deletedSite.parentId]['children'], deletedSite.id);
+        }
+        // If the element is at the root level, add it to first level elements array.
+        else {
+            removeItemById(tree, deletedSite.id);
+        }
+
+        if (deletedSite.address === null || deletedSite.address === "") {
+            removeItemById(this.siteGroups, deletedSite.id);
+        }
+    });
+}
+

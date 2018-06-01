@@ -15,8 +15,8 @@ namespace MSMClientAPIService.Services
         Task<IList<SiteModel>> GetFilteredSite(int filter, string siteName);
         Task<IEnumerable<SiteListViewDTO>> GetSitesListView(SiteViewRequest siteViewRequest);
         Task<AddSiteResult> AddNewSite(SiteModel site);
-        Task<bool> UpdateSite(int siteId);
-        Task<bool> DeleteSite(int siteId);
+        Task<bool> UpdateSites(List<SiteModel> sites);
+        Task<bool> DeleteSites(List<int> siteIds);
         int GetLastSiteID();
         IList<SiteModel> GetSiteByIds(SiteViewRequest siteViewRequest);
     }

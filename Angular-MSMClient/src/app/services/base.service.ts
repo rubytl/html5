@@ -17,8 +17,16 @@ export abstract class BaseService {
 
   // Open the confirm diaglog
   protected openNotificationDialog(error) {
-    let settings = { title: 'Error', message: error.message };
-    var modalRef = msmHelper.openNotificationDialog(this.modelService, settings);
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      let settings = { title: 'Error', message: error.message };
+      msmHelper.openNotificationDialog(this.modelService, settings);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      let settings = { title: 'Error', message: error.error.message };
+      msmHelper.openNotificationDialog(this.modelService, settings);
+    }
     // modalRef.content.onClose.subscribe(result => {
     //   console.log('results', result);
     // });
@@ -62,4 +70,29 @@ export abstract class BaseService {
       })
       .catch(error => this.handleError(error));
   }
+
+  protected put(url, data, headers): Promise<any> {
+    this.startProgress();
+    return this.http
+      .put(url, data, { headers: headers })
+      .toPromise()
+      .then(res => {
+        this.finishProgress();
+        return res;
+      })
+      .catch(error => this.handleError(error));
+  }
+
+  protected delete(url, data, headers): Promise<any> {
+    this.startProgress();
+    return this.http
+      .delete(url + data, { headers: headers })
+      .toPromise()
+      .then(res => {
+        this.finishProgress();
+        return res;
+      })
+      .catch(error => this.handleError(error));
+  }
+
 }

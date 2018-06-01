@@ -8,7 +8,7 @@ import { SiteService } from '../../../../services';
 import { NewSiteComponent } from '../new-site/new-site.component';
 import { NewSiteGroupComponent } from '../new-group/new-group.component';
 import { Site } from '../../../../models';
-import { msmHelper } from '../../../../helpers';
+import { msmHelper, treeHelper } from '../../../../helpers';
 
 @Component({
   selector: 'app-site-setup',
@@ -18,15 +18,14 @@ import { msmHelper } from '../../../../helpers';
 export class SiteSetupComponent extends CommonComponent {
   siteForm: FormGroup;
   private originalSiteSource = [];
-  private newSiteRef: BsModalRef;
-  private onConfirmDialog: BsModalRef;
   private selectedRowIndex: number;
   private selectedSite: Site;
   private deletedSiteIds = [];
+  private deletedSites = [];
   private siteIds = [];
-  constructor(private siteService: SiteService, private modalService: BsModalService,
+  constructor(private siteService: SiteService, modalService: BsModalService,
     ngRedux: NgRedux<IAppState>, private fb: FormBuilder) {
-    super(ngRedux);
+    super(ngRedux, modalService);
   }
 
   // rebuild from if there are any changes
@@ -36,17 +35,14 @@ export class SiteSetupComponent extends CommonComponent {
 
   // add new site
   onAddNewSite() {
-    this.newSiteRef = this.modalService.show(NewSiteComponent);
-    this.newSiteRef.content.onClose.subscribe(result => {
-      if (result) {
-        this.siteSource.push(this.fb.group(result));
-      }
-    });
+    var newSiteRef = this.modalService.show(NewSiteComponent);
+    this.onAfterAddingNewSite(newSiteRef);
   }
 
   // add new site group
   onAddNewGroup() {
-    return this.modalService.show(NewSiteGroupComponent);
+    var newSiteRef = this.modalService.show(NewSiteGroupComponent);
+    this.onAfterAddingNewSite(newSiteRef);
   }
 
   // row click and get the appopriate index
@@ -57,7 +53,7 @@ export class SiteSetupComponent extends CommonComponent {
   // workflow when deleting a site
   onDeleteSite() {
     if (this.selectedRowIndex === undefined) {
-      this.openNotificationDialog();
+      this.openNotificationDialog('Delete Site?', "Please select a site to delete");
       return;
     }
 
@@ -66,21 +62,34 @@ export class SiteSetupComponent extends CommonComponent {
     let site = this.siteSource.controls[this.selectedRowIndex].value;
     let siteIncludeChildren = this.findSiteIncludingChildren(this.selectedSite, site);
     let foundSiteIds = [];
-    this.deletedSiteIds.push(foundSiteIds);
     this.trarveChildren(siteIncludeChildren, foundSiteIds);
+    let onConfirmDialog;
     if (foundSiteIds.length > 1) {
-      this.onConfirmDialog = this.openConfirmDialog(site.description);
-      this.onConfirmDialog.content.onClose.subscribe(result => {
+      onConfirmDialog = this.openConfirmDialog('Delete Group?', site.description + " is a 'Group'. All sites within this group will be deleted. Delete anyway?");
+    }
+
+    if (onConfirmDialog) {
+      onConfirmDialog.content.onClose.subscribe(result => {
         if (result) {
-          foundSiteIds.forEach(element => {
-            this.siteSource.removeAt(this.siteSource.controls.findIndex(s => s.value.id === element));
-          });
+          this.removeSites(foundSiteIds);
         }
+
+        onConfirmDialog.content.onClose.unsubscribe();
       });
     }
     else {
-      this.siteSource.removeAt(this.selectedRowIndex);
+      this.removeSites(foundSiteIds);
     }
+  }
+
+  private removeSites(foundSiteIds) {
+    // call this method to notify changes up to the form
+    this.selectedRowIndex = undefined;
+    foundSiteIds.forEach(element => {
+      this.deletedSiteIds.push(element);
+      this.deletedSites.push(this.siteSource.controls.find(s => s.value.id === element).value);
+      this.siteSource.removeAt(this.siteSource.controls.findIndex(s => s.value.id === element));
+    });
   }
 
   // rebuild form if user reject changes
@@ -90,6 +99,24 @@ export class SiteSetupComponent extends CommonComponent {
 
   // handle workflow when user accept changes from the gui
   onSaveChanges() {
+    // delete sites if any
+    this.siteService.deleteSites(this.deletedSiteIds)
+      .then(res => {
+        treeHelper.removeSite(this.deletedSites);
+        this.updateLocalVariables();
+      });
+
+    //then save changes for updated data
+    let sites = [];
+    this.siteSource.controls.forEach(site => {
+      sites.push(site.value);
+    });
+
+    this.siteService.updateSites(sites)
+      .then(res => {
+        this.originalSiteSource = sites;
+        this.openNotificationDialog('Success', 'Sites saved successfully');
+      });
   }
 
   // get site source
@@ -104,19 +131,13 @@ export class SiteSetupComponent extends CommonComponent {
 
   // remove event to prevent memory leak
   protected onComponentDestroy() {
-    if (this.newSiteRef) {
-      this.newSiteRef.content.onClose.unsubscribe();
-    }
-
-    if (this.onConfirmDialog) {
-      this.onConfirmDialog.content.onClose.unsubscribe();
-    }
   }
 
   // event called when site is selected from the tree view
   protected onSelectedSite(selectedSite) {
     this.selectedSite = selectedSite;
     this.siteIds = [];
+    this.updateLocalVariables();
     this.trarveChildren(selectedSite, this.siteIds);
     this.getSiteByIds();
   }
@@ -150,18 +171,6 @@ export class SiteSetupComponent extends CommonComponent {
     this.siteForm.setControl('siteSource', siteFormArray);
   }
 
-  // Open the confirm diaglog
-  private openConfirmDialog(siteName) {
-    let settings = { title: 'Delete Group?', message: siteName + " is a 'Group'. All sites within this group will be deleted. Delete anyway?" };
-    return msmHelper.openConfirmDialog(this.modalService, settings);
-  }
-
-  // Open the confirm diaglog
-  private openNotificationDialog() {
-    let settings = { title: 'Delete Group?', message: "Please select a site to delete" };
-    return msmHelper.openConfirmDialog(this.modalService, settings);
-  }
-
   // find site including its children and grand child
   private findSiteIncludingChildren(source, site) {
     var i, found;
@@ -180,5 +189,20 @@ export class SiteSetupComponent extends CommonComponent {
         }
       }
     }
+  }
+
+  private onAfterAddingNewSite(newSiteRef) {
+    newSiteRef.content.onClose.subscribe(result => {
+      if (result) {
+        this.siteSource.push(this.fb.group(result));
+      }
+
+      newSiteRef.content.onClose.unsubscribe();
+    });
+  }
+
+  private updateLocalVariables() {
+    this.deletedSiteIds = [];
+    this.deletedSites = [];
   }
 }

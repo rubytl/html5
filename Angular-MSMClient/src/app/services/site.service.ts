@@ -47,4 +47,18 @@ export class SiteService extends BaseService {
             JSON.stringify({ id, description, address, sitePriority, parentId, controllerType, templateId, snmpTemplateId, snmpDataTemplateId, ssl, jsonUserName, jsonPassword, jsonService, notificationEnabled }),
             factory.createHeaderWithToken());
     }
+
+    deleteSites(siteIds) {
+        let data = '?';
+        siteIds.forEach(element => {
+            data += "siteIds=" + element + "&";
+        });
+        return this.delete(factory.getDeleteSitesUrl(), data, factory.createHeaderWithToken());
+    }
+
+    updateSites(sites) {
+        return this.put(factory.getUpdateSitesUrl(),
+            JSON.stringify({ sites }),
+            factory.createHeaderWithToken());
+    }
 }
