@@ -1,5 +1,5 @@
 <form [formGroup]="templateForm">
-  <select class="form-control" formControlName="value" (change)="onValueChanged()">
+  <select class="form-control" formControlName="value">
   <option *ngFor="let snmpDataConfig of snmpDataConfigSource" value= {{snmpDataConfig.snmpDataTemplateId}}>
     {{snmpDataConfig.name}}
   </option>

@@ -13,4 +13,18 @@ export class EditSiteActions {
             payload: { type: constants.ADD_SITE, value: site }
         });
     }
+
+    updateSite(sites) {
+        this.ngRedux.dispatch({
+            type: constants.EDIT_SITE,
+            payload: { type: constants.EDIT_SITE, value: sites }
+        });
+    }
+
+    deleteSites(sites) {
+        this.ngRedux.dispatch({
+            type: constants.DELETE_SITE,
+            payload: { type: constants.DELETE_SITE, value: sites }
+        });
+    }
 }

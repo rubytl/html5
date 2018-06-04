@@ -9,6 +9,7 @@ import { NewSiteComponent } from '../new-site/new-site.component';
 import { NewSiteGroupComponent } from '../new-group/new-group.component';
 import { Site } from '../../../../models';
 import { msmHelper, treeHelper } from '../../../../helpers';
+import { EditSiteActions } from '../../../../actions';
 
 @Component({
   selector: 'app-site-setup',
@@ -26,7 +27,7 @@ export class SiteSetupComponent extends CommonComponent {
   private siteGroups = [];
   private siteChangedIds = [];
   constructor(private siteService: SiteService, modalService: BsModalService,
-    ngRedux: NgRedux<IAppState>, private fb: FormBuilder) {
+    ngRedux: NgRedux<IAppState>, private fb: FormBuilder, private editSiteAction: EditSiteActions) {
     super(ngRedux, modalService);
   }
 
@@ -104,7 +105,7 @@ export class SiteSetupComponent extends CommonComponent {
     // delete sites if any
     this.siteService.deleteSites(this.deletedSiteIds)
       .then(res => {
-        treeHelper.removeSite(this.deletedSites);
+        this.editSiteAction.deleteSites(this.deletedSites);
         this.deletedSiteIds.forEach(id => this.removeItemAndUnsubById(this.siteGroups, id));
         this.updateLocalVariables();
       });
@@ -119,7 +120,7 @@ export class SiteSetupComponent extends CommonComponent {
 
     this.siteService.updateSites(siteChangeds)
       .then(res => {
-        treeHelper.updateSite(siteChangeds);
+        this.editSiteAction.updateSite(siteChangeds);
         this.originalSiteSource = this.siteSource.value;
         this.openNotificationDialog('Success', 'Sites saved successfully');
       });
@@ -192,6 +193,14 @@ export class SiteSetupComponent extends CommonComponent {
     });
   }
 
+  private onValueChanged(event) {
+    this.siteForm.markAsDirty();
+    this.updateItemById(this.siteSource.value, event);
+    if (this.siteChangedIds.findIndex(s => s === event.id) < 0) {
+      this.siteChangedIds.push(event.id);
+    }
+  }
+
   // unsubscribe event changed from sitegroup
   private siteGroupUnsubscribe() {
     this.siteGroups.forEach(element => element.valueChanges.unsubscribe());
@@ -242,6 +251,35 @@ export class SiteSetupComponent extends CommonComponent {
     if (index !== -1) {
       arr[index].valueChanges.unsubscribe();
       arr.splice(index, 1);
+    }
+  }
+
+  private updateItemById(arr, event) {
+    if (arr === undefined || arr.length === 0) {
+      return;
+    }
+
+    var index = arr.findIndex(s => s.id === event.id);
+    if (index !== -1) {
+      var site = arr[index];
+      if (event.name === 'sitePriority') {
+        site.sitePriority = event.value;
+      }
+      else if (event.name === 'controllerType') {
+        site.controllerType = event.value;
+      }
+      else if (event.name === 'parentId') {
+        site.parentId = event.value;
+      }
+      else if (event.name === 'templateId') {
+        site.templateId = event.value;
+      }
+      else if (event.name === 'snmpTemplateId') {
+        site.snmpTemplateId = event.value;
+      }
+      else if (event.name === 'snmpDataTemplateId') {
+        site.snmpDataTemplateId = event.value;
+      }
     }
   }
 }

@@ -6,6 +6,10 @@ export function editSiteReducer(state: any = INITIAL_STATE.editSite, action): Si
     switch (action.type) {
         case constants.ADD_SITE:
             return state = action.payload;
+        case constants.EDIT_SITE:
+            return state = action.payload;
+        case constants.DELETE_SITE:
+            return state = action.payload;
         default:
             return state;
     }

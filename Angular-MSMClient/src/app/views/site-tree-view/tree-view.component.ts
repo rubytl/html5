@@ -31,6 +31,12 @@ export class TreeViewComponent implements OnInit, OnDestroy {
                 else if (editSite.type === constants.ADD_SITE) {
                     treeHelper.addNewSite(editSite.value);
                 }
+                else if (editSite.type === constants.EDIT_SITE) {
+                    treeHelper.updateSite(editSite.value);
+                }
+                else if (editSite.type === constants.DELETE_SITE) {
+                    treeHelper.removeSite(editSite.value);
+                }
             });
     }
 
