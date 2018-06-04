@@ -64,7 +64,7 @@ export function addNewSite(newSite) {
     }
 
     if (newSite.address === null || newSite.address === "") {
-        this.siteGroups.push(newSite);
+        siteGroups.push(newSite);
     }
 }
 
@@ -88,8 +88,15 @@ export function removeSite(deletedSites) {
         }
 
         if (deletedSite.address === null || deletedSite.address === "") {
-            removeItemById(this.siteGroups, deletedSite.id);
+            removeItemById(siteGroups, deletedSite.id);
         }
     });
 }
 
+export function updateSite(updatedSites) {
+    updatedSites.forEach(updatedSite => {
+        if (updatedSite.address === null || updatedSite.address === "") {
+            removeItemById(siteGroups, updatedSite.id);
+        }
+    });
+}

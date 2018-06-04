@@ -23,12 +23,14 @@ export class SiteSetupComponent extends CommonComponent {
   private deletedSiteIds = [];
   private deletedSites = [];
   private siteIds = [];
+  private siteGroups = [];
+  private siteChangedIds = [];
   constructor(private siteService: SiteService, modalService: BsModalService,
     ngRedux: NgRedux<IAppState>, private fb: FormBuilder) {
     super(ngRedux, modalService);
   }
 
-  // rebuild from if there are any changes
+  // rebuild form if there are any changes
   ngOnChanges() {
     this.rebuildForm();
   }
@@ -58,7 +60,7 @@ export class SiteSetupComponent extends CommonComponent {
     }
 
     // Get site object from the form array
-    // then do a search to find its children and grand child
+    // then do a search to find its children and grand 
     let site = this.siteSource.controls[this.selectedRowIndex].value;
     let siteIncludeChildren = this.findSiteIncludingChildren(this.selectedSite, site);
     let foundSiteIds = [];
@@ -103,18 +105,22 @@ export class SiteSetupComponent extends CommonComponent {
     this.siteService.deleteSites(this.deletedSiteIds)
       .then(res => {
         treeHelper.removeSite(this.deletedSites);
+        this.deletedSiteIds.forEach(id => this.removeItemAndUnsubById(this.siteGroups, id));
         this.updateLocalVariables();
       });
 
     //then save changes for updated data
-    let sites = [];
-    this.siteSource.controls.forEach(site => {
-      sites.push(site.value);
+    let siteChangeds = [];
+    this.siteSource.value.forEach(element => {
+      if (this.siteChangedIds.findIndex(s => s === element.id) !== -1) {
+        siteChangeds.push(element);
+      }
     });
 
-    this.siteService.updateSites(sites)
+    this.siteService.updateSites(siteChangeds)
       .then(res => {
-        this.originalSiteSource = sites;
+        treeHelper.updateSite(siteChangeds);
+        this.originalSiteSource = this.siteSource.value;
         this.openNotificationDialog('Success', 'Sites saved successfully');
       });
   }
@@ -131,6 +137,7 @@ export class SiteSetupComponent extends CommonComponent {
 
   // remove event to prevent memory leak
   protected onComponentDestroy() {
+    this.siteGroupUnsubscribe();
   }
 
   // event called when site is selected from the tree view
@@ -166,9 +173,29 @@ export class SiteSetupComponent extends CommonComponent {
 
   // rebuild form if any changed
   private rebuildForm() {
+    this.siteGroupUnsubscribe();
     const sites = this.originalSiteSource.map(site => this.fb.group(site));
     const siteFormArray = this.fb.array(sites);
     this.siteForm.setControl('siteSource', siteFormArray);
+    this.onSiteControlsChanges(sites);
+  }
+
+  private onSiteControlsChanges(siteGroup) {
+    siteGroup.forEach(element => {
+      this.siteGroups.push(element);
+      element.valueChanges.subscribe(
+        val => {
+          if (this.siteChangedIds.findIndex(s => s === val.id) < 0) {
+            this.siteChangedIds.push(val.id);
+          }
+        });
+    });
+  }
+
+  // unsubscribe event changed from sitegroup
+  private siteGroupUnsubscribe() {
+    this.siteGroups.forEach(element => element.valueChanges.unsubscribe());
+    this.siteGroups = [];
   }
 
   // find site including its children and grand child
@@ -204,5 +231,17 @@ export class SiteSetupComponent extends CommonComponent {
   private updateLocalVariables() {
     this.deletedSiteIds = [];
     this.deletedSites = [];
+  }
+
+  private removeItemAndUnsubById(arr, id) {
+    if (arr === undefined || arr.length === 0) {
+      return;
+    }
+
+    var index = arr.findIndex(s => s.get('id').value === id);
+    if (index !== -1) {
+      arr[index].valueChanges.unsubscribe();
+      arr.splice(index, 1);
+    }
   }
 }
