@@ -88,6 +88,7 @@ export class SiteSetupComponent extends CommonComponent {
   private removeSites(foundSiteIds) {
     // call this method to notify changes up to the form
     this.selectedRowIndex = undefined;
+    this.siteForm.markAsDirty();
     foundSiteIds.forEach(element => {
       this.deletedSiteIds.push(element);
       this.deletedSites.push(this.siteSource.controls.find(s => s.value.id === element).value);
@@ -112,9 +113,15 @@ export class SiteSetupComponent extends CommonComponent {
 
     //then save changes for updated data
     let siteChangeds = [];
+    let siteNameUnSaveds = '';
     this.siteSource.value.forEach(element => {
       if (this.siteChangedIds.findIndex(s => s === element.id) !== -1) {
-        siteChangeds.push(element);
+        if (this.checkIfParentIdInUse(element)) {
+          siteChangeds.push(element);
+        }
+        else {
+          siteNameUnSaveds += element.description + ", ";
+        }
       }
     });
 
@@ -122,7 +129,13 @@ export class SiteSetupComponent extends CommonComponent {
       .then(res => {
         this.editSiteAction.updateSite(siteChangeds);
         this.originalSiteSource = this.siteSource.value;
-        this.openNotificationDialog('Success', 'Sites saved successfully');
+        if (siteNameUnSaveds.length > 0) {
+          this.rebuildForm();
+          this.openNotificationDialog('Notification', "These sites:' " + siteNameUnSaveds + "' are not be saved because they are in use as site group in other places");
+        }
+        else {
+          this.openNotificationDialog('Success', 'Sites saved successfully');
+        }
       });
   }
 
@@ -269,6 +282,7 @@ export class SiteSetupComponent extends CommonComponent {
         site.controllerType = event.value;
       }
       else if (event.name === 'parentId') {
+        site.oldParentId = site.parentId;
         site.parentId = event.value;
       }
       else if (event.name === 'templateId') {
@@ -281,5 +295,18 @@ export class SiteSetupComponent extends CommonComponent {
         site.snmpDataTemplateId = event.value;
       }
     }
+  }
+
+  private checkIfParentIdInUse(site) {
+    let existingSite = this.originalSiteSource.find(s => s.id === site.id);
+    if (existingSite !== undefined) {
+      if (existingSite.address !== site.address &&
+        this.originalSiteSource.findIndex(s => s.parentId === site.id) !== -1) {
+        site.address = existingSite.address;
+        return false;
+      }
+    }
+
+    return true;
   }
 }

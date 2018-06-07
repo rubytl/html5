@@ -23,23 +23,23 @@
         </div>
         <div class="row">
           <p class="col-4">Group</p>
-          <msm-sitegroup [(value)]="newSite.parentId" (valueChanged)="onValueChanged($event, 'parent')" class="col-8 p-0 form-control"></msm-sitegroup>
+          <msm-sitegroup [name]="'parentId'" [value]="newSite.parentId" (valueChanged)="onValueChanged($event)" class="col-8 p-0 form-control"></msm-sitegroup>
         </div>
         <div class="row">
           <p class="col-4">Controller Type</p>
-          <msm-controller-type [value]="newSite.controllerType" (valueChanged)="onValueChanged($event, 'controllerType')" class="col-8 p-0 form-control"></msm-controller-type>
+          <msm-controller-type [name]="'controllerType'" [value]="newSite.controllerType" (valueChanged)="onValueChanged($event)" class="col-8 p-0 form-control"></msm-controller-type>
         </div>
         <div class="row">
           <p class="col-4">Template</p>
-          <msm-site-template [value]="newSite.templateId" (valueChanged)="onValueChanged($event, 'template')" class="col-8 p-0 form-control"></msm-site-template>
+          <msm-site-template [name]="'templateId'" [value]="newSite.templateId" (valueChanged)="onValueChanged($event)" class="col-8 p-0 form-control"></msm-site-template>
         </div>
         <div class="row">
           <p class="col-4">Snmp Template Config</p>
-          <msm-snmp-template [value]="newSite.snmpTemplateId" (valueChanged)="onValueChanged($event, 'snmpTemplate')" class="col-8 p-0 form-control"></msm-snmp-template>
+          <msm-snmp-template [name]="'snmpTemplateId'" [value]="newSite.snmpTemplateId" (valueChanged)="onValueChanged($event)" class="col-8 p-0 form-control"></msm-snmp-template>
         </div>
         <div class="row">
           <p class="col-4">Snmp Data Setup</p>
-          <msm-snmp-data-template [value]="newSite.snmpDataTemplateId" (valueChanged)="onValueChanged($event, 'snmpDataTemplate')"
+          <msm-snmp-data-template [name]="'snmpDataTemplateId'" [value]="newSite.snmpDataTemplateId" (valueChanged)="onValueChanged($event)"
             class="col-8 p-0 form-control"></msm-snmp-data-template>
         </div>
         <div class="row">

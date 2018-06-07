@@ -19,7 +19,7 @@
         </div>
         <div class="row">
           <p class="col-4">Group</p>
-          <msm-sitegroup [(value)]="newSite.parentId" (valueChanged)="onValueChanged($event, 'parent')" class="col-8 p-0 form-control"></msm-sitegroup>
+          <msm-sitegroup [value]="newSite.parentId" [name]="'parentId'" (valueChanged)="onValueChanged($event)" class="col-8 p-0 form-control"></msm-sitegroup>
         </div>
       </div>
     </div>

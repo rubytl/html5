@@ -16,9 +16,9 @@
       </div>
 
       <!-- Description -->
-      <a *ngIf="site.children.length > 0" (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle ml-5" appNavDropdownToggle>{{site.description}}</a>
-      <a *ngIf="site.children.length == 0" (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle-noContent" appNavDropdownToggle>{{site.description}}</a>
+      <a *ngIf="site.children !== undefined && site.children.length > 0 " (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle ml-5" appNavDropdownToggle>{{site.description}}</a>
+      <a *ngIf="site.children === undefined || site.children.length === 0" (click)="chooseSite(site)" class="nav-link nav-dropdown-toggle-noContent" appNavDropdownToggle>{{site.description}}</a>
     </div>
-    <site-tree-view *ngIf="site.children.length > 0" [sites]="site.children"></site-tree-view>
+    <site-tree-view *ngIf="site.children !== null || site.children !== undefined" [sites]="site.children"></site-tree-view>
   </li>
 </ul>

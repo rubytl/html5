@@ -3,12 +3,11 @@ var siteGroups = [];
 var mappedArr;
 var tree;
 priorities.splice(0, 0, { Description: "All", Value: "0" });
-siteGroups.splice(0, 0, { Description: "", id: -1 });
+siteGroups.splice(0, 0, { Description: "", id: null });
 export function listToTree(arr) {
     tree = [];
     mappedArr = {};
     var arrElem, mappedElem;
-
     if (arr === null || arr.length == 0) {
         return tree;
     }
@@ -55,16 +54,24 @@ export function createSiteGroups() {
 }
 
 export function addNewSite(newSite) {
+    if (newSite.oldParentId && mappedArr[newSite.oldParentId]) {
+        removeItemById(mappedArr[newSite.oldParentId]['children'], newSite.id);
+    }
+    else {
+        // If the element is at the root level, remove it to first level elements array.
+        removeItemById(tree, newSite.id);
+    }
+
     if (newSite.parentId && mappedArr[newSite.parentId]) {
-        mappedArr[newSite.parentId]['children'].push(newSite);
+        addItem(mappedArr[newSite.parentId]['children'], newSite, true);
     }
     // If the element is at the root level, add it to first level elements array.
     else {
-        tree.push(newSite);
+        addItem(tree, newSite, true);
     }
 
     if (newSite.address === null || newSite.address === "") {
-        siteGroups.push(newSite);
+        addItem(siteGroups, newSite, false);
     }
 }
 
@@ -75,6 +82,28 @@ function removeItemById(arr, id) {
 
     var index = arr.findIndex(s => s.id === id);
     if (index !== -1) arr.splice(index, 1);
+}
+
+function addItem(arr, site, findExistingItem) {
+    if (arr === undefined) {
+        return;
+    }
+
+    var index = arr.findIndex(s => s.id === site.id);
+    if (index === -1) {
+        if (findExistingItem) {
+            let existingSite = mappedArr[site.id];
+            if (existingSite) {
+                arr.push(existingSite);
+            }
+            else {
+                arr.push(site);
+            }
+        }
+        else {
+            arr.push(site);
+        }
+    }
 }
 
 export function removeSite(deletedSites) {
@@ -95,8 +124,10 @@ export function removeSite(deletedSites) {
 
 export function updateSite(updatedSites) {
     updatedSites.forEach(updatedSite => {
-        if (updatedSite.address === null || updatedSite.address === "") {
+        if (updatedSite.address !== null && updatedSite.address !== "") {
             removeItemById(siteGroups, updatedSite.id);
         }
+
+        addNewSite(updatedSite);
     });
 }

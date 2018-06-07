@@ -61,20 +61,20 @@ export class NewSiteComponent extends MsmDialogComponent {
     if (!event) {
       return;
     }
-    if (name === 'parent') {
-      this.newSite.parentId = event;
+    if (event.name === 'parentId') {
+      this.newSite.parentId = event.value;
     }
-    else if (name === 'controllerType') {
-      this.newSite.controllerType = event;
+    else if (event.name === 'controllerType') {
+      this.newSite.controllerType = event.value;
     }
-    else if (name === 'template') {
-      this.newSite.templateId = event;
+    else if (event.name === 'templateId') {
+      this.newSite.templateId = event.value;
     }
-    else if (name === 'snmpTemplate') {
-      this.newSite.snmpTemplateId = event;
+    else if (event.name === 'snmpTemplateId') {
+      this.newSite.snmpTemplateId = event.value;
     }
-    else if (name === 'snmpDataTemplate') {
-      this.newSite.snmpDataTemplateId = event;
+    else if (event.name === 'snmpDataTemplateId') {
+      this.newSite.snmpDataTemplateId = event.value;
     }
   }
 
