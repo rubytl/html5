@@ -27,6 +27,11 @@ export function getSiteUrl() {
     return CLIENT_API_URL + "/sites";
 }
 
+// site urls
+export function getSitePagingUrl() {
+    return CLIENT_API_URL + "/sites/sitePaging";
+}
+
 export function getSiteByIdsUrl() {
     return CLIENT_API_URL + "/sites/siteByIds";
 }
@@ -92,6 +97,10 @@ export function getAlarmUrl() {
 // Template urls
 export function getTemplateUrl() {
     return CLIENT_API_URL + "/template";
+}
+
+export function getsiteTemplateUrl() {
+    return CLIENT_API_URL + "/template/all";
 }
 
 // Snmp urls

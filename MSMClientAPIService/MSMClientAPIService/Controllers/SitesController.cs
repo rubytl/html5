@@ -47,6 +47,15 @@ namespace MSMClientAPIService.Controllers
         public async Task<IActionResult> Get()
             => Ok(await this.siteService.GetSites());
 
+        // GET api/sites
+        /// <summary>
+        /// Gets this instance.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("sitePaging")]
+        public async Task<IActionResult> GetSitePaging([FromBody] PagingRequest pagingRequest)
+            => Ok(await this.siteService.GetSitePaging(pagingRequest));
+
         [HttpPost("siteByIds")]
         public IActionResult GetSiteByIds([FromBody] SiteViewRequest siteViewRequest)
             => Ok(this.siteService.GetSiteByIds(siteViewRequest));

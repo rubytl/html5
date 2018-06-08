@@ -17,9 +17,9 @@ export class CommonComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.onComponentInit();
         this.paging = { pageSize: 10, pageIndex: 0, pageLength: 10 };
         this.pageIndexSubject.subscribe(value => this.paging.pageIndex = value);
+        this.onComponentInit();
         this.notifySelectedSite();
     }
 

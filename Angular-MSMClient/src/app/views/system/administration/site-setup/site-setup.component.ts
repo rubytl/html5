@@ -20,7 +20,7 @@ export class SiteSetupComponent extends CommonComponent {
   siteForm: FormGroup;
   private originalSiteSource = [];
   private selectedRowIndex: number;
-  private selectedSite: Site;
+  private selectedSite = null;
   private deletedSiteIds = [];
   private deletedSites = [];
   private siteIds = [];
@@ -65,7 +65,13 @@ export class SiteSetupComponent extends CommonComponent {
     let site = this.siteSource.controls[this.selectedRowIndex].value;
     let siteIncludeChildren = this.findSiteIncludingChildren(this.selectedSite, site);
     let foundSiteIds = [];
-    this.trarveChildren(siteIncludeChildren, foundSiteIds);
+    if (siteIncludeChildren) {
+      this.trarveChildren(siteIncludeChildren, foundSiteIds);
+    }
+    else {
+      foundSiteIds.push(site.id);
+    }
+
     let onConfirmDialog;
     if (foundSiteIds.length > 1) {
       onConfirmDialog = this.openConfirmDialog('Delete Group?', site.description + " is a 'Group'. All sites within this group will be deleted. Delete anyway?");
@@ -147,6 +153,7 @@ export class SiteSetupComponent extends CommonComponent {
   // called when component is inited
   protected onComponentInit() {
     this.createForm();
+    this.getSites();
   }
 
   // remove event to prevent memory leak
@@ -160,12 +167,30 @@ export class SiteSetupComponent extends CommonComponent {
     this.siteIds = [];
     this.updateLocalVariables();
     this.trarveChildren(selectedSite, this.siteIds);
-    this.getSiteByIds();
+    this.getSites();
   }
 
   // after page changed
   protected onAfterPageChanged() {
-    this.getSiteByIds();
+    this.getSites();
+  }
+
+  private getSites() {
+    if (this.siteIds.length === 0) {
+      this.getSitePaging();
+    }
+    else {
+      this.getSiteByIds();
+    }
+  }
+
+  // get sites by ids
+  private getSitePaging() {
+    this.siteService.getSitePaging(this.paging.pageIndex, this.paging.pageSize)
+      .then(res => {
+        this.originalSiteSource = res;
+        this.rebuildForm();
+      });
   }
 
   // get sites by ids
@@ -180,7 +205,6 @@ export class SiteSetupComponent extends CommonComponent {
   // create default form group
   private createForm() {
     this.siteForm = this.fb.group({
-      name: 'hello',
       siteSource: this.fb.array([])
     });
   }
@@ -223,7 +247,7 @@ export class SiteSetupComponent extends CommonComponent {
   // find site including its children and grand child
   private findSiteIncludingChildren(source, site) {
     var i, found;
-    if (site === null) {
+    if (site === null || source === null) {
       return null;
     }
 

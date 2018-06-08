@@ -94,7 +94,7 @@ $breadcrumb-bg:                   #fff;
 
 $card-border-color:               $gray-01;
 $card-cap-bg:                     #696969;
-$card-bg:                         #575555 !default;
+$card-bg:                         transparent;
 
 // Dropdowns
 
@@ -145,7 +145,7 @@ $sidebar-bg:                        $body-bg;
 $sidebar-nav-link-hover-color:     $gray-200 !default;
 
 // Aside
-$aside-menu-bg:                    $body-bg;
+$aside-menu-bg:                    #575555;
 
 
 

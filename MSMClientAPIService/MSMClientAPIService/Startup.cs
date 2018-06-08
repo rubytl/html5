@@ -157,6 +157,7 @@ namespace MSMClientAPIService
             // services helper
             services.AddScoped<ISiteService, SiteService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ISiteTemplateService, SiteTemplateService>();
 
             // repositories
             services.AddScoped<ISiteRepository, SiteRepository>();

@@ -1,0 +1,15 @@
+tr
+{
+   td:first-child{
+    width:1.2rem;
+        button
+        {
+            line-height: 0.5;
+            width:1.2rem;
+        }
+    }
+
+    input[type="checkbox"][readonly] {
+        pointer-events: none;
+      }
+}

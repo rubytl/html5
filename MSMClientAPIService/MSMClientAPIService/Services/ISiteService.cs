@@ -12,6 +12,7 @@ namespace MSMClientAPIService.Services
     public interface ISiteService
     {
         Task<IList<SiteModel>> GetSites();
+        Task<IList<SiteModel>> GetSitePaging(PagingRequest pagingRequest);
         Task<IList<SiteModel>> GetFilteredSite(int filter, string siteName);
         Task<IEnumerable<SiteListViewDTO>> GetSitesListView(SiteViewRequest siteViewRequest);
         Task<AddSiteResult> AddNewSite(SiteModel site);

@@ -20,7 +20,7 @@ export class MsmTemplateComponent implements OnDestroy, OnChanges {
     }
 
     rebuildForm() {
-        this.templateForm.reset({
+        this.templateForm.patchValue({
             value: this.value
         });
         this.templateForm.valueChanges.subscribe(

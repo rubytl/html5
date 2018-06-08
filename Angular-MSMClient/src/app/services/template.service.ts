@@ -15,4 +15,10 @@ export class TemplateService extends BaseService {
     getTemplates() {
         return this.get(factory.getTemplateUrl(), factory.createHeaderWithToken());
     }
+
+    getsiteTemplates(pageIndex, pageSize) {
+        return this.post(factory.getsiteTemplateUrl(),
+            JSON.stringify({ pageIndex, pageSize }),
+            factory.createHeaderWithToken());
+    }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using MSM.Data.Models;
 using MSM.Data.Repositories.Interfaces;
+using System.Linq;
 
 namespace MSM.Data.Repositories
 {
@@ -13,5 +16,17 @@ namespace MSM.Data.Repositories
         public TemplateRepository(Func<MultisiteDBEntitiesContext> context)
             : base(context)
         { }
+
+        /// <summary>
+        /// Gets the sites ListView.
+        /// </summary>
+        /// <param name="siteIds">The site ids.</param>
+        /// <param name="pageIndex">Index of the page.</param>
+        /// <param name="pageSize">Size of the page.</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<SiteTemplate>> GetSiteTemplates(int pageIndex, int pageSize)
+        {
+            return (await this.GetAll()).Skip(pageIndex * pageSize).Take(pageSize);
+        }
     }
 }

@@ -20,6 +20,10 @@ export class SiteService extends BaseService {
         super(http, progressAct, modelService);
     }
 
+    getSitePaging(pageIndex, pageSize) {
+        return this.post(factory.getSitePagingUrl(), JSON.stringify({ pageIndex, pageSize }), factory.createHeaderWithToken());
+    }
+
     getSiteByIds(siteids, pageIndex, pageSize) {
         return this.post(factory.getSiteByIdsUrl(), JSON.stringify({ siteids, pageIndex, pageSize }), factory.createHeaderWithToken());
     }

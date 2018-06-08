@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SiteSetupComponent } from './site-setup/site-setup.component';
 import { AdministrationComponent } from './administration.component';
+import { SiteTemplateComponent } from './site-template/site-template.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,13 @@ const routes: Routes = [
         component: SiteSetupComponent,
         data: {
           title: 'Site Setup'
+        }
+      },
+      {
+        path: 'sitetemplate',
+        component: SiteTemplateComponent,
+        data: {
+          title: 'Site Template'
         }
       }
     ]

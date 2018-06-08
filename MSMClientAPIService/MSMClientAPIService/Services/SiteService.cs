@@ -27,11 +27,16 @@ namespace MSMClientAPIService.Services
             this.networkDeviceRepo = networkDeviceRepo;
             this.siteNotiRepo = siteNotiRepo;
         }
-
         public async Task<IList<SiteModel>> GetSites()
         {
             var sites = await siteRepo.GetAll();
             return this.DoMappingSiteToSiteModel(sites);
+        }
+
+        public async Task<IList<SiteModel>> GetSitePaging(PagingRequest pagingRequest)
+        {
+            var sites = await siteRepo.GetAll();
+            return this.DoMappingSiteToSiteModel(sites.Skip(pagingRequest.PageIndex * pagingRequest.PageSize).Take(pagingRequest.PageSize));
         }
 
         public async Task<IEnumerable<SiteListViewDTO>> GetSitesListView(SiteViewRequest siteViewRequest)
