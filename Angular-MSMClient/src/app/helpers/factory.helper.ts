@@ -60,14 +60,6 @@ export function getNewSiteUrl() {
     return CLIENT_API_URL + "/sites/add";
 }
 
-export function getUpdateSitesUrl() {
-    return CLIENT_API_URL + "/sites";
-}
-
-export function getDeleteSitesUrl() {
-    return CLIENT_API_URL + "/sites";
-}
-
 // Authentication urls
 export function getLoginUrl() {
     return AUTH_API_URL + "/auth/login";
@@ -101,6 +93,10 @@ export function getTemplateUrl() {
 
 export function getsiteTemplateUrl() {
     return CLIENT_API_URL + "/template/all";
+}
+
+export function getCanDeleteTemplateUrl() {
+    return CLIENT_API_URL + "/template/canDelete/?templateId=";
 }
 
 // Snmp urls

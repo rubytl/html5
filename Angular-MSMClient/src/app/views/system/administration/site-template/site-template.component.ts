@@ -20,7 +20,7 @@ export class SiteTemplateComponent extends CommonComponent {
   siteTemplateForm: FormGroup;
   private originalTemplateSource = [];
   private selectedRowIndex: number;
-
+  private deletedTemplatedIs = [];
   constructor(private templateService: TemplateService, modalService: BsModalService,
     ngRedux: NgRedux<IAppState>, private fb: FormBuilder) {
     super(ngRedux, modalService);
@@ -52,6 +52,19 @@ export class SiteTemplateComponent extends CommonComponent {
       this.openNotificationDialog('Delete Template?', "Please select a template to delete");
       return;
     }
+
+    let template = this.siteTemplateSource.controls[this.selectedRowIndex].value;
+    this.templateService.canDeleteTemplate(template.templateId)
+      .then(res => {
+        if (res) {
+          this.siteTemplateSource.removeAt(this.selectedRowIndex);
+          this.deletedTemplatedIs.push(template.templateId);
+          this.siteTemplateForm.markAsDirty();
+        }
+        else {
+          this.openNotificationDialog("Error", "SiteTemplate " + template.templateId + " is used in Site table. Not able to delete!");
+        }
+      })
   }
 
   // rebuild form if user reject changes
@@ -61,6 +74,12 @@ export class SiteTemplateComponent extends CommonComponent {
 
   // handle workflow when user accept changes from the gui
   onSaveChanges() {
+    // save delete templates
+    this.templateService.deleteTemplates(this.deletedTemplatedIs)
+      .then(res => {
+        this.updateLocalVariables();
+        this.openNotificationDialog('Success', 'Template deleted successfully');
+      });
   }
 
   // called when component is inited
@@ -95,5 +114,10 @@ export class SiteTemplateComponent extends CommonComponent {
     const sites = this.originalTemplateSource.map(site => this.fb.group(site));
     const siteFormArray = this.fb.array(sites);
     this.siteTemplateForm.setControl('siteTemplateSource', siteFormArray);
+  }
+
+  private updateLocalVariables() {
+    this.deletedTemplatedIs = [];
+    this.originalTemplateSource = this.siteTemplateSource.value;
   }
 }

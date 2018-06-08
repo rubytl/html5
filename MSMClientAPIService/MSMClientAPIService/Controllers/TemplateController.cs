@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MSM.Data.Repositories.Interfaces;
@@ -25,8 +26,17 @@ namespace MSMClientAPIService.Controllers
         public async Task<IActionResult> Get()
             => Ok(await this.templateRepo.GetAll());
 
+        [HttpGet("canDelete")]
+        public async Task<IActionResult> CanDeleteTemplate([System.Web.Http.FromUri]string templateId)
+            => Ok(await this.siteTemplateService.CanDeleteTemplate(templateId));
+
+
         [HttpPost("all")]
         public async Task<IActionResult> GetSiteTemplates([FromBody] PagingRequest pagingRequest)
             => Ok(await this.siteTemplateService.GetSiteTemplates(pagingRequest));
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSiteTemplates([System.Web.Http.FromUri]List<string> templateIds)
+            => Ok(await this.siteTemplateService.DeleteSiteTemplates(templateIds));
     }
 }

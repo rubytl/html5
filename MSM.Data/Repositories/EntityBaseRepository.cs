@@ -60,6 +60,11 @@ namespace MSM.Data
             return await Context.Set<T>().FirstOrDefaultAsync(predicate);
         }
 
+        public async Task<bool> HasAnyAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await Context.Set<T>().AnyAsync(predicate);
+        }
+
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = Context.Set<T>();

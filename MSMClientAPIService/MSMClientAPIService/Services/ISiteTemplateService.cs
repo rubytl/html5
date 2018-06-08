@@ -10,5 +10,7 @@ namespace MSMClientAPIService.Services
     public interface ISiteTemplateService
     {
         Task<IEnumerable<SiteTemplate>> GetSiteTemplates(PagingRequest pagingRequest);
+        Task<bool> DeleteSiteTemplates(List<string> templateIds);
+        Task<bool> CanDeleteTemplate(string templateId);
     }
 }

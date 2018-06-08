@@ -57,11 +57,11 @@ export class SiteService extends BaseService {
         siteIds.forEach(element => {
             data += "siteIds=" + element + "&";
         });
-        return this.delete(factory.getDeleteSitesUrl(), data, factory.createHeaderWithToken());
+        return this.delete(factory.getSiteUrl(), data, factory.createHeaderWithToken());
     }
 
     updateSites(sites) {
-        return this.put(factory.getUpdateSitesUrl(),
+        return this.put(factory.getSiteUrl(),
             JSON.stringify({ sites }),
             factory.createHeaderWithToken());
     }

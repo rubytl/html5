@@ -92,6 +92,8 @@
         /// <param name="entity">The entity.</param>
         void Update(T entity);
 
+        Task<bool> HasAnyAsync(Expression<Func<T, bool>> predicate);
+
         #endregion Methods
     }
 }

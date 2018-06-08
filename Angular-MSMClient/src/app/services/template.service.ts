@@ -12,6 +12,18 @@ export class TemplateService extends BaseService {
         super(http, progressAct, modelService);
     }
 
+    deleteTemplates(templateIds) {
+        let data = '?';
+        templateIds.forEach(element => {
+            data += "templateIds=" + element + "&";
+        });
+        return this.delete(factory.getTemplateUrl(), data, factory.createHeaderWithToken());
+    }
+
+    canDeleteTemplate(templateId) {
+        return this.get(factory.getCanDeleteTemplateUrl() + templateId, factory.createHeaderWithToken());
+    }
+
     getTemplates() {
         return this.get(factory.getTemplateUrl(), factory.createHeaderWithToken());
     }
