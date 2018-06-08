@@ -5,6 +5,7 @@ import {
   SiteSetupComponent, AdministrationRoutingModule,
   AdministrationComponent, SiteTemplateComponent
 } from '.';
+import { NewSiteTemplateComponent } from './new-site-template/new-site-template.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import {
     SiteSetupComponent,
     AdministrationComponent,
     SiteTemplateComponent,
+    NewSiteTemplateComponent,
   ]
 })
 export class AdministrationModule { }

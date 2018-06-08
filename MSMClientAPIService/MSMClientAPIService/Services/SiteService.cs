@@ -110,10 +110,10 @@ namespace MSMClientAPIService.Services
                 this.TraverseSiteChildren(site, result);
             }
 
-            return this.DoMappingSiteToSiteModel(sites);
+            return this.DoMappingSiteToSiteModel(result);
         }
 
-        private List<SiteModel> DoMappingSiteToSiteModel(IQueryable<Site> sites)
+        private List<SiteModel> DoMappingSiteToSiteModel(IEnumerable<Site> sites)
         {
             List<SiteModel> result = new List<SiteModel>();
             foreach (var site in sites)

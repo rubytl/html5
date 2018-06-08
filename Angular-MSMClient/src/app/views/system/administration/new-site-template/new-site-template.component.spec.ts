@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewSiteComponent } from '../new-site/new-site.component';
+import { NewSiteTemplateComponent } from './new-site-template.component';
 
-describe('NewSiteComponent', () => {
-  let component: NewSiteComponent;
-  let fixture: ComponentFixture<NewSiteComponent>;
+describe('NewSiteTemplateComponent', () => {
+  let component: NewSiteTemplateComponent;
+  let fixture: ComponentFixture<NewSiteTemplateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewSiteComponent ]
+      declarations: [ NewSiteTemplateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewSiteComponent);
+    fixture = TestBed.createComponent(NewSiteTemplateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
