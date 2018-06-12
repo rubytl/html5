@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Site } from '../../models/site';
 import { SiteActions } from '../../actions';
 import { IAppState } from '../../store';
-import { treeHelper } from '../../helpers';
+import { treeHelper, msmHelper } from '../../helpers';
 import { constants } from '../../actions/constants';
 
 @Component({
@@ -16,8 +16,9 @@ import { constants } from '../../actions/constants';
 export class TreeViewComponent implements OnInit, OnDestroy {
     @select('sites') sites$: Observable<Site>;
     siteName = '';
-    private filterType = 0;
+    filterType = "0";
     private siteBehaviorSub: Subscription;
+    filterTypes = msmHelper.createFilterTypeList();
     constructor(private ngRedux: NgRedux<IAppState>, private siteAction: SiteActions) {
     }
 
@@ -45,8 +46,8 @@ export class TreeViewComponent implements OnInit, OnDestroy {
     }
 
     onFilterTypeChange(event) {
-        this.filterType = event;
-        this.siteAction.getFilteredSites(event, this.siteName);
+        this.filterType = event.value;
+        this.siteAction.getFilteredSites(this.filterType, this.siteName);
     }
 
     onEnter() {

@@ -2,12 +2,12 @@ import { SiteSetupComponent } from './site-setup/site-setup.component';
 import { AdministrationRoutingModule } from './administration.routing';
 import { AdministrationComponent } from './administration.component';
 import { NewSiteComponent } from './new-site/new-site.component';
-import { SiteTemplateComponent } from './site-template/site-template.component';
+import { SiteTemplateSetupComponent } from './site-template-setup/site-template-setup.component';
+import { NewSiteTemplateComponent } from './new-site-template/new-site-template.component';
 
 export {
     SiteSetupComponent,
     AdministrationRoutingModule,
     AdministrationComponent,
-    NewSiteComponent,
-    SiteTemplateComponent
+    SiteTemplateSetupComponent
 }

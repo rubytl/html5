@@ -1,13 +1,14 @@
+
 import { Component } from '@angular/core';
 import { MsmTemplateComponent } from '../template.component';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'msm-sitegroup',
-  templateUrl: './msm-sitegroup.component.html',
-  styleUrls: ['./msm-sitegroup.component.scss']
+  selector: 'msm-monitor',
+  templateUrl: './msm-monitor.component.html',
+  styleUrls: ['./msm-monitor.component.scss']
 })
-export class MsmSitegroupComponent extends MsmTemplateComponent {
+export class MsmMonitorComponent extends MsmTemplateComponent {
   constructor(fb: FormBuilder) {
     super(fb);
   }

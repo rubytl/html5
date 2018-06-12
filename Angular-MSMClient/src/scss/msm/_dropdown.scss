@@ -44,3 +44,9 @@
               }
   }
 }
+
+.dropdown-item {
+  i {
+    color: $dropdown-icon-color;
+  }
+}

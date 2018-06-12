@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SiteSetupComponent } from './site-setup/site-setup.component';
 import { AdministrationComponent } from './administration.component';
-import { SiteTemplateComponent } from './site-template/site-template.component';
+import { SiteTemplateSetupComponent } from './site-template-setup/site-template-setup.component';
 
 const routes: Routes = [
   {
@@ -19,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'sitetemplate',
-        component: SiteTemplateComponent,
+        component: SiteTemplateSetupComponent,
         data: {
           title: 'Site Template'
         }

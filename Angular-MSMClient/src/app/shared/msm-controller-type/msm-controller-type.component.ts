@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { msmHelper } from '../../helpers';
 import { MsmTemplateComponent } from '../template.component';
 import { FormBuilder } from '@angular/forms';
 
@@ -12,6 +11,4 @@ export class MsmControllerTypeComponent extends MsmTemplateComponent {
   constructor(fb: FormBuilder) {
     super(fb);
   }
-  
-  controllerSource = msmHelper.createControllerTypeList();
 }

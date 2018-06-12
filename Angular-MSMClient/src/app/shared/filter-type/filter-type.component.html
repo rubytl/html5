@@ -1,6 +1,6 @@
 <form [formGroup]="templateForm">
   <select class="form-control" formControlName="value">
-    <option *ngFor="let filterType of filterTypes" value= {{filterType.value}}>
+    <option *ngFor="let filterType of templateList" value= {{filterType.value}}>
       {{filterType.description}}
     </option>
 </select>

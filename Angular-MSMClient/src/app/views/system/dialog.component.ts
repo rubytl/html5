@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { Subject } from 'rxjs/Subject';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { msmHelper } from '../../helpers';
+
 export class MsmDialogComponent implements OnInit, OnDestroy {
     private onClose: Subject<any>;
-    constructor(private bsModalRef: BsModalRef) {
+    constructor(private bsModalRef: BsModalRef, private modelService: BsModalService) {
     }
 
     ngOnInit() {
@@ -22,5 +24,11 @@ export class MsmDialogComponent implements OnInit, OnDestroy {
     }
 
     protected onComponentInit() {
+    }
+
+    // Open the confirm diaglog
+    protected openNotificationDialog(tittle, message) {
+        let settings = { title: tittle, message: message };
+        msmHelper.openNotificationDialog(this.modelService, settings);
     }
 }

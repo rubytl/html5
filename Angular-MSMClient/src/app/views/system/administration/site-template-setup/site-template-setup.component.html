@@ -1,0 +1,47 @@
+<form [formGroup]="siteTemplateForm">
+  <div class="d-flex flex-column">
+    <div class="msm-content">
+      <table class="table table-striped table-bordered table-hover table-responsive table-sm">
+        <thead class="thead-default">
+          <tr>
+            <th></th>
+            <th>TemplateID</th>
+            <th>Template Name</th>
+            <th>OnGrid</th>
+            <th>Solar</th>
+            <th>Wind</th>
+            <th>Generator</th>
+            <th>Battery</th>
+            <th>MainsMonitor</th>
+            <th>ECB</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="siteTemplateSource">
+          <tr *ngFor="let site of siteTemplateSource.controls; let i=index" [formGroupName]="i" (click)="onRowClick(i)">
+            <td><button class="btn btn-pill mr-4" (click)="onOpenSiteTemplate(i)"><i class="fa fa-ellipsis-h"></i></button></td>
+            <td>{{site.get('templateId').value}}</td>
+            <td>{{site.get('templateName').value}}</td>
+            <td><input type="checkbox" readonly class="form-control" formControlName="onGrid"></td>
+            <td><input type="checkbox" readonly class="form-control" formControlName="solar"></td>
+            <td><input type="checkbox" readonly class="form-control" formControlName="wind"></td>
+            <td><input type="checkbox" readonly class="form-control" formControlName="generator"></td>
+            <td><input type="checkbox" readonly class="form-control" formControlName="battery"></td>
+            <td><input type="checkbox" readonly class="form-control" formControlName="mainsMonitor"></td>
+            <td><input type="checkbox" readonly class="form-control" formControlName="ioUnitWithEcbonSystem"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex flex-row">
+      <button class="btn  btn-pill mr-4" (click)="onAddNewSiteTemplate()"><i class="fa fa-plus"></i> Add Template</button>
+      <button class="btn  btn-pill mr-4" (click)="onDeleteSiteTemplate()"><i class="fa fa-minus"> Delete Template</i></button>
+      <button class="btn  btn-pill mr-4" [disabled]="siteTemplateForm.pristine" (click)="onSaveChanges()"><i class="fa fa-save"></i> Save Changes</button>
+      <button class="btn  btn-pill" [disabled]="siteTemplateForm.pristine" (click)="onRejectChanges()"><i class="fa fa-undo"></i> Reject Changes</button>
+      <msm-paginator class="ml-auto" [pageSizeOptions]="[10,20,30,40]" [pageLength]="paging.pageLength" [(pageIndex)]="paging.pageIndex"
+        (currentPageChange)="onCurrentPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></msm-paginator>
+    </div>
+  </div>
+</form>

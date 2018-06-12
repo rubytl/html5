@@ -8,6 +8,7 @@ import { SiteService } from './site.service';
 import { TemplateService } from './template.service';
 import { SnmpConfigService } from './snmp.config.service';
 import { SnmpDataService } from './snmp.data.service';
+import { MsmDictionaryService } from './msm.dictionary.service';
 
 export {
     RequestInterceptorService,
@@ -18,7 +19,8 @@ export {
     SiteService,
     TemplateService,
     SnmpConfigService,
-    SnmpDataService
+    SnmpDataService,
+    MsmDictionaryService
 };
 
 @NgModule({})
@@ -28,7 +30,8 @@ export class SharedServiceModule {
             ngModule: SharedServiceModule,
             providers: [RestrictedSiteService, UserService,
                 AuthGuard, AlarmService, SiteService,
-                TemplateService, SnmpConfigService, SnmpDataService]
+                TemplateService, SnmpConfigService, SnmpDataService,
+                MsmDictionaryService]
         };
     }
 }

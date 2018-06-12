@@ -1,3 +1,193 @@
-<p>
-  new-site-template works!
-</p>
+<div class="card mb-0">
+  <div class="card-header row mx-0">
+    <h6><strong>Edit Site Template</strong></h6>
+    <button type="button" class="close ml-auto" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="card container">
+      <p><strong>Add New Site Template</strong></p>
+      <p><strong>Copy from existing template</strong></p>
+      <div class="card-body">
+        <tabset>
+          <tab>
+            <ng-template tabHeading>Site</ng-template>
+            <div class="container">
+              <div class="row">
+                <p class="col-8">Template ID</p>
+                <input type="text" class="form-control col-4" readonly>
+              </div>
+              <div class="row">
+                <p class="col-8">Template Name</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">MainsMonitor Installed</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="mainMonitorInstalled"></msm-monitor>
+              </div>
+              <div class="row">
+                <p class="col-8">Monitor1</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+              </div>
+              <div class="row">
+                <p class="col-8">Monitor2</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+              </div>
+              <div class="row">
+                <p class="col-8">Monitor3</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+              </div>
+              <div class="row">
+                <p class="col-8">Monitor4</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+              </div>
+              <div class="row">
+                <p class="col-8">Monitor5</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+              </div>
+              <div class="row">
+                <p class="col-8">Monitor6</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+              </div>
+            </div>
+          </tab>
+
+          <!-- Energy tab -->
+          <tab>
+            <ng-template tabHeading>Energy</ng-template>
+            <div class="container">
+              <div class="row">
+                <p class="col-8">On Grid</p>
+                <input type="checkbox" class="mr-auto my-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Grid, other Limit [%]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">SolarCharger Installed</p>
+                <input type="checkbox" class="mr-auto my-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Solar Engery Target [%]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">WindCharger Installed</p>
+                <input type="checkbox" class="mr-auto my-4">
+              </div>
+              <div class="row">
+                <p class="col-8">WindCharger Engery Target [%]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Renewable Engery Target [%]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Generator Installed</p>
+                <input type="checkbox" class="mr-auto my-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Running Hour Target [hours/day]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Generator Efficiency Target [kWh/Liter]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+            </div>
+          </tab>
+
+          <!-- Load tab -->
+          <tab>
+            <ng-template tabHeading>Load</ng-template>
+            <div class="container">
+              <div class="row">
+                <p class="col-8">Peak Load</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="peakLoad"></msm-monitor>
+              </div>
+              <div class="row">
+                <p class="col-8">Average Load [% of peak value]</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="averageLoad"></msm-monitor>
+              </div>
+            </div>
+          </tab>
+
+          <!-- Battery tab -->
+          <tab>
+            <ng-template tabHeading>Battery</ng-template>
+            <div class="container">
+              <div class="row">
+                <p class="col-8">Battery Installed</p>
+                <input type="checkbox" class="mr-auto my-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Backup Time Target [hh:mm]</p>
+                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+              </div>
+              <div class="row">
+                <p class="col-8">Average Load Measurement Reset Interval [week]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Battery Discharge Capacity [Ah]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Charge Target [%]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+            </div>
+          </tab>
+
+          <!-- Grid and Connection Quality tab -->
+          <tab>
+            <ng-template tabHeading>Grid and Connection</ng-template>
+            <div class="container">
+              <div class="row">
+                <p class="col-8">Grid Availability Target [%]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8"><strong>Connection</strong></p>
+              </div>
+              <div class="row">
+                <p class="col-8">Connection Quality Target [%]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Connection Lost Limit [no.]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+            </div>
+          </tab>
+
+          <!-- Cooling tab -->
+          <tab>
+            <ng-template tabHeading>Cooling</ng-template>
+            <div class="container">
+              <div class="row">
+                <p class="col-8">ECB Installed</p>
+                <input type="checkbox" class="mr-auto my-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Running ECB Target [hours/day]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+              <div class="row">
+                <p class="col-8">Running AirCon Target [hours/day]</p>
+                <input type="text" class="form-control col-4">
+              </div>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+  <div class="row p-3 mx-0 my-3 justify-content-end">
+    <button class="btn btn-pill mr-4" (click)="onAddNewSite()"><i class="fa fa-save"></i> Submit</button>
+    <button class="btn btn-pill mr-4" (click)="onClick(null)"><i class="fa fa-close"> Reject</i></button>
+  </div>
+</div>

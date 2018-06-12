@@ -1,6 +1,6 @@
 <div [formGroup]="templateForm">
   <select class="form-control" formControlName="value">
-    <option *ngFor="let priority of prioritySource" [value]= "priority">
+    <option *ngFor="let priority of templateList" [value]= "priority">
       {{priority}}
     </option>
   </select>

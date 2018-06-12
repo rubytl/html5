@@ -28,25 +28,30 @@
             <td>{{site.get('id').value}}</td>
             <td><input type="text" class="form-control" formControlName="description"></td>
             <td>
-              <msm-priority [name]="'sitePriority'" [id]="site.get('id').value" [value]="site.get('sitePriority').value" (valueChanged)="onValueChanged($event)"></msm-priority>
+              <msm-priority [templateList]="prioritySource" [name]="'sitePriority'" [id]="site.get('id').value" [value]="site.get('sitePriority').value"
+                (valueChanged)="onValueChanged($event)"></msm-priority>
             </td>
             <td><input type="text" class="form-control" formControlName="address"></td>
             <td>
-              <msm-controller-type [name]="'controllerType'" [id]="site.get('id').value" [value]="site.get('controllerType').value" (valueChanged)="onValueChanged($event)"></msm-controller-type>
+              <msm-controller-type [templateList]="controllerSource" [name]="'controllerType'" [id]="site.get('id').value" [value]="site.get('controllerType').value"
+                (valueChanged)="onValueChanged($event)"></msm-controller-type>
             </td>
             <td><input type="text" class="form-control" formControlName="latitude"></td>
             <td><input type="text" class="form-control" formControlName="longitude"></td>
             <td>
-              <msm-sitegroup [name]="'parentId'" [id]="site.get('id').value" [value]="site.get('parentId').value" (valueChanged)="onValueChanged($event)"></msm-sitegroup>
+              <msm-sitegroup [templateList]="parentSites" [name]="'parentId'" [id]="site.get('id').value" [value]="site.get('parentId').value"
+                (valueChanged)="onValueChanged($event)"></msm-sitegroup>
             </td>
             <td>
-              <msm-site-template [name]="'templateId'" [id]="site.get('id').value" [value]="site.get('templateId').value" (valueChanged)="onValueChanged($event)"></msm-site-template>
+              <msm-site-template [templateList]="templateSource" [name]="'templateId'" [id]="site.get('id').value" [value]="site.get('templateId').value"
+                (valueChanged)="onValueChanged($event)"></msm-site-template>
             </td>
             <td>
-              <msm-snmp-template [name]="'snmpTemplateId'" [id]="site.get('id').value" [value]="site.get('snmpTemplateId').value" (valueChanged)="onValueChanged($event)"></msm-snmp-template>
+              <msm-snmp-template [templateList]="snmpConfigSource" [name]="'snmpTemplateId'" [id]="site.get('id').value" [value]="site.get('snmpTemplateId').value"
+                (valueChanged)="onValueChanged($event)"></msm-snmp-template>
             </td>
             <td>
-              <msm-snmp-data-template [name]="'snmpDataTemplateId'" [id]="site.get('id').value" [value]="site.get('snmpDataTemplateId').value"
+              <msm-snmp-data-template [templateList]="snmpDataConfigSource" [name]="'snmpDataTemplateId'" [id]="site.get('id').value" [value]="site.get('snmpDataTemplateId').value"
                 (valueChanged)="onValueChanged($event)"></msm-snmp-data-template>
             </td>
             <td><input type="checkbox" class="form-control" formControlName="ssl"></td>

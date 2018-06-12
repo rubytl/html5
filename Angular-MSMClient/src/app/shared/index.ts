@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { SpinnerComponent } from './spinner/spinner.component';
 import { FilterTypeComponent } from './filter-type/filter-type.component';
@@ -26,32 +27,38 @@ import { MsmSitegroupComponent } from './msm-sitegroup/msm-sitegroup.component';
 import { MsmSiteTemplateComponent } from './msm-site-template/msm-site-template.component';
 import { MsmSnmpTemplateComponent } from './msm-snmp-template/msm-snmp-template.component';
 import { MsmSnmpDataTemplateComponent } from './msm-snmp-data-template/msm-snmp-data-template.component';
+import { MsmMonitorComponent } from './msm-monitor/msm-monitor.component';
 
 // In some cases entryComponents under lazy loaded modules will not work,
 // as a workaround I need to put these components here
 import { NewSiteComponent } from '../views/system/administration/new-site/new-site.component';
 import { NewSiteGroupComponent } from '../views/system/administration/new-group/new-group.component';
+import { NewSiteTemplateComponent } from '../views/system/administration/new-site-template/new-site-template.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, TabsModule],
     declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
-        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
-        SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
-        MsmFooterComponent, MsmAsideComponent, NewSiteComponent,
-        MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
-        MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
-        NewSiteGroupComponent],
-    exports: [FormsModule, CommonModule, ReactiveFormsModule, SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
         SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
         MsmFooterComponent, MsmAsideComponent,
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
-        MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent],
+        MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
+        MsmMonitorComponent,
+        NewSiteComponent, NewSiteGroupComponent, NewSiteTemplateComponent],
+    exports: [FormsModule, CommonModule, ReactiveFormsModule, TabsModule,
+        SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
+        NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
+        SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
+        MsmFooterComponent, MsmAsideComponent,
+        MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
+        MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
+        MsmMonitorComponent],
     entryComponents:
         [
             MsmDialogComponent,
             NewSiteComponent,
-            NewSiteGroupComponent
+            NewSiteGroupComponent,
+            NewSiteTemplateComponent
         ]
 })
 export class SharedModule { }

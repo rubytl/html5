@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, Input } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MsmDialogComponent } from '../../dialog.component';
 import { SiteService } from '../../../../services';
 import { Site } from '../../../../models';
 import { ControllerTypeEnum } from '../../../../enums';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { msmHelper } from '../../../../helpers';
 import { EditSiteActions } from '../../../../actions';
 
@@ -15,9 +14,10 @@ import { EditSiteActions } from '../../../../actions';
 })
 export class NewSiteComponent extends MsmDialogComponent {
   newSite: Site;
+  @Input() setting: any;
   constructor(bsModalRef: BsModalRef, private siteService: SiteService,
-    private modelService: BsModalService, private editSiteAction: EditSiteActions) {
-    super(bsModalRef);
+    modelService: BsModalService, private editSiteAction: EditSiteActions) {
+    super(bsModalRef, modelService);
   }
 
   protected onComponentInit() {
@@ -76,11 +76,5 @@ export class NewSiteComponent extends MsmDialogComponent {
     else if (event.name === 'snmpDataTemplateId') {
       this.newSite.snmpDataTemplateId = event.value;
     }
-  }
-
-  // Open the confirm diaglog
-  private openNotificationDialog(tittle, message) {
-    let settings = { title: tittle, message: message };
-    msmHelper.openNotificationDialog(this.modelService, settings);
   }
 }

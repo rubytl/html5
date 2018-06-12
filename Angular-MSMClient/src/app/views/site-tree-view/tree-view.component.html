@@ -4,7 +4,7 @@
         <div class="row justify-content-start my-3 pl-2">
             <div class="align-items-center d-sm-flex d-md-flex flex-row">
                 <a>Filter:</a>
-                <filter-type class="ml-5 mr-5" (valueChanged)="onFilterTypeChange($event)"></filter-type>
+                <filter-type [templateList]="filterTypes" [value]="filterType" class="ml-5 mr-5" (valueChanged)="onFilterTypeChange($event)"></filter-type>
             </div>
         </div>
         <div class="row justify-content-start my-3 pl-1">

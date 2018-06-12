@@ -1,0 +1,19 @@
+.tab-content {
+    background: transparent;
+  }
+
+  .nav-tabs {
+    .nav-link {
+      color: $white;
+      background-color: transparent;
+      &.active {
+        color:$white;
+        background:$gray-5D;
+        border-color: $gray-100;
+        &:focus {
+          background:$gray-5D;
+          border-color: $gray-300;
+        }
+      }
+    }
+  }

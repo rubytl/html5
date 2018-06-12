@@ -1,10 +1,10 @@
 import { Component, OnChanges } from '@angular/core';
 import { NgRedux } from 'ng2-redux';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { IAppState } from '../../../../store';
 import { CommonComponent } from '../../../common/common.component';
-import { SiteService } from '../../../../services';
+import { SiteService, SnmpConfigService, SnmpDataService, TemplateService } from '../../../../services';
 import { NewSiteComponent } from '../new-site/new-site.component';
 import { NewSiteGroupComponent } from '../new-group/new-group.component';
 import { Site } from '../../../../models';
@@ -12,12 +12,18 @@ import { msmHelper, treeHelper } from '../../../../helpers';
 import { EditSiteActions } from '../../../../actions';
 
 @Component({
-  selector: 'app-site-setup',
+  selector: 'msm-site-setup',
   templateUrl: './site-setup.component.html',
   styleUrls: ['./site-setup.component.scss']
 })
 export class SiteSetupComponent extends CommonComponent {
   siteForm: FormGroup;
+  snmpConfigSource;
+  snmpDataConfigSource;
+  templateSource;
+  parentSites = treeHelper.createSiteGroups();
+  controllerSource = msmHelper.createControllerTypeList();
+  prioritySource = msmHelper.createPriorityList();
   private originalSiteSource = [];
   private selectedRowIndex: number;
   private selectedSite = null;
@@ -27,7 +33,9 @@ export class SiteSetupComponent extends CommonComponent {
   private siteGroups = [];
   private siteChangedIds = [];
   constructor(private siteService: SiteService, modalService: BsModalService,
-    ngRedux: NgRedux<IAppState>, private fb: FormBuilder, private editSiteAction: EditSiteActions) {
+    ngRedux: NgRedux<IAppState>, private fb: FormBuilder, private editSiteAction: EditSiteActions,
+    private snmpConfigService: SnmpConfigService, private snmpDataService: SnmpDataService,
+    private templateService: TemplateService) {
     super(ngRedux, modalService);
   }
 
@@ -38,13 +46,18 @@ export class SiteSetupComponent extends CommonComponent {
 
   // add new site
   onAddNewSite() {
-    var newSiteRef = this.modalService.show(NewSiteComponent);
+    let setting = {
+      snmpConfigSource: this.snmpConfigSource, snmpDataConfigSource: this.snmpDataConfigSource,
+      templateSource: this.templateSource, parentSites: this.parentSites, controllerSource: this.controllerSource
+    };
+    var newSiteRef = this.modalService.show(NewSiteComponent, { initialState: { setting } });
     this.onAfterAddingNewSite(newSiteRef);
   }
 
   // add new site group
   onAddNewGroup() {
-    var newSiteRef = this.modalService.show(NewSiteGroupComponent);
+    let setting = { parentSites: this.parentSites };
+    var newSiteRef = this.modalService.show(NewSiteGroupComponent, { initialState: { setting } });
     this.onAfterAddingNewSite(newSiteRef);
   }
 
@@ -154,6 +167,7 @@ export class SiteSetupComponent extends CommonComponent {
   protected onComponentInit() {
     this.createForm();
     this.getSites();
+    this.getdataTemplates();
   }
 
   // remove event to prevent memory leak
@@ -332,5 +346,15 @@ export class SiteSetupComponent extends CommonComponent {
     }
 
     return true;
+  }
+
+  private getdataTemplates() {
+    this.snmpConfigService.getSnmpConfig()
+      .then(res => this.snmpConfigSource = res);
+    this.snmpDataService.getSnmpDataConfig()
+      .then(res => this.snmpDataConfigSource = res);
+    this.templateService.getTemplates()
+      .then(res => this.templateSource = res);
+
   }
 }

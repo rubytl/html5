@@ -1,6 +1,6 @@
 <form [formGroup]="templateForm">
   <select class="form-control" formControlName="value">
-    <option *ngFor="let group of siteGroups" value= {{group.id}}>
+    <option *ngFor="let group of templateList" value= {{group.id}}>
       {{group.description}}
     </option>
   </select>

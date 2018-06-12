@@ -33,4 +33,10 @@ export class TemplateService extends BaseService {
             JSON.stringify({ pageIndex, pageSize }),
             factory.createHeaderWithToken());
     }
+
+    addNewTemplate(newTemplate) {
+        return this.post(factory.getNewTemplateUrl(),
+            JSON.stringify({}),
+            factory.createHeaderWithToken());
+    }
 }

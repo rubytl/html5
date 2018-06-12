@@ -3,9 +3,8 @@ import { SharedModule } from '../../../shared';
 
 import {
   SiteSetupComponent, AdministrationRoutingModule,
-  AdministrationComponent, SiteTemplateComponent
+  AdministrationComponent, SiteTemplateSetupComponent
 } from '.';
-import { NewSiteTemplateComponent } from './new-site-template/new-site-template.component';
 
 @NgModule({
   imports: [
@@ -13,10 +12,9 @@ import { NewSiteTemplateComponent } from './new-site-template/new-site-template.
     SharedModule,
   ],
   declarations: [
-    SiteSetupComponent,
     AdministrationComponent,
-    SiteTemplateComponent,
-    NewSiteTemplateComponent,
+    SiteSetupComponent,
+    SiteTemplateSetupComponent,
   ]
 })
 export class AdministrationModule { }

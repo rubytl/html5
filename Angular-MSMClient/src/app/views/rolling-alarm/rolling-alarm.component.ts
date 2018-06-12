@@ -17,6 +17,7 @@ import * as signalR from '@aspnet/signalr-client';
 export class RollingAlarmComponent implements OnInit, OnDestroy {
   statuses = msmHelper.createAlarmStatusList();
   priorities = treeHelper.createPriorityList();
+  filterTypes = msmHelper.createFilterTypeList();
   pageIndexSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   alarm: AlarmRolling;
   alarmSource: any;
@@ -82,7 +83,7 @@ export class RollingAlarmComponent implements OnInit, OnDestroy {
   }
 
   onFilterTypeChange(event) {
-    this.alarm.selectedFilterType = event;
+    this.alarm.selectedFilterType = event.value;
     this.getFilterAlarm();
   }
 

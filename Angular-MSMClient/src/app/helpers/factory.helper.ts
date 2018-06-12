@@ -99,6 +99,10 @@ export function getCanDeleteTemplateUrl() {
     return CLIENT_API_URL + "/template/canDelete/?templateId=";
 }
 
+export function getNewTemplateUrl() {
+    return CLIENT_API_URL + "/template/add";
+}
+
 // Snmp urls
 export function getSnmpConfigUrl() {
     return CLIENT_API_URL + "/snmpconfig";
@@ -106,4 +110,13 @@ export function getSnmpConfigUrl() {
 
 export function getSnmpDataConfigUrl() {
     return CLIENT_API_URL + "/snmpdata";
+}
+
+// msm dictionary urls
+export function getMsmDictionary() {
+    return CLIENT_API_URL + "/msmdictionary";
+}
+
+export function getMsmDictionaryById(itemId) {
+    return CLIENT_API_URL + "/msmdictionary/byid/" + itemId;
 }
