@@ -1,0 +1,7 @@
+<form [formGroup]="templateForm">
+    <select class="form-control" formControlName="value">
+      <option *ngFor="let template of templateList" value= {{template.itemId}}>
+        {{template.itemName}}
+      </option>
+  </select>
+  </form>

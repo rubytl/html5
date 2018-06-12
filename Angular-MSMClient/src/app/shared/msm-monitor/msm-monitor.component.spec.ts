@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SiteTemplateComponent } from './site-template.component';
+import { MsmMonitorComponent } from './msm-monitor.component';
 
-describe('SiteTemplateComponent', () => {
-  let component: SiteTemplateComponent;
-  let fixture: ComponentFixture<SiteTemplateComponent>;
+describe('MsmMonitorComponent', () => {
+  let component: MsmMonitorComponent;
+  let fixture: ComponentFixture<MsmMonitorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SiteTemplateComponent ]
+      declarations: [ MsmMonitorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SiteTemplateComponent);
+    fixture = TestBed.createComponent(MsmMonitorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

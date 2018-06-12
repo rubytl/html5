@@ -168,6 +168,7 @@ namespace MSMClientAPIService
             services.AddScoped<ISnmpConfigTemplateRepository, SnmpConfigTemplateRepository>();
             services.AddScoped<INetworkDeviceRepository, NetworkDeviceRepository>();
             services.AddScoped<ISiteNotificationRepository, SiteNotificationRepository>();
+            services.AddScoped<IMSMDictionaryRepository, MSMDictionaryRepository>();
         }
     }
 }
