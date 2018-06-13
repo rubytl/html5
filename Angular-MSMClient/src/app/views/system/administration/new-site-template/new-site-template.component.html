@@ -7,8 +7,16 @@
   </div>
   <div class="card-body">
     <div class="card container">
-      <p><strong>Add New Site Template</strong></p>
-      <p><strong>Copy from existing template</strong></p>
+      <div class="row container" *ngIf="editTemplate===false">
+        <p><strong>Add New Site Template</strong></p>
+      </div>
+      <div class="row container" *ngIf="editTemplate===true">
+        <p><strong>Edit Template</strong></p>
+      </div>
+      <div class="row" *ngIf="editTemplate===false">
+        <p class="col-6"><strong>Copy from existing template</strong></p>
+        <msm-monitor class="form-control col-6" [value]="newTemplate.cloneTemplateId" [templateList]="templateSource" (valueChanged)="onParentTemplateChanged($event)"></msm-monitor>
+      </div>
       <div class="card-body">
         <tabset>
           <tab>
@@ -16,39 +24,40 @@
             <div class="container">
               <div class="row">
                 <p class="col-8">Template ID</p>
-                <input type="text" class="form-control col-4" readonly>
+                <input type="text" class="form-control col-4" readonly [(ngModel)]="newTemplate.templateId">
               </div>
               <div class="row">
                 <p class="col-8">Template Name</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.templateName">
               </div>
               <div class="row">
                 <p class="col-8">MainsMonitor Installed</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="mainMonitorInstalled"></msm-monitor>
+                <msm-monitor class="form-control col-4" [name]="'mainsMonitorInstalled'" [value]="newTemplate.mainsMonitorInstalled" [templateList]="mainMonitorInstalled"
+                  (valueChanged)="onValueChanged($event)"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor1</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor1" [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor2</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor2" [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor3</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor3" [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor4</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor4" [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor5</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor5" [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor6</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor6" [templateList]="monitorSource"></msm-monitor>
               </div>
             </div>
           </tab>
@@ -59,43 +68,43 @@
             <div class="container">
               <div class="row">
                 <p class="col-8">On Grid</p>
-                <input type="checkbox" class="mr-auto my-4">
+                <input type="checkbox" class="mr-auto my-4" [(ngModel)]="newTemplate.onGrid">
               </div>
               <div class="row">
                 <p class="col-8">Grid, other Limit [%]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.mainsFractionTarget">
               </div>
               <div class="row">
                 <p class="col-8">SolarCharger Installed</p>
-                <input type="checkbox" class="mr-auto my-4">
+                <input type="checkbox" class="mr-auto my-4" [(ngModel)]="newTemplate.solar">
               </div>
               <div class="row">
                 <p class="col-8">Solar Engery Target [%]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.solarEnergyTarget">
               </div>
               <div class="row">
                 <p class="col-8">WindCharger Installed</p>
-                <input type="checkbox" class="mr-auto my-4">
+                <input type="checkbox" class="mr-auto my-4" [(ngModel)]="newTemplate.wind">
               </div>
               <div class="row">
                 <p class="col-8">WindCharger Engery Target [%]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.windEnergyTarget">
               </div>
               <div class="row">
                 <p class="col-8">Renewable Engery Target [%]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.renewEnergyTarget">
               </div>
               <div class="row">
                 <p class="col-8">Generator Installed</p>
-                <input type="checkbox" class="mr-auto my-4">
+                <input type="checkbox" class="mr-auto my-4" [(ngModel)]="newTemplate.generator">
               </div>
               <div class="row">
                 <p class="col-8">Running Hour Target [hours/day]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.genRunHourTarget">
               </div>
               <div class="row">
                 <p class="col-8">Generator Efficiency Target [kWh/Liter]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.genEfficiencyTarget">
               </div>
             </div>
           </tab>
@@ -106,11 +115,11 @@
             <div class="container">
               <div class="row">
                 <p class="col-8">Peak Load</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="peakLoad"></msm-monitor>
+                <msm-monitor class="form-control col-4" [value]="newTemplate.peakLoadRange" [templateList]="peakLoad"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Average Load [% of peak value]</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="averageLoad"></msm-monitor>
+                <msm-monitor class="form-control col-4" [value]="newTemplate.averageLoadRange" [templateList]="averageLoad"></msm-monitor>
               </div>
             </div>
           </tab>
@@ -121,23 +130,23 @@
             <div class="container">
               <div class="row">
                 <p class="col-8">Battery Installed</p>
-                <input type="checkbox" class="mr-auto my-4">
+                <input type="checkbox" class="mr-auto my-4" [(ngModel)]="newTemplate.battery">
               </div>
               <div class="row">
                 <p class="col-8">Backup Time Target [hh:mm]</p>
-                <msm-monitor class="form-control col-4" [value]="" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" [value]="newTemplate.installedBatteryBackupTarget" [templateList]="batteryBackupTimeList"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Average Load Measurement Reset Interval [week]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.aveLoadResetInterval">
               </div>
               <div class="row">
                 <p class="col-8">Battery Discharge Capacity [Ah]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.batteryDischargeAh">
               </div>
               <div class="row">
                 <p class="col-8">Charge Target [%]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.overChargetTarget">
               </div>
             </div>
           </tab>
@@ -148,18 +157,18 @@
             <div class="container">
               <div class="row">
                 <p class="col-8">Grid Availability Target [%]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.mainsAvlTarget">
               </div>
               <div class="row">
                 <p class="col-8"><strong>Connection</strong></p>
               </div>
               <div class="row">
                 <p class="col-8">Connection Quality Target [%]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.connQualityTarget">
               </div>
               <div class="row">
                 <p class="col-8">Connection Lost Limit [no.]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.connLossTarget">
               </div>
             </div>
           </tab>
@@ -170,15 +179,15 @@
             <div class="container">
               <div class="row">
                 <p class="col-8">ECB Installed</p>
-                <input type="checkbox" class="mr-auto my-4">
+                <input type="checkbox" class="mr-auto my-4" [(ngModel)]="newTemplate.ioUnitWithEcbonSystem">
               </div>
               <div class="row">
                 <p class="col-8">Running ECB Target [hours/day]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.ecbrunTimeTarget">
               </div>
               <div class="row">
                 <p class="col-8">Running AirCon Target [hours/day]</p>
-                <input type="text" class="form-control col-4">
+                <input type="text" class="form-control col-4" [(ngModel)]="newTemplate.airConRunTimeTarget">
               </div>
             </div>
           </tab>

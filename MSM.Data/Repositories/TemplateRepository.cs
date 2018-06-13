@@ -28,5 +28,21 @@ namespace MSM.Data.Repositories
         {
             return (await this.GetAll()).Skip(pageIndex * pageSize).Take(pageSize);
         }
+
+        public string GetLastTemplateID()
+        {
+            string myLastTemplateID = (from siteTemp in this.Context.SiteTemplate
+                                       orderby siteTemp.TemplateId descending
+                                       select siteTemp.TemplateId).FirstOrDefault();
+            try
+            {
+                var result = (int.Parse(myLastTemplateID) + 1).ToString("0000");
+                return result;
+            }
+            catch
+            {
+                return "0001";
+            }
+        }
     }
 }

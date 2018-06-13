@@ -23,6 +23,11 @@ namespace MSMClientAPIService.Models
         public List<SiteModel> Sites { get; set; }
     }
 
+    public class SiteTemplateUpdateRequest
+    {
+        public SiteTemplateModel Template { get; set; }
+    }
+
     public class AlarmRequest : PagingRequest
     {
         public string Filter { get; set; }

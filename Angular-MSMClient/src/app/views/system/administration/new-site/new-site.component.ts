@@ -57,10 +57,11 @@ export class NewSiteComponent extends MsmDialogComponent {
     this.onClick(this.newSite);
   }
 
-  protected onValueChanged(event, name) {
+  protected onValueChanged(event) {
     if (!event) {
       return;
     }
+    
     if (event.name === 'parentId') {
       this.newSite.parentId = event.value;
     }

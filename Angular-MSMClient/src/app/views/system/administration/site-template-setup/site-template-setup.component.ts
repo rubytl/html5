@@ -38,11 +38,21 @@ export class SiteTemplateSetupComponent extends CommonComponent {
   }
 
   onAddNewSiteTemplate() {
-    var newSiteRef = this.modalService.show(NewSiteTemplateComponent);
+    let templateSource = [];
+    templateSource.push({ itemId: '', itemName: '' });
+    this.originalTemplateSource.forEach(element => {
+      templateSource.push({ itemId: element.templateId, itemName: element.templateId + "(" + element.templateName + ")", data: element })
+    });
+    let setting = { templateSource: templateSource, editTemplate: false };
+    var newSiteRef = this.modalService.show(NewSiteTemplateComponent, { initialState: { setting } });
     this.onAfterAddingNewSite(newSiteRef);
   }
 
   onOpenSiteTemplate(i) {
+    let template = this.siteTemplateSource.controls[i].value;
+    let setting = { existingTemplate: template, editTemplate: true };
+    var newSiteRef = this.modalService.show(NewSiteTemplateComponent, { initialState: { setting } });
+    this.onAfterEditingSite(newSiteRef, i);
   }
 
   onDeleteSiteTemplate() {
@@ -122,7 +132,18 @@ export class SiteTemplateSetupComponent extends CommonComponent {
   private onAfterAddingNewSite(newSiteRef) {
     newSiteRef.content.onClose.subscribe(result => {
       if (result) {
+        this.originalTemplateSource.push(result);
         this.siteTemplateSource.push(this.fb.group(result));
+      }
+
+      newSiteRef.content.onClose.unsubscribe();
+    });
+  }
+
+  private onAfterEditingSite(newSiteRef, index) {
+    newSiteRef.content.onClose.subscribe(result => {
+      if (result) {
+        this.siteTemplateSource.controls[index] = this.fb.group(result);
       }
 
       newSiteRef.content.onClose.unsubscribe();

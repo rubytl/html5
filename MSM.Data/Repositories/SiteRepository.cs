@@ -223,10 +223,5 @@ namespace MSM.Data.Repositories
                                 orderby siteTemp.Id descending
                                 select siteTemp.Id).FirstOrDefault();
         }
-
-        //public override async Task AddAsync(Site entity)
-        //{
-        //    await this.Context.Site.AddAsync(entity);
-        //}
     }
 }

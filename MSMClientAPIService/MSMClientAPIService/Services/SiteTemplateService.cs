@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MSM.Data.Models;
 using MSM.Data.Repositories.Interfaces;
+using MSMClientAPIService.Mapping;
+using MSMClientAPIService.Mapping.Models;
 using MSMClientAPIService.Models;
 
 namespace MSMClientAPIService.Services
@@ -33,6 +35,30 @@ namespace MSMClientAPIService.Services
             this.templateRepo.DeleteWhere(s => templateIds.Contains(s.TemplateId));
             await this.templateRepo.CommitAsync();
             return await Task.FromResult(true);
+        }
+
+        public async Task<bool> AddNewSiteTemplate(SiteTemplateModel site)
+        {
+            await this.templateRepo.AddAsync(SiteTemplateMapping.MapTemplateModelToTemplate(site));
+            await this.templateRepo.CommitAsync();
+            return await Task.FromResult(true);
+        }
+
+        public async Task<bool> UpdateSiteTemplate(SiteTemplateModel site)
+        {
+            var siteEntity = await this.templateRepo.GetSingleAsync(s => site.TemplateId == s.TemplateId);
+            if (siteEntity != null)
+            {
+                SiteTemplateMapping.MapTemplateModelToExistingTemplate(site, siteEntity);
+            }
+
+            await this.templateRepo.CommitAsync();
+            return await Task.FromResult(true);
+        }
+
+        public string GetLastTemplateID()
+        {
+            return this.templateRepo.GetLastTemplateID();
         }
     }
 }

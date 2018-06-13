@@ -34,9 +34,19 @@ export class TemplateService extends BaseService {
             factory.createHeaderWithToken());
     }
 
-    addNewTemplate(newTemplate) {
-        return this.post(factory.getNewTemplateUrl(),
-            JSON.stringify({}),
+    addNewTemplate(template) {
+        return this.put(factory.getTemplateUrl(),
+            JSON.stringify({ template }),
             factory.createHeaderWithToken());
+    }
+
+    updateTemplate(template) {
+        return this.put(factory.getUpdateTemplateUrl(),
+            JSON.stringify({ template }),
+            factory.createHeaderWithToken());
+    }
+
+    getLastTemplateID() {
+        return this.get(factory.getLastTemplateID(), factory.createHeaderWithToken());
     }
 }

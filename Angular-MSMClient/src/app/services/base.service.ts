@@ -17,19 +17,8 @@ export abstract class BaseService {
 
   // Open the confirm diaglog
   protected openNotificationDialog(error) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      let settings = { title: 'Error', message: error.message };
-      msmHelper.openNotificationDialog(this.modelService, settings);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      let settings = { title: 'Error', message: error.error.message };
-      msmHelper.openNotificationDialog(this.modelService, settings);
-    }
-    // modalRef.content.onClose.subscribe(result => {
-    //   console.log('results', result);
-    // });
+    let settings = { title: 'Error', message: error.error.message ? error.error.message : error.message };
+    msmHelper.openNotificationDialog(this.modelService, settings);
   }
 
   protected startProgress() {

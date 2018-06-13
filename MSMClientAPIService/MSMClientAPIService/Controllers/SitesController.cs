@@ -81,17 +81,7 @@ namespace MSMClientAPIService.Controllers
         /// <returns></returns>
         [HttpPost("add")]
         public async Task<IActionResult> AddNewSite([FromBody]SiteModel site)
-        {
-            var result = await this.siteService.AddNewSite(site);
-            if (result == AddSiteResult.Ok)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
-        }
+        => Ok(await this.siteService.AddNewSite(site));
 
         // GET api/sites
         /// <summary>

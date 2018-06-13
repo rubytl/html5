@@ -99,9 +99,14 @@ export function getCanDeleteTemplateUrl() {
     return CLIENT_API_URL + "/template/canDelete/?templateId=";
 }
 
-export function getNewTemplateUrl() {
-    return CLIENT_API_URL + "/template/add";
+export function getLastTemplateID() {
+    return CLIENT_API_URL + "/template/lastId";
 }
+
+export function getUpdateTemplateUrl() {
+    return CLIENT_API_URL + "/template/update";
+}
+
 
 // Snmp urls
 export function getSnmpConfigUrl() {
