@@ -1,5 +1,5 @@
 <form [formGroup]="templateForm">
-  <select class="form-control" formControlName="value">
+  <select class="form-control" formControlName="value" (change)="onValueChanged($event)">
     <option *ngFor="let group of templateList" value= {{group.id}}>
       {{group.description}}
     </option>

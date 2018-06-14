@@ -24,12 +24,12 @@ export class MsmTemplateComponent implements OnDestroy, OnChanges {
         this.templateForm.patchValue({
             value: this.value
         });
-        this.templateForm.valueChanges.subscribe(
-            val => this.onValueChanged(val.value)
-        );
     }
 
-    protected onValueChanged(val) {
-        this.valueChanged.next({ name: this.name, id: this.id, value: val });
+    protected onValueChanged() {
+        this.valueChanged.next({
+            name: this.name, id: this.id,
+            value: this.templateForm.get('value').value
+        });
     }
 }

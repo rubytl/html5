@@ -37,27 +37,33 @@
               </div>
               <div class="row">
                 <p class="col-8">Monitor1</p>
-                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor1" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" (valueChanged)="onValueChanged($event)" [name]="'monitor1'" [value]="newTemplate.monitor1"
+                  [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor2</p>
-                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor2" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" (valueChanged)="onValueChanged($event)" [name]="'monitor2'" [value]="newTemplate.monitor2"
+                  [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor3</p>
-                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor3" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" (valueChanged)="onValueChanged($event)" [name]="'monitor3'" [value]="newTemplate.monitor3"
+                  [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor4</p>
-                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor4" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" (valueChanged)="onValueChanged($event)" [name]="'monitor4'" [value]="newTemplate.monitor4"
+                  [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor5</p>
-                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor5" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" (valueChanged)="onValueChanged($event)" [name]="'monitor5'" [value]="newTemplate.monitor5"
+                  [templateList]="monitorSource"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Monitor6</p>
-                <msm-monitor class="form-control col-4" [value]="newTemplate.monitor6" [templateList]="monitorSource"></msm-monitor>
+                <msm-monitor class="form-control col-4" (valueChanged)="onValueChanged($event)" [name]="'monitor6'" [value]="newTemplate.monitor6"
+                  [templateList]="monitorSource"></msm-monitor>
               </div>
             </div>
           </tab>
@@ -115,11 +121,13 @@
             <div class="container">
               <div class="row">
                 <p class="col-8">Peak Load</p>
-                <msm-monitor class="form-control col-4" [value]="newTemplate.peakLoadRange" [templateList]="peakLoad"></msm-monitor>
+                <msm-monitor class="form-control col-4" (valueChanged)="onValueChanged($event)" [name]="'peakLoadRange'" [value]="newTemplate.peakLoadRange"
+                  [templateList]="peakLoad"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Average Load [% of peak value]</p>
-                <msm-monitor class="form-control col-4" [value]="newTemplate.averageLoadRange" [templateList]="averageLoad"></msm-monitor>
+                <msm-monitor class="form-control col-4" (valueChanged)="onValueChanged($event)" [name]="'averageLoadRange'" [value]="newTemplate.averageLoadRange"
+                  [templateList]="averageLoad"></msm-monitor>
               </div>
             </div>
           </tab>
@@ -134,7 +142,8 @@
               </div>
               <div class="row">
                 <p class="col-8">Backup Time Target [hh:mm]</p>
-                <msm-monitor class="form-control col-4" [value]="newTemplate.installedBatteryBackupTarget" [templateList]="batteryBackupTimeList"></msm-monitor>
+                <msm-monitor class="form-control col-4" (valueChanged)="onValueChanged($event)" [name]="'installedBatteryBackupTarget'" [value]="newTemplate.installedBatteryBackupTarget"
+                  [templateList]="batteryBackupTimeList"></msm-monitor>
               </div>
               <div class="row">
                 <p class="col-8">Average Load Measurement Reset Interval [week]</p>

@@ -52,6 +52,6 @@ namespace MSMClientAPIService.Controllers
 
         [HttpGet("lastId")]
         public IActionResult GetLastTemplateID()
-           => Ok(this.siteTemplateService.GetLastTemplateID());
+           => Ok(new { Value = this.siteTemplateService.GetLastTemplateID() });
     }
 }

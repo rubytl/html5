@@ -26,9 +26,15 @@ export class NewSiteTemplateComponent extends MsmDialogComponent {
 
   onAddNewSite() {
     if (!this.editTemplate) {
-      this.templateService.addNewTemplate(this.newTemplate)
+      return this.templateService.addNewTemplate(this.newTemplate)
         .then(res => {
-          this.openNotificationDialog('Success', 'Template saved successfully');
+          if (res) {
+            this.openNotificationDialog('Success', 'Template saved successfully');
+            this.onClick(this.newTemplate);
+          }
+          else {
+            this.onClick(null)
+          }
         });
     }
     else {
@@ -46,22 +52,23 @@ export class NewSiteTemplateComponent extends MsmDialogComponent {
     this.existingTemplate = this.setting.existingTemplate;
     this.createDefaultTemplate();
     if (!this.editTemplate) {
-      this.templateService.getLastTemplateID().then(res => this.newTemplate.templateId = res);
+      this.templateService.getLastTemplateID().then(
+        res => this.newTemplate.templateId = res.value);
     }
 
     // get monitor list
     this.dictionaryService.getMsmDictionary()
       .then(res => {
         // monitor source
-        this.monitorSource.push({ itemId: '', itemName: '' });
+        this.monitorSource.push({ itemId: null, itemName: null });
         this.monitorSource = this.monitorSource.concat(res.filter(s => s.itemId.includes("MO")));
 
         // peak load source
-        this.peakLoad.push({ itemId: '', itemName: '' });
+        this.peakLoad.push({ itemId: null, itemName: null });
         this.peakLoad = this.peakLoad.concat(res.filter(s => s.itemId.includes("LR")));
 
         // average load source
-        this.averageLoad.push({ itemId: '', itemName: '' });
+        this.averageLoad.push({ itemId: null, itemName: null });
         this.averageLoad = this.averageLoad.concat(res.filter(s => s.itemId.includes("LA")));
       });
 
@@ -97,18 +104,47 @@ export class NewSiteTemplateComponent extends MsmDialogComponent {
     if (!event) {
       return;
     }
+
     if (event.name === 'mainsMonitorInstalled') {
-      if (event.value === "0") {
+      if (event.value === "1") {
         this.newTemplate.mainsMonitor = true;
         this.newTemplate.mainsMonitorOnSystem = true;
       }
-      else if (event.value === "1") {
+      else if (event.value === "0") {
         this.newTemplate.mainsMonitor = false;
         this.newTemplate.mainsMonitorOnSystem = false;
       } else {
         this.newTemplate.mainsMonitor = true;
         this.newTemplate.mainsMonitorOnSystem = false;
       }
+    } else if (event.value) {
+      if (event.name === 'monitor1') {
+        this.newTemplate.monitor1 = event.value;
+      }
+      else if (event.name === 'monitor2') {
+        this.newTemplate.monitor2 = event.value;
+      }
+      else if (event.name === 'monitor3') {
+        this.newTemplate.monitor3 = event.value;
+      }
+      else if (event.name === 'monitor4') {
+        this.newTemplate.monitor4 = event.value;
+      }
+      else if (event.name === 'monitor5') {
+        this.newTemplate.monitor5 = event.value;
+      }
+      else if (event.name === 'monitor6') {
+        this.newTemplate.monitor6 = event.value;
+      }
+      else if (event.name === 'peakLoadRange') {
+        this.newTemplate.peakLoadRange = event.value;
+      }
+      else if (event.name === 'averageLoadRange') {
+        this.newTemplate.averageLoadRange = event.value;
+      }
+    }
+    else if (event.name === 'installedBatteryBackupTarget') {
+      this.newTemplate.installedBatteryBackupTarget = event.value;
     }
   }
 
@@ -116,10 +152,11 @@ export class NewSiteTemplateComponent extends MsmDialogComponent {
     if (!this.editTemplate) {
       // new template info
       this.newTemplate = {
-        cloneTemplateId: '', templateName: '', mainsMonitorInstalled: 0, monitor1: '', monitor2: '', monitor3: '', monitor4: '', monitor5: '', monitor6: '',
+        cloneTemplateId: '', templateId: '', templateName: '', mainsMonitorInstalled: '0',
+        monitor1: null, monitor2: null, monitor3: null, monitor4: null, monitor5: null, monitor6: null,
         onGrid: false, mainsFractionTarget: null, solar: false, solarEnergyTarget: null, wind: false, windEnergyTarget: null,
         renewEnergyTarget: null, generator: false, genRunHourTarget: null, genEfficiencyTarget: null,
-        peakLoadRange: '', averageLoadRange: '', battery: false, installedBatteryBackupTarget: 20,
+        peakLoadRange: null, averageLoadRange: null, battery: false, installedBatteryBackupTarget: 20,
         aveLoadResetInterval: null, batteryDischargeAh: null, overChargetTarget: null,
         mainsAvlTarget: null, connQualityTarget: null, connLossTarget: null,
         ioUnitWithEcbonSystem: false, ecbrunTimeTarget: null, airConRunTimeTarget: null
@@ -128,7 +165,6 @@ export class NewSiteTemplateComponent extends MsmDialogComponent {
     else {
       // clone from existing template
       this.cloneTemplate(this.existingTemplate);
-      this.newTemplate.templateId = this.existingTemplate.templateId;
     }
   }
 
@@ -150,17 +186,18 @@ export class NewSiteTemplateComponent extends MsmDialogComponent {
     };
 
     if (this.editTemplate) {
+      this.newTemplate.templateId = this.existingTemplate.templateId;
       this.newTemplate.templateName = template.templateName;
     }
-    
+
     if (!template.mainsMonitor && !template.mainsMonitorOnSystem) {
-      this.newTemplate.mainMonitorInstalled = "0";
+      this.newTemplate.mainsMonitorInstalled = '0';
     }
     else if (template.mainsMonitor && template.mainsMonitorOnSystem) {
-      this.newTemplate.mainMonitorInstalled = "1";
+      this.newTemplate.mainsMonitorInstalled = '1';
     }
     else {
-      this.newTemplate.mainMonitorInstalled = "2";
+      this.newTemplate.mainsMonitorInstalled = '2';
     }
   }
 }

@@ -48,6 +48,7 @@ namespace MSMClientAPIService.Mapping
         {
             return new SiteTemplate()
             {
+                TemplateId = model.TemplateId,
                 TemplateName = model.TemplateName,
                 MainsMonitor = model.MainsMonitor,
                 MainsMonitorOnSystem = model.MainsMonitorOnSystem,
