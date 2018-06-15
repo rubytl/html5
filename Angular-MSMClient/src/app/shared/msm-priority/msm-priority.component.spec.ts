@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { MsmPriorityComponent } from './msm-priority.component';
 
 describe('MsmPriorityComponent', () => {
@@ -8,14 +8,16 @@ describe('MsmPriorityComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MsmPriorityComponent ]
+      imports: [ReactiveFormsModule],
+      declarations: [MsmPriorityComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MsmPriorityComponent);
     component = fixture.componentInstance;
+    component.templateList = [];
     fixture.detectChanges();
   });
 

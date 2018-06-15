@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { MsmMonitorComponent } from './msm-monitor.component';
 
 describe('MsmMonitorComponent', () => {
@@ -8,9 +8,10 @@ describe('MsmMonitorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MsmMonitorComponent ]
+      imports: [ReactiveFormsModule],
+      declarations: [MsmMonitorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

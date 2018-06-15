@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MsmControllerTypeComponent } from './msm-controller-type.component';
 
 describe('MsmControllerTypeComponent', () => {
@@ -8,14 +8,16 @@ describe('MsmControllerTypeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MsmControllerTypeComponent ]
+      imports: [ReactiveFormsModule],
+      declarations: [MsmControllerTypeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MsmControllerTypeComponent);
     component = fixture.componentInstance;
+    component.templateList = [];
     fixture.detectChanges();
   });
 

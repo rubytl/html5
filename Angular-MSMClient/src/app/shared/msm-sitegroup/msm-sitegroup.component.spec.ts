@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { MsmSitegroupComponent } from './msm-sitegroup.component';
 
 describe('MsmSitegroupComponent', () => {
@@ -8,14 +8,16 @@ describe('MsmSitegroupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MsmSitegroupComponent ]
+      imports: [ReactiveFormsModule],
+      declarations: [MsmSitegroupComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MsmSitegroupComponent);
     component = fixture.componentInstance;
+    component.templateList = [];
     fixture.detectChanges();
   });
 

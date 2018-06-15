@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { MsmSortingComponent } from './msm-sorting.component';
 
 describe('MsmSortingComponent', () => {
@@ -8,6 +8,7 @@ describe('MsmSortingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule],
       declarations: [ MsmSortingComponent ]
     })
     .compileComponents();

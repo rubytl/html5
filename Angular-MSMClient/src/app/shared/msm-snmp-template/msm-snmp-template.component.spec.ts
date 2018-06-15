@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { MsmSnmpTemplateComponent } from './msm-snmp-template.component';
 
 describe('MsmSitegroupComponent', () => {
@@ -8,6 +8,7 @@ describe('MsmSitegroupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule],
       declarations: [MsmSnmpTemplateComponent]
     })
       .compileComponents();
