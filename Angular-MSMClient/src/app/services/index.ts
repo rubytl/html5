@@ -9,6 +9,9 @@ import { TemplateService } from './template.service';
 import { SnmpConfigService } from './snmp.config.service';
 import { SnmpDataService } from './snmp.data.service';
 import { MsmDictionaryService } from './msm.dictionary.service';
+import { RestrictedGroupService } from './restricted-group.service';
+import { RoleService } from './role.service';
+import { UserLoginService } from './user-login.service';
 
 export {
     RequestInterceptorService,
@@ -20,7 +23,10 @@ export {
     TemplateService,
     SnmpConfigService,
     SnmpDataService,
-    MsmDictionaryService
+    MsmDictionaryService,
+    RestrictedGroupService,
+    RoleService,
+    UserLoginService
 };
 
 @NgModule({})
@@ -31,7 +37,8 @@ export class SharedServiceModule {
             providers: [RestrictedSiteService, UserService,
                 AuthGuard, AlarmService, SiteService,
                 TemplateService, SnmpConfigService, SnmpDataService,
-                MsmDictionaryService]
+                MsmDictionaryService, RestrictedGroupService,
+                RoleService, UserLoginService]
         };
     }
 }

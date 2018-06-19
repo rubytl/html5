@@ -91,11 +91,21 @@ namespace MSMAuthService.Controllers
         [HttpPost("resetPw")]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword([FromBody]ResetPasswordModel model)
-            => Ok(await this.authService.ResetPassword(model));        
+            => Ok(await this.authService.ResetPassword(model));
 
         [HttpPost("newRole")]
         [AllowAnonymous]
         public async Task<IActionResult> CreateNewRole(string roleName)
            => Ok(await this.authService.CreateNewRole(roleName));
+
+        [HttpGet("roles")]
+        [AllowAnonymous]
+        public IActionResult GetRoles()
+           => Ok(this.authService.GetRoles());
+
+        [HttpGet("users/{pageIndex}/{pageSize}")]
+        [AllowAnonymous]
+        public IActionResult GetUsers(int pageIndex, int pageSize)
+           => Ok(this.authService.GetUsers(pageIndex, pageSize));
     }
 }

@@ -96,8 +96,20 @@ export class UserService extends BaseService {
             })
     }
 
+    getUsers(pageIndex, pageSize) {
+        return this.get(factory.getUserUrl(pageIndex, pageSize), factory.createHeaderWithToken());
+    }
+
+    protected startProgress() {
+        this.loginProgress.updateProgress(true);
+    }
+
+    protected finishProgress() {
+        this.loginProgress.updateProgress(false);
+    }
+
     private redirectLoginPage() {
-        this.finishProgress();                        
+        this.finishProgress();
         this.removeStorage();
         this.router.navigate(['/pages/login']);
     }
@@ -113,14 +125,6 @@ export class UserService extends BaseService {
         this.loggedIn = true;
         this._authNavStatusSource.next(true);
         return res.jti;
-    }
-
-    startProgress() {
-        this.loginProgress.updateProgress(true);
-    }
-
-    finishProgress() {
-        this.loginProgress.updateProgress(false);
     }
 }
 

@@ -14,7 +14,7 @@ namespace MSM.Data.Repositories
     /// </summary>
     /// <seealso cref="MSM.Data.EntityBaseRepository{MSM.Data.Models.Msmuser}" />
     /// <seealso cref="MSM.Data.Repositories.Interfaces.IUserMaintenanceRepository" />
-    public class UserMaintenanceRepository : EntityBaseRepository<Msmuser>, IUserMaintenanceRepository
+    public class UserMaintenanceRepository : EntityBaseRepository<UserLoginConfiguration>, IUserMaintenanceRepository
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserMaintenanceRepository"/> class.

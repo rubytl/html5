@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using MSMAuthService.Identity;
     using MSMAuthService.Models;
 
     /// <summary>
@@ -28,6 +28,18 @@
         /// <param name="roleName">Name of the role.</param>
         /// <returns></returns>
         Task<bool> CreateNewRole(string roleName);
+
+        /// <summary>
+        /// Gets the users.
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<AppIdentityUser> GetUsers(int pageIndex, int pageSize);
+
+        /// <summary>
+        /// Gets the roles.
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<AppIdentityRole> GetRoles();
 
         /// <summary>
         /// Forgots the password.

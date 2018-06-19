@@ -77,6 +77,14 @@ export function getlogoutUrl() {
     return AUTH_API_URL + "/auth/logout";
 }
 
+export function getRoleUrl() {
+    return AUTH_API_URL + "/auth/roles";
+}
+
+export function getUserUrl(pageIndex, pageSize) {
+    return AUTH_API_URL + "/auth/users/" + pageIndex + "/" + pageSize;
+}
+
 // Alarm urls
 export function getRollingAlarmUrl() {
     return CLIENT_API_URL + "/alarm/filter";
@@ -124,4 +132,14 @@ export function getMsmDictionary() {
 
 export function getMsmDictionaryById(itemId) {
     return CLIENT_API_URL + "/msmdictionary/byid/" + itemId;
+}
+
+// restricted group urls
+export function getRestrictedGroupUrl() {
+    return CLIENT_API_URL + "/restrictedgroup";
+}
+
+// user login urls
+export function getUserLoginUrl(pageIndex, pageSize) {
+    return CLIENT_API_URL + "/userlogin/users/" + pageIndex + "/" + pageSize;
 }

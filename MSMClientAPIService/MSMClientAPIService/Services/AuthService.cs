@@ -70,17 +70,17 @@ namespace MSMClientAPIService.Services
             }
 
             //get the user to verifty
-            var userToVerify = await this.userRepo.GetSingleAsync(s => s.Username == userName);
-            if (userToVerify == null)
-            {
-                return await Task.FromResult(new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotAllowd });
-            }
+            //var userToVerify = await this.userRepo.GetSingleAsync(s => s.Username == userName);
+            //if (userToVerify == null)
+            //{
+            //    return await Task.FromResult(new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotAllowd });
+            //}
 
-            // check the credentials
-            if (await this.userRepo.GetSingleAsync(s => s.Password == password) == null)
-            {
-                return await Task.FromResult(new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotAllowd });
-            }
+            //// check the credentials
+            //if (await this.userRepo.GetSingleAsync(s => s.Password == password) == null)
+            //{
+            //    return await Task.FromResult(new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotAllowd });
+            //}
 
             //check license
             //if (!LoginHelper.LicenseStatusOK)

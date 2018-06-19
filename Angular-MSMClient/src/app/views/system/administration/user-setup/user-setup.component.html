@@ -1,0 +1,54 @@
+<form [formGroup]="userForm">
+  <div class="d-flex flex-column">
+    <div class="msm-content">
+      <table class="table table-striped table-bordered table-hover table-responsive table-sm">
+        <thead class="thead-default">
+          <tr>
+            <th>User name</th>
+            <th>Mail address</th>
+            <th>Roles</th>
+            <th>Accessible site/group</th>
+            <th>Comment</th>
+            <th>Locked</th>
+            <th>Friendly name</th>
+            <th>Created</th>
+            <th>Last login</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="userSource">
+          <tr *ngFor="let user of userSource.controls; let i=index" [formGroupName]="i" (click)="onRowClick(i)">
+            <td>{{user.get('userName').value}}</td>
+            <td><input type="text" class="form-control" formControlName="email"></td>
+            <td>
+              <msm-monitor [name]="'roleName'" [value]="user.get('roleName').value" [templateList]="roleList"
+                (valueChanged)="onValueChanged($event)"></msm-monitor>
+            </td>
+            <td>
+              <msm-monitor [name]="'restrictedGroupId'" [value]="user.get('restrictedGroupId').value" [templateList]="restrictedList"
+                (valueChanged)="onValueChanged($event)"></msm-monitor>
+            </td>
+            <td><input type="text" class="form-control" formControlName="comment"></td>
+            <td><input type="checkbox" readonly class="form-control" formControlName="locked" readonly></td>
+            <td><input type="text" class="form-control" formControlName="friendlyName"></td>
+            <td>{{user.get('createdDate').value}}</td>
+            <td>{{user.get('lastLogin').value}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex flex-row">
+      <button class="btn  btn-pill mr-4" (click)="onAddNewUser()"><i class="fa fa-user-plus"></i> Add User</button>
+      <button class="btn  btn-pill mr-4" (click)="onDeleteUser()"><i class="fa fa-user-times"> Delete User</i></button>
+      <button class="btn  btn-pill mr-4" (click)="onDeleteUser()"><i class="fa fa-refresh"> Reset Password</i></button>
+      <button class="btn  btn-pill mr-4" (click)="onDeleteUser()"><i class="fa fa-unlock-alt"> Unlock User</i></button>
+      <button class="btn  btn-pill mr-4" [disabled]="userForm.pristine" (click)="onSaveChanges()"><i class="fa fa-save"></i> Save Changes</button>
+      <button class="btn  btn-pill mr-4" [disabled]="userForm.pristine" (click)="onRejectChanges()"><i class="fa fa-undo"></i> Reject Changes</button>
+      <button class="btn  btn-pill mr-4" (click)="onDeleteUser()"><i class="fa fa-cog"> Accessible site/group configuration</i></button>
+      <msm-paginator class="ml-auto" [pageSizeOptions]="[10,20,30,40]" [pageLength]="paging.pageLength" [(pageIndex)]="paging.pageIndex"
+        (currentPageChange)="onCurrentPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></msm-paginator>
+    </div>
+  </div>
+</form>

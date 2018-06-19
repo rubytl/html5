@@ -184,6 +184,16 @@ namespace MSMAuthService.Services
             return await Task.FromResult(result.Succeeded);
         }
 
+        public IQueryable<AppIdentityUser> GetUsers(int pageIndex, int pageSize)
+        {
+            return this.userManager.Users.Skip(pageIndex * pageSize).Take(pageSize);
+        }
+
+        public IQueryable<AppIdentityRole> GetRoles()
+        {
+            return this.roleManager.Roles;
+        }
+
         public async Task<bool> CreateNewRole(string roleName)
         {
             AppIdentityRole role = new AppIdentityRole();

@@ -3,7 +3,8 @@ import { SharedModule } from '../../../shared';
 
 import {
   SiteSetupComponent, AdministrationRoutingModule,
-  AdministrationComponent, SiteTemplateSetupComponent
+  AdministrationComponent, SiteTemplateSetupComponent,
+  UserSetupComponent
 } from '.';
 
 @NgModule({
@@ -15,6 +16,7 @@ import {
     AdministrationComponent,
     SiteSetupComponent,
     SiteTemplateSetupComponent,
+    UserSetupComponent,
   ]
 })
 export class AdministrationModule { }

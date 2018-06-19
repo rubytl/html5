@@ -169,6 +169,7 @@ namespace MSMClientAPIService
             services.AddScoped<INetworkDeviceRepository, NetworkDeviceRepository>();
             services.AddScoped<ISiteNotificationRepository, SiteNotificationRepository>();
             services.AddScoped<IMSMDictionaryRepository, MSMDictionaryRepository>();
+            services.AddScoped<IRestrictedGroupRepository, RestrictedGroupRepository>();
         }
     }
 }
