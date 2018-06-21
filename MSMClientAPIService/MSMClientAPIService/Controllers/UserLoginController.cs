@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MSM.Data.Models;
 using MSM.Data.Repositories.Interfaces;
 using MSMClientAPIService.Models;
 
@@ -21,6 +22,16 @@ namespace MSMClientAPIService.Controllers
         {
             this.userRepo = userRepo;
         }
+
+        [HttpPut]
+        public async Task<IActionResult> AddNewUserConfiguration([FromBody]UserLoginConfiguration userConfig)
+        {
+            await this.userRepo.AddAsync(userConfig);
+            await this.userRepo.CommitAsync();
+
+            return Ok(true);
+        }
+
 
         [HttpGet("users/{pageIndex}/{pageSize}")]
         public async Task<IActionResult> GetUserPaging(int pageIndex, int pageSize)

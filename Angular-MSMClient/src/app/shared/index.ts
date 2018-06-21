@@ -34,6 +34,7 @@ import { MsmMonitorComponent } from './msm-monitor/msm-monitor.component';
 import { NewSiteComponent } from '../views/system/administration/new-site/new-site.component';
 import { NewSiteGroupComponent } from '../views/system/administration/new-group/new-group.component';
 import { NewSiteTemplateComponent } from '../views/system/administration/new-site-template/new-site-template.component';
+import { NewUserComponent } from '../views/system/administration/new-user/new-user.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, TabsModule],
@@ -44,7 +45,8 @@ import { NewSiteTemplateComponent } from '../views/system/administration/new-sit
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
         MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
         MsmMonitorComponent,
-        NewSiteComponent, NewSiteGroupComponent, NewSiteTemplateComponent],
+        NewSiteComponent, NewSiteGroupComponent, NewSiteTemplateComponent,
+        NewUserComponent],
     exports: [FormsModule, CommonModule, ReactiveFormsModule, TabsModule,
         SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
@@ -58,7 +60,8 @@ import { NewSiteTemplateComponent } from '../views/system/administration/new-sit
             MsmDialogComponent,
             NewSiteComponent,
             NewSiteGroupComponent,
-            NewSiteTemplateComponent
+            NewSiteTemplateComponent,
+            NewUserComponent
         ]
 })
 export class SharedModule { }

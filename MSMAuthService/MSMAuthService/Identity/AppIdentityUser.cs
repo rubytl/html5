@@ -13,6 +13,6 @@ namespace MSMAuthService.Identity
 
         public DateTime CreatedDate { get; set; }
 
-        public DateTime LastLogin { get; set; }
+        public DateTime? LastLogin { get; set; }
     }
 }

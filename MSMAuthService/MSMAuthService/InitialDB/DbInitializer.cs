@@ -90,10 +90,7 @@
                 user.UserName = "admin";
                 user.Email = "pham.thingoc@eltek.com";
                 user.FriendlyName = "admin";
-                user.Comment = "";
-                user.Locked = false;
                 user.CreatedDate = DateTime.Now;
-                user.LastLogin = DateTime.Now;
                 IdentityResult result = userManager.CreateAsync(user, "Admin123").Result;
                 if (result.Succeeded)
                 {

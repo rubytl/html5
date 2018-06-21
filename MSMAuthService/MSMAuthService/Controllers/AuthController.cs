@@ -78,10 +78,19 @@ namespace MSMAuthService.Controllers
             return NoContent();
         }
 
-        [HttpPost("register")]
+        [HttpPut("register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody]RegisterModel model)
-            => Ok(await this.authService.Register(model));
+        {
+            try
+            {
+                return Ok(await this.authService.Register(model));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("forgotPw")]
         [AllowAnonymous]

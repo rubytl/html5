@@ -34,6 +34,16 @@ namespace MSMAuthService.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        public string Comment { get; set; }
+
+        public bool Locked { get; set; }
+
+        public string FriendlyName { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime? LastLogin { get; set; }
     }
 
     public class ResetPasswordModel

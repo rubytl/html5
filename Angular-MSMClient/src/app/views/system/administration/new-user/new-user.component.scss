@@ -1,0 +1,29 @@
+.card-body
+{
+    > div{
+        margin-bottom: 0.3rem;
+        *{
+            justify-content: flex-start;
+        }
+    }
+
+    .row,
+    {
+        height: 1.6rem;
+    }
+
+    .form-control
+    {
+        height: 1.4rem;
+    }
+
+    p:first-child
+    {
+        margin-left:-10px;
+    }
+}
+
+button
+{
+    width:3.2rem;
+}

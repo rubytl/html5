@@ -4,7 +4,8 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { IAppState } from '../../../../store';
 import { CommonComponent } from '../../../common/common.component';
-import { UserLoginService, UserService, RoleService, RestrictedGroupService } from '../../../../services';
+import { UserLoginService, RoleService, RestrictedGroupService } from '../../../../services';
+import { NewUserComponent } from '../new-user/new-user.component';
 
 @Component({
   selector: 'msm-user-setup',
@@ -13,13 +14,14 @@ import { UserLoginService, UserService, RoleService, RestrictedGroupService } fr
 })
 export class UserSetupComponent extends CommonComponent {
   userForm: FormGroup;
+  noServiceLoaded: number;
   private originalUserSource = [];
   private roleList = [];
   private restrictedList = [];
   private selectedRowIndex: number;
   private deletedUserIs = [];
   constructor(modalService: BsModalService, ngRedux: NgRedux<IAppState>, private fb: FormBuilder,
-    private userService: UserService, private roleService: RoleService,
+    private roleService: RoleService,
     private userLoginService: UserLoginService, private restrictedService: RestrictedGroupService) {
     super(ngRedux, modalService);
   }
@@ -36,6 +38,8 @@ export class UserSetupComponent extends CommonComponent {
 
   // called when component is inited
   protected onComponentInit() {
+    this.restrictedList.push({ itemName: 'All', itemId: null });
+    this.noServiceLoaded = 0;
     this.createForm();
     this.getUserPaging();
     this.getUserLoginsPaging();
@@ -52,7 +56,7 @@ export class UserSetupComponent extends CommonComponent {
 
   // get users paging
   private getUserPaging() {
-    this.userService.getUsers(this.paging.pageIndex, this.paging.pageSize)
+    this.userLoginService.getUsers(this.paging.pageIndex, this.paging.pageSize)
       .then(res => {
         res.forEach(element => {
           this.originalUserSource.push({
@@ -61,6 +65,10 @@ export class UserSetupComponent extends CommonComponent {
             createdDate: element.createdDate, lastLogin: element.lastLogin
           });
         });
+        this.noServiceLoaded++;
+        if (this.noServiceLoaded === 2) {
+          this.rebuildForm();
+        }
       });
   }
 
@@ -95,7 +103,10 @@ export class UserSetupComponent extends CommonComponent {
             user.restrictedGroupId = element.restrictedGroupId;
           }
         });
-        this.rebuildForm();
+        this.noServiceLoaded++;
+        if (this.noServiceLoaded === 2) {
+          this.rebuildForm();
+        }
       });
   }
 
@@ -111,6 +122,24 @@ export class UserSetupComponent extends CommonComponent {
   }
 
   private onAddNewUser() {
+    // add new site
+    let setting = {
+      roleList: this.roleList, restrictedList: this.restrictedList
+    };
+    var newSiteRef = this.modalService.show(NewUserComponent, { initialState: { setting } });
+    this.onAfterAddingNewUser(newSiteRef);
+  }
+
+  private onAfterAddingNewUser(newSiteRef) {
+    newSiteRef.content.onClose.subscribe(result => {
+      if (result) {
+        result.createdDate = new Date();
+        result.lastLogin = '';
+        this.userSource.push(this.fb.group(result));
+      }
+
+      newSiteRef.content.onClose.unsubscribe();
+    });
   }
 
   private onDeleteUser() {

@@ -15,4 +15,16 @@ export class UserLoginService extends BaseService {
   getUserLogins(pageIndex, pageSize) {
     return this.get(factory.getUserLoginUrl(pageIndex, pageSize), factory.createHeaderWithToken());
   }
+
+  createNewUserLoginConfig(model) {
+    return this.put(factory.getNewUserLoginUrl(), model, factory.createHeaderWithToken());
+  }
+
+  getUsers(pageIndex, pageSize) {
+    return this.get(factory.getUserUrl(pageIndex, pageSize), factory.createHeaderWithToken());
+  }
+
+  createNewUser(model) {
+    return this.put(factory.getNewUserUrl(), model, factory.createHeaderWithToken());
+  }
 }

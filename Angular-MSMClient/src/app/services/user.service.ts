@@ -96,10 +96,6 @@ export class UserService extends BaseService {
             })
     }
 
-    getUsers(pageIndex, pageSize) {
-        return this.get(factory.getUserUrl(pageIndex, pageSize), factory.createHeaderWithToken());
-    }
-
     protected startProgress() {
         this.loginProgress.updateProgress(true);
     }

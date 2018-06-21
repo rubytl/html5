@@ -85,6 +85,10 @@ export function getUserUrl(pageIndex, pageSize) {
     return AUTH_API_URL + "/auth/users/" + pageIndex + "/" + pageSize;
 }
 
+export function getNewUserUrl() {
+    return AUTH_API_URL + "/auth/register";
+}
+
 // Alarm urls
 export function getRollingAlarmUrl() {
     return CLIENT_API_URL + "/alarm/filter";
@@ -142,4 +146,8 @@ export function getRestrictedGroupUrl() {
 // user login urls
 export function getUserLoginUrl(pageIndex, pageSize) {
     return CLIENT_API_URL + "/userlogin/users/" + pageIndex + "/" + pageSize;
+}
+
+export function getNewUserLoginUrl() {
+    return CLIENT_API_URL + "/userlogin";
 }

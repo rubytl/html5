@@ -178,6 +178,10 @@ namespace MSMAuthService.Services
             {
                 UserName = model.UserName,
                 Email = model.Email,
+                FriendlyName = model.FriendlyName,
+                CreatedDate = DateTime.Now,
+                Comment = model.Comment,
+                Locked = model.Locked,
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);
