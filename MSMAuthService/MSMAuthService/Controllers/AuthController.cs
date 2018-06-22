@@ -84,7 +84,15 @@ namespace MSMAuthService.Controllers
             try
             {
                 var newUser = await this.authService.CreateNewUser(model);
-                return Ok(new { id = newUser.Id, createdDate = newUser.CreatedDate });
+                if (newUser is RegisterModelResponse)
+                {
+                    RegisterModelResponse res = (RegisterModelResponse)newUser;
+                    return Ok(new { id = res.Id, createdDate = res.CreatedDate });
+                }
+                else
+                {
+                    return BadRequest((newUser as IdentityError).Description);
+                }
             }
             catch (Exception ex)
             {
@@ -124,5 +132,9 @@ namespace MSMAuthService.Controllers
         [HttpPut("unlock")]
         public async Task<IActionResult> UnlockUser([FromBody]List<string> userIds)
             => Ok(await this.authService.UnlockUser(userIds));
+
+        [HttpPut("lastlogin")]
+        public async Task<IActionResult> UpdateLastLogin([FromBody]LoginModel loginModel)
+           => Ok(await this.authService.UpdateLastLogin(loginModel.Username));
     }
 }

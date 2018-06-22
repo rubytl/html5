@@ -143,6 +143,7 @@ export class UserSetupComponent extends CommonComponent {
     newSiteRef.content.onClose.subscribe(result => {
       if (result) {
         this.userSource.push(this.fb.group(result));
+        this.originalUserSource.push(result);
       }
 
       newSiteRef.content.onClose.unsubscribe();

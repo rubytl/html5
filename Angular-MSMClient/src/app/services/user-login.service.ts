@@ -47,6 +47,11 @@ export class UserLoginService extends BaseService {
             .catch(this.handleError);
     }
 
+    updateLastLogin(username) {
+        let loginModel = { username: username };
+        return this.put(factory.getUpdateLastLoginUrl(), loginModel, factory.createHeaderWithToken());
+    }
+
     resetPw(userName, newPassword, oldPassword, email): Promise<any> {
         return this
             .post(factory.getResetPasswordUrl(), JSON.stringify({ userName, newPassword, oldPassword, email }), factory.createHeader())

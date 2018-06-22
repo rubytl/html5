@@ -138,10 +138,10 @@ namespace MSMAuthService.Services
             }
 
             //check license
-            if (!LoginHelper.LicenseStatusOK)
-            {
-                return new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotValidLicense };
-            }
+            //if (!LoginHelper.LicenseStatusOK)
+            //{
+            //    return new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotValidLicense };
+            //}
 
             //// check logged in already
             //if (LoginHelper.IsUserOnline(userName))
@@ -172,7 +172,7 @@ namespace MSMAuthService.Services
             return new CheckLoginResponse { CheckLoginResult = CheckLoginResult.Allowed };
         }
 
-        public async Task<RegisterModelResponse> CreateNewUser(RegisterModel model)
+        public async Task<object> CreateNewUser(RegisterModel model)
         {
             var user = new AppIdentityUser
             {
@@ -190,8 +190,10 @@ namespace MSMAuthService.Services
                 var newUser = await this.userManager.FindByEmailAsync(model.Email);
                 return await Task.FromResult(new RegisterModelResponse() { Id = newUser.Id, CreatedDate = newUser.CreatedDate });
             }
-
-            return await Task.FromResult<RegisterModelResponse>(null);
+            else
+            {
+                return await Task.FromResult(result.Errors.ElementAt(0));
+            }
         }
 
         public IQueryable<AppIdentityUser> GetUsers(int pageIndex, int pageSize)
@@ -290,6 +292,18 @@ namespace MSMAuthService.Services
                     user.Locked = false;
                     await this.userManager.UpdateAsync(user);
                 }
+            }
+
+            return await Task.FromResult(true);
+        }
+
+        public async Task<bool> UpdateLastLogin(string userName)
+        {
+            var user = await this.userManager.FindByNameAsync(userName);
+            if (user != null)
+            {
+                user.LastLogin = DateTime.Now;
+                await this.userManager.UpdateAsync(user);
             }
 
             return await Task.FromResult(true);

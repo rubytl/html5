@@ -23,6 +23,7 @@ export class LoginComponent {
     this.userLoginSVC.login(this.credentials.username, this.credentials.password)
       .then(() => {
         this.router.navigate(['/dashboard']);
+        this.userLoginSVC.updateLastLogin(this.credentials.username);
       })
       .catch(ex => {
         var error = ex.error;

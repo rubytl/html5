@@ -97,6 +97,10 @@ export function getUnlockUserUrl() {
     return AUTH_API_URL + "/auth/unlock";
 }
 
+export function getUpdateLastLoginUrl() {
+    return AUTH_API_URL + "/auth/lastlogin";
+}
+
 // Alarm urls
 export function getRollingAlarmUrl() {
     return CLIENT_API_URL + "/alarm/filter";

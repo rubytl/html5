@@ -96,7 +96,9 @@ export class NewSiteTemplateComponent extends MsmDialogComponent {
       this.cloneTemplate(existingTemplate.data);
     }
     else {
+      let templateId = this.newTemplate.templateId;
       this.createDefaultTemplate();
+      this.newTemplate.templateId = templateId;
     }
   }
 
@@ -169,6 +171,7 @@ export class NewSiteTemplateComponent extends MsmDialogComponent {
   }
 
   private cloneTemplate(template) {
+    let templateId = this.editTemplate ? this.existingTemplate.templateId : this.newTemplate.templateId;
     // new template info
     this.newTemplate = {
       cloneTemplateId: template.templateId, templateName: '', mainsMonitor: template.mainsMonitor, mainsMonitorOnSystem: template.mainsMonitorOnSystem,
@@ -186,8 +189,11 @@ export class NewSiteTemplateComponent extends MsmDialogComponent {
     };
 
     if (this.editTemplate) {
-      this.newTemplate.templateId = this.existingTemplate.templateId;
+      this.newTemplate.templateId = templateId;
       this.newTemplate.templateName = template.templateName;
+    }
+    else {
+      this.newTemplate.templateId = templateId;
     }
 
     if (!template.mainsMonitor && !template.mainsMonitorOnSystem) {

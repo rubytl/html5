@@ -68,7 +68,7 @@
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        Task<RegisterModelResponse> CreateNewUser(RegisterModel model);
+        Task<object> CreateNewUser(RegisterModel model);
 
         /// <summary>
         /// Resets the password.
@@ -86,6 +86,8 @@
         Task<IdentityResult> DeleteUserById(string userId);
 
         Task<bool> UnlockUser(List<string> userIds);
+
+        Task<bool> UpdateLastLogin(string userName);
 
 
         #endregion Methods
