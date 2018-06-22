@@ -1,20 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NewUserComponent } from './new-user.component';
+import { Component, Input } from '@angular/core';
 
 describe('NewUserComponent', () => {
-  let component: NewUserComponent;
-  let fixture: ComponentFixture<NewUserComponent>;
+  let component: NewUserComponentWrapper;
+  let fixture: ComponentFixture<NewUserComponentWrapper>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewUserComponent ]
+      declarations: [NewUserComponentWrapper],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewUserComponent);
+    fixture = TestBed.createComponent(NewUserComponentWrapper);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -23,3 +22,10 @@ describe('NewUserComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+@Component({
+  selector: 'test-new-user-wrapper',
+  template: '<div>new user displayed</div>'
+})
+class NewUserComponentWrapper {
+}

@@ -1,20 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ResetPasswordComponent } from './reset-password.component';
+import { Component, Input } from '@angular/core';
 
 describe('ResetPasswordComponent', () => {
-  let component: ResetPasswordComponent;
-  let fixture: ComponentFixture<ResetPasswordComponent>;
+  let component: ResetPasswordComponentWrapper;
+  let fixture: ComponentFixture<ResetPasswordComponentWrapper>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResetPasswordComponent ]
+      declarations: [ResetPasswordComponentWrapper]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResetPasswordComponent);
+    fixture = TestBed.createComponent(ResetPasswordComponentWrapper);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -23,3 +22,10 @@ describe('ResetPasswordComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+@Component({
+  selector: 'test-reset-password-wrapper',
+  template: '<div>reset password component displayed</div>'
+})
+class ResetPasswordComponentWrapper {
+}
