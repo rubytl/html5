@@ -42,8 +42,8 @@
     <div class="card-header d-flex flex-row">
       <button class="btn  btn-pill mr-4" (click)="onAddNewUser()"><i class="fa fa-user-plus"></i> Add User</button>
       <button class="btn  btn-pill mr-4" (click)="onDeleteUser()"><i class="fa fa-user-times"> Delete User</i></button>
-      <button class="btn  btn-pill mr-4" (click)="onDeleteUser()"><i class="fa fa-refresh"> Reset Password</i></button>
-      <button class="btn  btn-pill mr-4" (click)="onDeleteUser()"><i class="fa fa-unlock-alt"> Unlock User</i></button>
+      <button class="btn  btn-pill mr-4" (click)="onResetPassword()"><i class="fa fa-refresh"> Reset Password</i></button>
+      <button class="btn  btn-pill mr-4" (click)="onUnlockUser()"><i class="fa fa-unlock-alt"> Unlock User</i></button>
       <button class="btn  btn-pill mr-4" [disabled]="userForm.pristine" (click)="onSaveChanges()"><i class="fa fa-save"></i> Save Changes</button>
       <button class="btn  btn-pill mr-4" [disabled]="userForm.pristine" (click)="onRejectChanges()"><i class="fa fa-undo"></i> Reject Changes</button>
       <button class="btn  btn-pill mr-4" (click)="onDeleteUser()"><i class="fa fa-cog"> Accessible site/group configuration</i></button>

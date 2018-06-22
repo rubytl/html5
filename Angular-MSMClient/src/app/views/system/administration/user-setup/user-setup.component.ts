@@ -4,8 +4,10 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { IAppState } from '../../../../store';
 import { CommonComponent } from '../../../common/common.component';
-import { UserLoginService, RoleService, RestrictedGroupService } from '../../../../services';
+import { UserService, RoleService, RestrictedGroupService } from '../../../../services';
 import { NewUserComponent } from '../new-user/new-user.component';
+import { treeHelper } from '../../../../helpers';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
 @Component({
   selector: 'msm-user-setup',
@@ -19,10 +21,12 @@ export class UserSetupComponent extends CommonComponent {
   private roleList = [];
   private restrictedList = [];
   private selectedRowIndex: number;
-  private deletedUserIs = [];
+  private deletedUsers = [];
+  private lockedUsers = [];
+
   constructor(modalService: BsModalService, ngRedux: NgRedux<IAppState>, private fb: FormBuilder,
     private roleService: RoleService,
-    private userLoginService: UserLoginService, private restrictedService: RestrictedGroupService) {
+    private userService: UserService, private restrictedService: RestrictedGroupService) {
     super(ngRedux, modalService);
   }
 
@@ -56,11 +60,11 @@ export class UserSetupComponent extends CommonComponent {
 
   // get users paging
   private getUserPaging() {
-    this.userLoginService.getUsers(this.paging.pageIndex, this.paging.pageSize)
+    this.userService.getUsers(this.paging.pageIndex, this.paging.pageSize)
       .then(res => {
         res.forEach(element => {
           this.originalUserSource.push({
-            userName: element.userName, email: element.email,
+            id: element.id, userName: element.userName, email: element.email,
             comment: element.comment, locked: element.locked, friendlyName: element.friendlyName,
             createdDate: element.createdDate, lastLogin: element.lastLogin
           });
@@ -94,15 +98,20 @@ export class UserSetupComponent extends CommonComponent {
 
   // get roles paging
   private getUserLoginsPaging() {
-    this.userLoginService.getUserLogins(this.paging.pageIndex, this.paging.pageSize)
+    this.userService.getUserLogins(this.paging.pageIndex, this.paging.pageSize)
       .then(res => {
+        let actualIds = [];
         res.forEach(element => {
           let user = this.originalUserSource.find(s => s.userName === element.userName);
           if (user) {
             user.roleName = element.roleName;
             user.restrictedGroupId = element.restrictedGroupId;
+            user.userId = element.id;
+            actualIds.push(user.id);
           }
         });
+
+        this.originalUserSource = this.originalUserSource.filter(s => actualIds.includes(s.id));
         this.noServiceLoaded++;
         if (this.noServiceLoaded === 2) {
           this.rebuildForm();
@@ -133,8 +142,6 @@ export class UserSetupComponent extends CommonComponent {
   private onAfterAddingNewUser(newSiteRef) {
     newSiteRef.content.onClose.subscribe(result => {
       if (result) {
-        result.createdDate = new Date();
-        result.lastLogin = '';
         this.userSource.push(this.fb.group(result));
       }
 
@@ -143,5 +150,75 @@ export class UserSetupComponent extends CommonComponent {
   }
 
   private onDeleteUser() {
+    if (this.selectedRowIndex === undefined) {
+      this.openNotificationDialog('Delete User?', "Please select a user to delete");
+      return;
+    }
+
+    let user = this.userSource.controls[this.selectedRowIndex].value;
+    this.userSource.removeAt(this.selectedRowIndex);
+    this.deletedUsers.push(user);
+    this.userSource.markAsDirty();
+  }
+
+  // row click and get the appopriate index
+  private onRowClick(i) {
+    this.selectedRowIndex = i;
+  }
+  // rebuild form if user reject changes
+  private onRejectChanges() {
+    this.rebuildForm();
+  }
+
+  // handle workflow when user accept changes from the gui
+  private onSaveChanges() {
+    // save delete templates
+    if (this.deletedUsers.length > 0) {
+      this.userService.deleteUserById(this.deletedUsers.map(s => s.id))
+        .then(res => {
+          this.userService.deleteUserLoginById(this.deletedUsers.map(s => s.userId))
+            .then(res => {
+              this.updateLocalVariables();
+              this.openNotificationDialog('Success', 'User(s) deleted successfully');
+            })
+        });
+    }
+
+    if (this.lockedUsers.length > 0) {
+      this.userService.unlockUser(this.lockedUsers.map(s => s.id));
+    }
+  }
+
+  private updateLocalVariables() {
+    this.deletedUsers = [];
+    this.originalUserSource = this.userSource.value;
+  }
+
+  private onResetPassword() {
+    if (this.selectedRowIndex === undefined) {
+      this.openNotificationDialog('Reset Password?', "Please select a user to reset password");
+      return;
+    }
+    let currentUser = this.userSource.controls[this.selectedRowIndex].value;
+    var newSiteRef = this.modalService.show(ResetPasswordComponent, { initialState: { setting: currentUser } });
+  }
+
+  private onUnlockUser() {
+    this.lockedUsers = this.originalUserSource.filter(s => s.locked === true);
+    if (this.lockedUsers.length > 0) {
+      this.userForm.markAsDirty();
+      this.lockedUsers.forEach(element => {
+        let index = this.userSource.value.findIndex(s => s.id === element.id);
+        this.userSource.controls[index].patchValue({ locked: false });
+      });
+    }
+  }
+
+  // after page changed
+  protected onAfterPageChanged() {
+    this.noServiceLoaded = 0;
+    this.originalUserSource = [];
+    this.getUserPaging();
+    this.getUserLoginsPaging();
   }
 }

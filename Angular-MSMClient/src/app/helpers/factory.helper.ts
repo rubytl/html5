@@ -89,6 +89,14 @@ export function getNewUserUrl() {
     return AUTH_API_URL + "/auth/register";
 }
 
+export function getDeleteUserByIdUrl() {
+    return AUTH_API_URL + "/auth";
+}
+
+export function getUnlockUserUrl() {
+    return AUTH_API_URL + "/auth/unlock";
+}
+
 // Alarm urls
 export function getRollingAlarmUrl() {
     return CLIENT_API_URL + "/alarm/filter";

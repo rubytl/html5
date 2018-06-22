@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MSM.Data.Models;
 using MSM.Data.Repositories.Interfaces;
+using MSMClientAPIService.Mapping;
+using MSMClientAPIService.Mapping.Models;
 using MSMClientAPIService.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,11 +26,31 @@ namespace MSMClientAPIService.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> AddNewUserConfiguration([FromBody]UserLoginConfiguration userConfig)
+        public async Task<IActionResult> AddNewUserConfiguration([FromBody]UserLoginConfigurationModel userConfig)
         {
-            await this.userRepo.AddAsync(userConfig);
-            await this.userRepo.CommitAsync();
+            try
+            {
+                await this.userRepo.AddAsync(UserLoginConfigurationMapping.MapModelToUserLoginConfiguration(userConfig));
+                await this.userRepo.CommitAsync();
+                var user = await this.userRepo.GetSingleAsync(s => s.UserName == userConfig.UserName);
+                if(user != null)
+                {
+                    return Ok(user.Id);
+                }
 
+                return Ok(-1);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUserById([System.Web.Http.FromUri]int userId)
+        {
+            this.userRepo.DeleteWhere(s => s.Id == userId);
+            await this.userRepo.CommitAsync();
             return Ok(true);
         }
 

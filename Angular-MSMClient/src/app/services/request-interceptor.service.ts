@@ -11,14 +11,14 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/take';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 
-import { UserService } from './user.service';
+import { UserLoginService } from './user-login.service';
 
 @Injectable()
 export class RequestInterceptorService implements HttpInterceptor {
     isRefreshingToken: boolean = false;
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserLoginService) { }
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
         return req.clone({ setHeaders: { Authorization: 'Bearer ' + token } });

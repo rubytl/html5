@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Identity;
     using MSMAuthService.Identity;
     using MSMAuthService.Models;
 
@@ -67,7 +68,7 @@
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        Task<bool> Register(RegisterModel model);
+        Task<RegisterModelResponse> CreateNewUser(RegisterModel model);
 
         /// <summary>
         /// Resets the password.
@@ -81,6 +82,11 @@
         /// </summary>
         /// <param name="token">The token.</param>
         void RevokeRefreshToken(string token);
+
+        Task<IdentityResult> DeleteUserById(string userId);
+
+        Task<bool> UnlockUser(List<string> userIds);
+
 
         #endregion Methods
     }

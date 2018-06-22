@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from '../services';
+import { UserLoginService } from '../services';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { NgRedux } from 'ng2-redux';
@@ -21,7 +21,7 @@ export class FullLayoutComponent implements OnInit, OnDestroy {
   private siteInProgressSub: Subscription;
   private alarmInProgressSub: Subscription;
   private mainInProgressSub: Subscription;
-  constructor(private userSVC: UserService, private ngRedux: NgRedux<IAppState>) {
+  constructor(private userSVC: UserLoginService, private ngRedux: NgRedux<IAppState>) {
   }
 
   ngOnInit() {

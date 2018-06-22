@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from '../services';
+import { UserLoginService } from '../services';
 import { Router } from '@angular/router';
 
 import { Credentials, ResetCredentials } from '../models';
@@ -15,12 +15,12 @@ export class LoginComponent {
   resetCredential: ResetCredentials = { username: '', password: '', newPassword: '', confirmNewPassword: '', email: '' };
   isChangingPw = false;
   isLogin = false;
-  constructor(private userSVC: UserService, private router: Router) {
+  constructor(private userLoginSVC: UserLoginService, private router: Router) {
   }
 
   login() {
     this.errors = '';
-    this.userSVC.login(this.credentials.username, this.credentials.password)
+    this.userLoginSVC.login(this.credentials.username, this.credentials.password)
       .then(() => {
         this.router.navigate(['/dashboard']);
       })
@@ -39,14 +39,14 @@ export class LoginComponent {
           this.errors = "The maximum user limit for this application is reached.\nPlease try again later or contact your administrator to expand the number of licenses.";
         }
         else {
-          this.errors = "Invalid username/password.\n Or server error, or internet connection failure has occurred";
+          this.errors = "Invalid username/password.\n Or this account has ben locked, or server error, or internet connection failure has occurred";
         }
       });
   }
 
   resetPw() {
     this.changePwResult = '';
-    this.userSVC.resetPw(this.resetCredential.username, this.resetCredential.newPassword, this.resetCredential.password, this.resetCredential.email)
+    this.userLoginSVC.resetPw(this.resetCredential.username, this.resetCredential.newPassword, this.resetCredential.password, this.resetCredential.email)
       .then(res => {
         if (res) {
           this.changePwResult = 'Change password sucessfully';

@@ -125,7 +125,7 @@ namespace MSMAuthService.Services
 
             //get the user to verifty
             var userToVerify = await this.userManager.FindByNameAsync(userName);
-            if (userToVerify == null)
+            if (userToVerify == null || userToVerify.Locked)
             {
                 return await Task.FromResult(new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotAllowd });
             }
@@ -138,10 +138,10 @@ namespace MSMAuthService.Services
             }
 
             //check license
-            //if (!LoginHelper.LicenseStatusOK)
-            //{
-            //    return new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotValidLicense };
-            //}
+            if (!LoginHelper.LicenseStatusOK)
+            {
+                return new CheckLoginResponse { CheckLoginResult = CheckLoginResult.NotValidLicense };
+            }
 
             //// check logged in already
             //if (LoginHelper.IsUserOnline(userName))
@@ -172,7 +172,7 @@ namespace MSMAuthService.Services
             return new CheckLoginResponse { CheckLoginResult = CheckLoginResult.Allowed };
         }
 
-        public async Task<bool> Register(RegisterModel model)
+        public async Task<RegisterModelResponse> CreateNewUser(RegisterModel model)
         {
             var user = new AppIdentityUser
             {
@@ -185,7 +185,13 @@ namespace MSMAuthService.Services
             };
 
             var result = await this.userManager.CreateAsync(user, model.Password);
-            return await Task.FromResult(result.Succeeded);
+            if (result.Succeeded)
+            {
+                var newUser = await this.userManager.FindByEmailAsync(model.Email);
+                return await Task.FromResult(new RegisterModelResponse() { Id = newUser.Id, CreatedDate = newUser.CreatedDate });
+            }
+
+            return await Task.FromResult<RegisterModelResponse>(null);
         }
 
         public IQueryable<AppIdentityUser> GetUsers(int pageIndex, int pageSize)
@@ -205,6 +211,18 @@ namespace MSMAuthService.Services
             role.Description = "Perform " + roleName + " operations.";
             IdentityResult roleResult = this.roleManager.CreateAsync(role).Result;
             return await Task.FromResult(roleResult.Succeeded);
+        }
+
+        public async Task<IdentityResult> DeleteUserById(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                var result = await this.userManager.DeleteAsync(user);
+                return await Task.FromResult(result);
+            }
+
+            return await Task.FromResult(IdentityResult.Failed(new IdentityError() { Description = "Can not find an appropriate user" }));
         }
 
         public async Task<bool> ForgotPassword(string email)
@@ -241,10 +259,13 @@ namespace MSMAuthService.Services
                 return false;
             }
 
-            var pwToVerity = await this.signInManager.PasswordSignInAsync(model.UserName, model.OldPassword, isPersistent: false, lockoutOnFailure: false);
-            if (!pwToVerity.Succeeded)
+            if (model.OldPassword != null)
             {
-                return false;
+                var pwToVerity = await this.signInManager.PasswordSignInAsync(model.UserName, model.OldPassword, isPersistent: false, lockoutOnFailure: false);
+                if (!pwToVerity.Succeeded)
+                {
+                    return false;
+                }
             }
 
             // Update the email
@@ -257,6 +278,21 @@ namespace MSMAuthService.Services
             }
 
             return result.Succeeded;
+        }
+
+        public async Task<bool> UnlockUser(List<string> userIds)
+        {
+            foreach (string userId in userIds)
+            {
+                var user = await this.userManager.FindByIdAsync(userId);
+                if (user != null)
+                {
+                    user.Locked = false;
+                    await this.userManager.UpdateAsync(user);
+                }
+            }
+
+            return await Task.FromResult(true);
         }
     }
 

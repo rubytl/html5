@@ -79,12 +79,12 @@ namespace MSMAuthService.Controllers
         }
 
         [HttpPut("register")]
-        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody]RegisterModel model)
         {
             try
             {
-                return Ok(await this.authService.Register(model));
+                var newUser = await this.authService.CreateNewUser(model);
+                return Ok(new { id = newUser.Id, createdDate = newUser.CreatedDate });
             }
             catch (Exception ex)
             {
@@ -116,5 +116,13 @@ namespace MSMAuthService.Controllers
         [AllowAnonymous]
         public IActionResult GetUsers(int pageIndex, int pageSize)
            => Ok(this.authService.GetUsers(pageIndex, pageSize));
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUserById([System.Web.Http.FromUri]string userId)
+            => Ok(await this.authService.DeleteUserById(userId));
+
+        [HttpPut("unlock")]
+        public async Task<IActionResult> UnlockUser([FromBody]List<string> userIds)
+            => Ok(await this.authService.UnlockUser(userIds));
     }
 }

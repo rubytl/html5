@@ -35,6 +35,7 @@ import { NewSiteComponent } from '../views/system/administration/new-site/new-si
 import { NewSiteGroupComponent } from '../views/system/administration/new-group/new-group.component';
 import { NewSiteTemplateComponent } from '../views/system/administration/new-site-template/new-site-template.component';
 import { NewUserComponent } from '../views/system/administration/new-user/new-user.component';
+import { ResetPasswordComponent } from '../views/system/administration/reset-password/reset-password.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, TabsModule],
@@ -46,7 +47,7 @@ import { NewUserComponent } from '../views/system/administration/new-user/new-us
         MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
         MsmMonitorComponent,
         NewSiteComponent, NewSiteGroupComponent, NewSiteTemplateComponent,
-        NewUserComponent],
+        NewUserComponent, ResetPasswordComponent],
     exports: [FormsModule, CommonModule, ReactiveFormsModule, TabsModule,
         SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
@@ -61,7 +62,8 @@ import { NewUserComponent } from '../views/system/administration/new-user/new-us
             NewSiteComponent,
             NewSiteGroupComponent,
             NewSiteTemplateComponent,
-            NewUserComponent
+            NewUserComponent,
+            ResetPasswordComponent
         ]
 })
 export class SharedModule { }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MsmDialogComponent } from '../../dialog.component';
-import { UserService, UserLoginService } from '../../../../services';
+import { UserService } from '../../../../services';
 
 @Component({
   selector: 'msm-new-user',
@@ -11,30 +11,33 @@ import { UserService, UserLoginService } from '../../../../services';
 export class NewUserComponent extends MsmDialogComponent {
   newUser: any;
   @Input() setting: any;
-  constructor(bsModalRef: BsModalRef, private userService: UserService,
-    modelService: BsModalService, private userLoginService: UserLoginService) {
+  constructor(bsModalRef: BsModalRef, private userService: UserService, modelService: BsModalService) {
     super(bsModalRef, modelService);
   }
 
   protected onComponentInit() {
     this.newUser = {
       userName: '', friendlyName: '', email: '',
-      password: '', confirmPassword: '', roleName: '',
+      password: '', confirmPassword: '', roleName: 'Admin',
       restrictedGroupId: null, comment: '', locked: false
     };
   }
 
   onAddNewUser() {
-    this.userLoginService.createNewUser(this.newUser)
+    this.userService.createNewUser(this.newUser)
       .then(res => {
         if (res) {
-          this.userLoginService.createNewUserLoginConfig(this.newUser)
+          this.newUser.id = res.id;
+          this.newUser.createdDate = res.createdDate;
+          this.userService.createNewUserLoginConfig(this.newUser)
             .then(res => {
-              if (res) {
+              if (res !== -1) {
+                this.newUser.userId = res;
+                this.newUser.lastLogin = '';
                 this.openNotificationDialog('Success', 'User added successfully');
                 this.onClick(this.newUser);
               }
-              else if (!res) {
+              else {
                 this.onClick(null);
               }
             });
@@ -43,7 +46,6 @@ export class NewUserComponent extends MsmDialogComponent {
           this.onClick(null);
         }
       });
-
   }
 
   protected onValueChanged(event) {

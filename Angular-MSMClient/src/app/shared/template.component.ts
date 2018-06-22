@@ -9,7 +9,7 @@ export class MsmTemplateComponent implements OnDestroy, OnChanges {
     @Input() templateList: any;
     templateForm: FormGroup;
     constructor(private fb: FormBuilder) {
-        this.templateForm = this.fb.group({ value: this.value });
+        this.templateForm = this.fb.group({ value: null });
     }
 
     ngOnDestroy() {

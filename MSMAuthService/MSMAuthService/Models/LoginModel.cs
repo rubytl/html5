@@ -18,6 +18,12 @@ namespace MSMAuthService.Models
         public string Password { get; set; }
     }
 
+    public class RegisterModelResponse
+    {
+        public string Id { get; set; }
+        public DateTime CreatedDate { get; set; }
+    }
+
     public class RegisterModel
     {
         [Required]
