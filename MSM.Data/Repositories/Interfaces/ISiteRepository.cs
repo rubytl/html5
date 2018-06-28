@@ -20,5 +20,9 @@ namespace MSM.Data.Repositories.Interfaces
         Task<IEnumerable<SiteListViewDTO>> GetSitesListView(List<int> siteIds, int pageIndex, int pageSize);
 
         int GetLastSiteID();
+
+        IQueryable<Site> GetSiteByIds(IQueryable<int> ids);
+
+        IQueryable<Site> GetParentSites();
     }
 }

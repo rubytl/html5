@@ -5,11 +5,17 @@ using System.Threading.Tasks;
 
 namespace MSMClientAPIService.Mapping.Models
 {
-    public class SiteModel
+    public class SiteModelBase
     {
         public int Id { get; set; }
-        public int? ParentId { get; set; }
+
         public string Description { get; set; }
+        public int? ParentId { get; set; }
+
+    }
+
+    public class SiteModel : SiteModelBase
+    {
         public bool? IsToplevel { get; set; }
         public int? Status { get; set; }
         public string Address { get; set; }

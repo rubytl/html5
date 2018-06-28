@@ -60,6 +60,14 @@ export function getNewSiteUrl() {
     return CLIENT_API_URL + "/sites/add";
 }
 
+export function getSiteByGroupIdUrl(groupId) {
+    return CLIENT_API_URL + "/sites/sitebyGroupId/" + groupId;
+}
+
+export function getParentUrl() {
+    return CLIENT_API_URL + "/sites/parent";
+}
+
 // Authentication urls
 export function getLoginUrl() {
     return AUTH_API_URL + "/auth/login";

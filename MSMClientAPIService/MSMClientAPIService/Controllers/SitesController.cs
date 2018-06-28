@@ -104,6 +104,15 @@ namespace MSMClientAPIService.Controllers
         [HttpGet("lastId")]
         public IActionResult GetLastSiteID()
             => Ok(this.siteService.GetLastSiteID());
+
+        [HttpGet("sitebyGroupId/{groupId}")]
+        public IActionResult GetSitesByRestrictedGroupId(Guid groupId)
+            => Ok(this.siteService.GetSitesByRestrictedGroupId(groupId));
+
+        [HttpGet("parent")]
+        public IActionResult GetParentSites()
+            => Ok(this.siteService.GetParentSites());
+
     }
 }
 

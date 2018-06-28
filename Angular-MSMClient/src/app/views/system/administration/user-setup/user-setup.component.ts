@@ -8,6 +8,7 @@ import { UserService, RoleService, RestrictedGroupService } from '../../../../se
 import { NewUserComponent } from '../new-user/new-user.component';
 import { treeHelper } from '../../../../helpers';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { GroupConfigurationComponent } from '../group-configuration/group-configuration.component';
 
 @Component({
   selector: 'msm-user-setup',
@@ -221,5 +222,13 @@ export class UserSetupComponent extends CommonComponent {
     this.originalUserSource = [];
     this.getUserPaging();
     this.getUserLoginsPaging();
+  }
+
+  private onOpenGroupConfig() {
+    // open site/group configuration
+    let setting = {
+      restrictedList: this.restrictedList.filter(s => s.itemId != null)
+    };
+    this.modalService.show(GroupConfigurationComponent, { initialState: { setting } });
   }
 }

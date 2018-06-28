@@ -223,5 +223,15 @@ namespace MSM.Data.Repositories
                                 orderby siteTemp.Id descending
                                 select siteTemp.Id).FirstOrDefault();
         }
+
+        public IQueryable<Site> GetSiteByIds(IQueryable<int> ids)
+        {
+            return this.FindBy(s => ids.Contains(s.Id));
+        }
+
+        public IQueryable<Site> GetParentSites()
+        {
+            return this.FindBy(s => string.IsNullOrEmpty(s.Address));
+        }
     }
 }

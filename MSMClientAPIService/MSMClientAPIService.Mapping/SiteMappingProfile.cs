@@ -109,5 +109,15 @@ namespace MSMClientAPIService.Mapping
                 SecurityProtocol = site.SecurityProtocol
             };
         }
+
+        public static SiteModelBase MapSiteToSiteModelBase(Site site)
+        {
+            return new SiteModelBase()
+            {
+                Id = site.Id,
+                Description = site.Description,
+                ParentId = site.ParentId
+            };
+        }
     }
 }

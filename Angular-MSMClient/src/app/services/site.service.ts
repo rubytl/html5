@@ -65,4 +65,12 @@ export class SiteService extends BaseService {
             JSON.stringify({ sites }),
             factory.createHeaderWithToken());
     }
+
+    getSitesByGroupId(groupId) {
+        return this.get(factory.getSiteByGroupIdUrl(groupId), factory.createHeaderWithToken());
+    }
+
+    getParents() {
+        return this.get(factory.getParentUrl(), factory.createHeaderWithToken());
+    }
 }

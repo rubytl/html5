@@ -6,11 +6,10 @@ import { SiteTemplateSetupComponent } from './site-template-setup/site-template-
 import { NewSiteTemplateComponent } from './new-site-template/new-site-template.component';
 import { UserSetupComponent } from './user-setup/user-setup.component';
 
-
 export {
     SiteSetupComponent,
     AdministrationRoutingModule,
     AdministrationComponent,
     SiteTemplateSetupComponent,
-    UserSetupComponent
+    UserSetupComponent,
 }

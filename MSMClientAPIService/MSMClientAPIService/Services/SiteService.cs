@@ -21,11 +21,16 @@ namespace MSMClientAPIService.Services
         private ISiteRepository siteRepo;
         private INetworkDeviceRepository networkDeviceRepo;
         private ISiteNotificationRepository siteNotiRepo;
-        public SiteService(ISiteRepository siteRepo, INetworkDeviceRepository networkDeviceRepo, ISiteNotificationRepository siteNotiRepo)
+        private IRestrictedGroupRepository groupRepo;
+        private IRestrictedGroupConfigRepository groupConfigRepo;
+        public SiteService(ISiteRepository siteRepo, INetworkDeviceRepository networkDeviceRepo, ISiteNotificationRepository siteNotiRepo,
+            IRestrictedGroupRepository groupRepo, IRestrictedGroupConfigRepository groupConfigRepo)
         {
             this.siteRepo = siteRepo;
             this.networkDeviceRepo = networkDeviceRepo;
             this.siteNotiRepo = siteNotiRepo;
+            this.groupRepo = groupRepo;
+            this.groupConfigRepo = groupConfigRepo;
         }
         public async Task<IList<SiteModel>> GetSites()
         {
@@ -234,6 +239,25 @@ namespace MSMClientAPIService.Services
             {
                 return AddSiteResult.FailedToCheck;
             }
+        }
+
+        public IList<SiteModel> GetSitesByRestrictedGroupId(Guid groupId)
+        {
+            var configResult = this.groupConfigRepo.GetConfigById(groupId);
+            var siteResult = this.siteRepo.GetSiteByIds(configResult.Select(s => s.SiteId));
+            return this.DoMappingSiteToSiteModel(siteResult);
+        }
+
+        public IList<SiteModelBase> GetParentSites()
+        {
+            var sites = this.siteRepo.GetParentSites();
+            List<SiteModelBase> result = new List<SiteModelBase>();
+            foreach (var site in sites)
+            {
+                result.Add(SiteMappingProfile.MapSiteToSiteModelBase(site));
+            }
+
+            return result;
         }
     }
 }

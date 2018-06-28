@@ -28,6 +28,7 @@ import { MsmSiteTemplateComponent } from './msm-site-template/msm-site-template.
 import { MsmSnmpTemplateComponent } from './msm-snmp-template/msm-snmp-template.component';
 import { MsmSnmpDataTemplateComponent } from './msm-snmp-data-template/msm-snmp-data-template.component';
 import { MsmMonitorComponent } from './msm-monitor/msm-monitor.component';
+import { RestrictedSiteConfigurationComponent } from '../views/system/administration/restricted-site-configuration/restricted-site-configuration.component';
 
 // In some cases entryComponents under lazy loaded modules will not work,
 // as a workaround I need to put these components here
@@ -36,6 +37,7 @@ import { NewSiteGroupComponent } from '../views/system/administration/new-group/
 import { NewSiteTemplateComponent } from '../views/system/administration/new-site-template/new-site-template.component';
 import { NewUserComponent } from '../views/system/administration/new-user/new-user.component';
 import { ResetPasswordComponent } from '../views/system/administration/reset-password/reset-password.component';
+import { GroupConfigurationComponent } from '../views/system/administration/group-configuration/group-configuration.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, TabsModule],
@@ -47,7 +49,8 @@ import { ResetPasswordComponent } from '../views/system/administration/reset-pas
         MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
         MsmMonitorComponent,
         NewSiteComponent, NewSiteGroupComponent, NewSiteTemplateComponent,
-        NewUserComponent, ResetPasswordComponent],
+        NewUserComponent, ResetPasswordComponent, GroupConfigurationComponent,
+        RestrictedSiteConfigurationComponent],
     exports: [FormsModule, CommonModule, ReactiveFormsModule, TabsModule,
         SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
@@ -55,7 +58,7 @@ import { ResetPasswordComponent } from '../views/system/administration/reset-pas
         MsmFooterComponent, MsmAsideComponent,
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
         MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
-        MsmMonitorComponent],
+        MsmMonitorComponent, RestrictedSiteConfigurationComponent],
     entryComponents:
         [
             MsmDialogComponent,
@@ -63,7 +66,8 @@ import { ResetPasswordComponent } from '../views/system/administration/reset-pas
             NewSiteGroupComponent,
             NewSiteTemplateComponent,
             NewUserComponent,
-            ResetPasswordComponent
+            ResetPasswordComponent,
+            GroupConfigurationComponent
         ]
 })
 export class SharedModule { }

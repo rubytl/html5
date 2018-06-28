@@ -1,0 +1,36 @@
+.nav
+{
+    .nav-item
+    {
+        >div
+        {
+            &:hover
+            {
+                background-color: #5D5D5D;
+            }
+        }
+
+        input[type="checkbox"] {
+            margin-left:2rem;
+        }
+    }
+}
+
+.nav-dropdown
+{
+    &.open
+    {
+        > *
+        {
+            > *
+            {
+                   > ul, ol {
+                        display: inline-block;
+                        margin-left: 0.8rem;
+                        overflow:unset;
+                    }
+            }
+        }
+    }
+
+}
