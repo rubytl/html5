@@ -37,13 +37,13 @@ namespace MSM.Data.Testing
         public void AddUserTest()
         {
             bool addedSucess = false;
-            var adddObj = new Msmuser()
+            var adddObj = new UserLoginConfiguration()
             {
-                Username = "Ruby"
+                UserName = "Ruby"
             };
 
-            this.mockUserRepo.Setup(s => s.Add(It.IsAny<Msmuser>())).Callback(() => { addedSucess = true; });
-            this.mockUserRepo.Object.Add(adddObj);
+            this.mockUserRepo.Setup(s => s.AddAsync(It.IsAny<UserLoginConfiguration>())).Callback(() => { addedSucess = true; });
+            this.mockUserRepo.Object.AddAsync(adddObj);
             Assert.IsTrue(addedSucess);
         }
 
@@ -55,12 +55,12 @@ namespace MSM.Data.Testing
         public void DeleteUserTest()
         {
             bool deleteSucess = false;
-            var deletedObj = new Msmuser()
+            var deletedObj = new UserLoginConfiguration()
             {
-                Username = "ruby"
+                UserName = "ruby"
             };
 
-            this.mockUserRepo.Setup(s => s.Delete(It.IsAny<Msmuser>())).Callback(() => { deleteSucess = true; });
+            this.mockUserRepo.Setup(s => s.Delete(It.IsAny<UserLoginConfiguration>())).Callback(() => { deleteSucess = true; });
             this.mockUserRepo.Object.Delete(deletedObj);
             Assert.IsTrue(deleteSucess);
         }
@@ -72,7 +72,7 @@ namespace MSM.Data.Testing
         [TestMethod]
         public async Task GetAllUserTest()
         {
-            var expectedResult = Task.FromResult((new List<Msmuser>() { new Msmuser() { Username = "ruby" } }).AsQueryable());
+            var expectedResult = Task.FromResult((new List<UserLoginConfiguration>() { new UserLoginConfiguration() { UserName = "ruby" } }).AsQueryable());
             this.mockUserRepo.Setup(s => s.GetAll()).Returns(expectedResult);
             var result = await this.mockUserRepo.Object.GetAll();
             Assert.AreEqual(expectedResult.Result, result);
@@ -86,9 +86,9 @@ namespace MSM.Data.Testing
         [TestMethod]
         public async Task GetSingleSiteTest()
         {
-            var expectedResult = Task.FromResult(new Msmuser() { Username = "ruby" });
-            this.mockUserRepo.Setup(s => s.GetSingle(It.IsAny<Expression<Func<Msmuser, bool>>>())).Returns(expectedResult);
-            var result = await this.mockUserRepo.Object.GetSingle(s => s.Username == "ruby");
+            var expectedResult = Task.FromResult(new UserLoginConfiguration() { UserName = "ruby" });
+            this.mockUserRepo.Setup(s => s.GetSingleAsync(It.IsAny<Expression<Func<UserLoginConfiguration, bool>>>())).Returns(expectedResult);
+            var result = await this.mockUserRepo.Object.GetSingleAsync(s => s.UserName == "ruby");
             Assert.AreEqual(expectedResult.Result, result);
         }
     }

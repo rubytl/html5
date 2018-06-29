@@ -43,8 +43,8 @@ namespace MSM.Data.Testing
                 Description = "Drammen"
             };
 
-            this.mockSiteRepo.Setup(s => s.Add(It.IsAny<Site>())).Callback(() => { addedSucess = true; });
-            this.mockSiteRepo.Object.Add(adddObj);
+            this.mockSiteRepo.Setup(s => s.AddAsync(It.IsAny<Site>())).Callback(() => { addedSucess = true; });
+            this.mockSiteRepo.Object.AddAsync(adddObj);
             Assert.IsTrue(addedSucess);
         }
 
@@ -89,8 +89,8 @@ namespace MSM.Data.Testing
         public async Task GetSingleSiteTest()
         {
             var expectedResult = Task.FromResult(new Site() { Address = "10.20.7.238", Description = "Drammen" });
-            this.mockSiteRepo.Setup(s => s.GetSingle(It.IsAny<Expression<Func<Site, bool>>>())).Returns(expectedResult);
-            var result = await this.mockSiteRepo.Object.GetSingle(s => s.Description == "Drammen");
+            this.mockSiteRepo.Setup(s => s.GetSingleAsync(It.IsAny<Expression<Func<Site, bool>>>())).Returns(expectedResult);
+            var result = await this.mockSiteRepo.Object.GetSingleAsync(s => s.Description == "Drammen");
             Assert.AreEqual(expectedResult.Result, result);
         }
 

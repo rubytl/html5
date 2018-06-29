@@ -43,8 +43,8 @@ namespace MSM.Data.Testing
                 Ipaddress = "10.20.7.238"
             };
 
-            this.mockAlarmRepo.Setup(s => s.Add(It.IsAny<SnmpreceiverHistory>())).Callback(() => { addedSucess = true; });
-            this.mockAlarmRepo.Object.Add(adddObj);
+            this.mockAlarmRepo.Setup(s => s.AddAsync(It.IsAny<SnmpreceiverHistory>())).Callback(() => { addedSucess = true; });
+            this.mockAlarmRepo.Object.AddAsync(adddObj);
             Assert.IsTrue(addedSucess);
         }
 
@@ -89,8 +89,8 @@ namespace MSM.Data.Testing
         public async Task GetSingleSNMPReciverTest()
         {
             var expectedResult = Task.FromResult(new SnmpreceiverHistory() { AlarmDescription = "Alarm", Ipaddress = "10.20.7.238" });
-            this.mockAlarmRepo.Setup(s => s.GetSingle(It.IsAny<Expression<Func<SnmpreceiverHistory, bool>>>())).Returns(expectedResult);
-            var result = await this.mockAlarmRepo.Object.GetSingle(s => s.AlarmDescription == "Alarm");
+            this.mockAlarmRepo.Setup(s => s.GetSingleAsync(It.IsAny<Expression<Func<SnmpreceiverHistory, bool>>>())).Returns(expectedResult);
+            var result = await this.mockAlarmRepo.Object.GetSingleAsync(s => s.AlarmDescription == "Alarm");
             Assert.AreEqual(expectedResult.Result, result);
         }
 
