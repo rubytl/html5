@@ -2,6 +2,15 @@
 {
     max-height: 20rem;
     overflow-y: auto;
+    &:hover{
+        background-color: #5D5D5D;
+    }
+
+    &.active,
+    &:active
+    {
+        background-color: #20a8d8;
+    }
 }
 
 .sidebar
@@ -10,6 +19,7 @@
     overflow:auto;
     max-height: 20rem;
 }
+
 
 p{
     cursor: pointer;

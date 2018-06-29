@@ -1,35 +1,35 @@
-<div class="card mb-0">
-  <div class="card-header row mx-0">
-    <h6><strong>Accessible site/group configuration</strong></h6>
-    <button type="button" class="close ml-auto" aria-label="Close" (click)="bsModalRef.hide()">
+<form [formGroup]="siteForm">
+  <div class="card mb-0">
+    <div class="card-header row mx-0">
+      <h6><strong>Accessible site/group configuration</strong></h6>
+      <button type="button" class="close ml-auto" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
     </button>
-  </div>
-  <div class="card-body">
-    <div class="card container">
-      <div class="card-body row">
-        <div class="col-6 card">
-          <div class="row">
-            <input type="button" class="form-control" value="Restricted group name">
+    </div>
+    <div class="card-body">
+      <div class="card container">
+        <div class="card-body row">
+          <div class="col-6 card">
+            <div class="row">
+              <input type="button" class="form-control" value="Restricted group name">
+            </div>
+            <div class="row px-5 py-1 restrictedList" *ngFor="let name of setting.restrictedList">
+              <p (click)="onSelectGroup(name)">{{name.itemName}}</p>
+            </div>
           </div>
-          <div class="row px-5 restrictedList" *ngFor="let name of setting.restrictedList">
-            <p (click)="onSelectGroup(name)">{{name.itemName}}</p>
+          <div class="col-6 card sidebar">
+            <restricted-site-tree-view [sites]="siteSource.value" (valueChanged)="onValueChanged($event)"></restricted-site-tree-view>
           </div>
         </div>
-        <div class="col-6 card sidebar">
-          <form [formGroup]="siteForm">
-            <restricted-site-tree-view [sites]="siteSource.value"></restricted-site-tree-view>
-          </form>
+        <div class="row p-3 my-3 justify-content-start">
+          <button class="btn btn-pill mr-4" (click)="onAddNewGroupConfig()"><i class="fa fa-plus"></i> Add Group</button>
+          <button class="btn btn-pill "> <i class="fa fa-minus"></i> Remove Group</button>
         </div>
-      </div>
-      <div class="row p-3 my-3 justify-content-start">
-        <button class="btn btn-pill mr-4"><i class="fa fa-plus"></i> Add Group</button>
-        <button class="btn btn-pill "> <i class="fa fa-minus"></i> Remove Group</button>
       </div>
     </div>
+    <div class="row p-3 mx-0 my-3 justify-content-start">
+      <button class="btn btn-pill mr-4" [disabled]="siteForm.pristine" (click)="onSaveChanges()"><i class="fa fa-save"></i> Submit changes</button>
+      <button class="btn btn-pill mr-4" [disabled]="siteForm.pristine" (click)="onRejectChanges()"><i class="fa fa-close"> Reject changes</i></button>
+    </div>
   </div>
-  <div class="row p-3 mx-0 my-3 justify-content-start">
-    <button class="btn btn-pill mr-4" (click)="onAddNewSite()"><i class="fa fa-save"></i> Submit</button>
-    <button class="btn btn-pill mr-4" (click)="onClick(false)"><i class="fa fa-close"> Reject</i></button>
-  </div>
-</div>
+</form>

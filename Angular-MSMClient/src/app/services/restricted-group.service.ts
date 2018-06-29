@@ -15,4 +15,8 @@ export class RestrictedGroupService extends BaseService {
   getAllGroups() {
     return this.get(factory.getRestrictedGroupUrl(), factory.createHeaderWithToken());
   }
+
+  updateGroupConfig(groupConfig) {
+    return this.put(factory.getUpdateGroupConfigUrl(), JSON.stringify({ groupConfig }), factory.createHeaderWithToken());
+  }
 }

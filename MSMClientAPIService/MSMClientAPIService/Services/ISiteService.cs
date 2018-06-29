@@ -20,7 +20,7 @@ namespace MSMClientAPIService.Services
         Task<bool> DeleteSites(List<int> siteIds);
         int GetLastSiteID();
         IList<SiteModel> GetSiteByIds(SiteViewRequest siteViewRequest);
-        IList<SiteModel> GetSitesByRestrictedGroupId(Guid groupId);
+        IList<SiteModelBase> GetSitesByRestrictedGroupId(Guid groupId);
         IList<SiteModelBase> GetParentSites();
     }
 }

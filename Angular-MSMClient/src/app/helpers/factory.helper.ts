@@ -163,6 +163,11 @@ export function getRestrictedGroupUrl() {
     return CLIENT_API_URL + "/restrictedgroup";
 }
 
+// restricted group config urls
+export function getUpdateGroupConfigUrl() {
+    return CLIENT_API_URL + "/restrictedgroupconfiguration";
+}
+
 // user login urls
 export function getUserLoginUrl(pageIndex, pageSize) {
     return CLIENT_API_URL + "/userlogin/users/" + pageIndex + "/" + pageSize;

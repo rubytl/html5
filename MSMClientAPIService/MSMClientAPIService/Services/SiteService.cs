@@ -241,16 +241,21 @@ namespace MSMClientAPIService.Services
             }
         }
 
-        public IList<SiteModel> GetSitesByRestrictedGroupId(Guid groupId)
+        public IList<SiteModelBase> GetSitesByRestrictedGroupId(Guid groupId)
         {
             var configResult = this.groupConfigRepo.GetConfigById(groupId);
             var siteResult = this.siteRepo.GetSiteByIds(configResult.Select(s => s.SiteId));
-            return this.DoMappingSiteToSiteModel(siteResult);
+            return this.DoMappingSiteToSiteModelBase(siteResult);
         }
 
         public IList<SiteModelBase> GetParentSites()
         {
             var sites = this.siteRepo.GetParentSites();
+            return this.DoMappingSiteToSiteModelBase(sites);
+        }
+
+        private IList<SiteModelBase> DoMappingSiteToSiteModelBase(IQueryable<Site> sites)
+        {
             List<SiteModelBase> result = new List<SiteModelBase>();
             foreach (var site in sites)
             {
