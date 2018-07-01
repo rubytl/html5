@@ -229,6 +229,21 @@ export class UserSetupComponent extends CommonComponent {
     let setting = {
       restrictedList: this.restrictedList.filter(s => s.itemId != null)
     };
-    this.modalService.show(GroupConfigurationComponent, { initialState: { setting } });
+    let groupRef = this.modalService.show(GroupConfigurationComponent, { initialState: { setting } });
+    this.onAfterOpenGroupConfiguration(groupRef);
+  }
+
+  private onAfterOpenGroupConfiguration(groupRef) {
+    groupRef.content.onClose.subscribe(result => {
+      if (result) {
+        this.restrictedList=[];
+        this.restrictedList.push({ itemName: 'All', itemId: null });
+        result.forEach(element => {
+          this.restrictedList.push(element);
+        });
+      }
+
+      groupRef.content.onClose.unsubscribe();
+    });
   }
 }

@@ -16,5 +16,14 @@ namespace MSMClientAPIService.Mapping
                 SiteId = model.SiteId
             };
         }
+
+        public static RestrictedGroup MapModelToRestrictedGroup(RestrictedGroupConfigurationModel model)
+        {
+            return new RestrictedGroup()
+            {
+                RestrictedGroupId = model.RestrictedGroupId,
+                RestrictedGroupName = model.RestrictedGroupName
+            };
+        }
     }
 }

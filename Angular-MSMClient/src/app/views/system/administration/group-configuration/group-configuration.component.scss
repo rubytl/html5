@@ -1,15 +1,17 @@
-.restrictedList
+.sitegroup
 {
-    max-height: 20rem;
     overflow-y: auto;
+    cursor: pointer;
+    margin-top: 0.05rem;
+    margin-bottom: 0.05rem;
     &:hover{
-        background-color: #5D5D5D;
+        background-color: rgb(201, 231, 241);
     }
 
     &.active,
     &:active
     {
-        background-color: #20a8d8;
+        background-color: #82D0ED;
     }
 }
 
@@ -18,9 +20,4 @@
     position: relative;
     overflow:auto;
     max-height: 20rem;
-}
-
-
-p{
-    cursor: pointer;
 }

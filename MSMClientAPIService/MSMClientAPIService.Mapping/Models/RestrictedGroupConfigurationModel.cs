@@ -7,6 +7,7 @@ namespace MSMClientAPIService.Mapping.Models
     public class RestrictedGroupConfigurationModel
     {
         public Guid RestrictedGroupId { get; set; }
+        public string RestrictedGroupName { get; set; }
         public int SiteId { get; set; }
     }
 }

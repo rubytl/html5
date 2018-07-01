@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MsmDialogComponent } from '../../dialog.component';
 import { SiteService, RestrictedGroupService } from '../../../../services';
-import { siteParentTreeHelper } from '../../../../helpers';
+import { siteParentTreeHelper, guidHelper } from '../../../../helpers';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -16,19 +16,37 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
   siteForm: FormGroup;
   mappedGroupArr = {};
   currentRestrictedGroupId;
+  isSelectGroup = false;
   constructor(bsModalRef: BsModalRef, private siteService: SiteService,
     modelService: BsModalService, private fb: FormBuilder, private groupService: RestrictedGroupService) {
     super(bsModalRef, modelService);
   }
 
   ngOnChanges() {
-    this.rebuildForm();
+    this.rebuildRestrictedListForm();
   }
 
-  rebuildForm() {
-    if (this.parentSites && this.parentSites.length > 0) {
-      this.siteForm.setControl('siteSource', this.fb.array(siteParentTreeHelper.listToTree(this.parentSites, this.fb)));
+  private rebuildRestrictedListForm() {
+    let list = this.setting.restrictedList;
+    if (list && list.length > 0) {
+      list.forEach(element => {
+        element.isActive = false;
+      });
+      let restrictedGroup = list.map(element => this.fb.group(element));
+      this.siteForm.setControl('restrictedList', this.fb.array(restrictedGroup));
     }
+  }
+
+  private rebuildFormFromSelectionGroup() {
+    let mappedElement = this.mappedGroupArr[this.currentRestrictedGroupId];
+    if (mappedElement && mappedElement.length > 0) {
+      this.siteForm.setControl('siteSource', this.fb.array(siteParentTreeHelper.listToTree(mappedElement, this.fb)));
+    }
+  }
+
+  // get site source
+  get restrictedListSource(): FormArray {
+    return this.siteForm.get('restrictedList') as FormArray;
   }
 
   // get site source
@@ -41,13 +59,10 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
     this.siteService.getParents()
       .then(res => {
         this.parentSites = res;
-        let restrictedElement = this.setting.restrictedList[0];
+        let restrictedElement = this.restrictedListSource.controls[0];
         if (restrictedElement) {
-          this.currentRestrictedGroupId = restrictedElement.restrictedGroupId;
+          this.currentRestrictedGroupId = restrictedElement.value.itemId;
           this.onSelectGroup(restrictedElement);
-        }
-        else {
-          this.rebuildForm();
         }
       });
   }
@@ -55,16 +70,22 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
   // create default form group
   private createForm() {
     this.siteForm = this.fb.group({
-      siteSource: this.fb.array([])
+      restrictedList: this.fb.array([]),
+      siteSource: this.fb.array([]),
     });
+    this.rebuildRestrictedListForm();
   }
 
-  private onSelectGroup(event) {
-    if (!event || event === null) {
+  private onSelectGroup($event) {
+    this.isSelectGroup = true;
+    if (!$event || $event === null) {
       return;
     }
 
-    this.currentRestrictedGroupId = event.itemId;    
+    let event = $event.value;
+    $event.patchValue({ isActive: true });
+    this.updateActiveRestrictedItem(event.itemId);
+    this.currentRestrictedGroupId = event.itemId;
     let mappedElement = this.mappedGroupArr[event.itemId];
     if (mappedElement) {
       this.rebuildFormFromSelectionGroup();
@@ -79,6 +100,15 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
           this.rebuildFormFromSelectionGroup();
         });
     }
+  }
+
+  // patch value to the restricted item
+  private updateActiveRestrictedItem(itemId) {
+    this.restrictedListSource.controls.forEach(element => {
+      if (element.value.itemId !== itemId) {
+        element.patchValue({ isActive: false });
+      }
+    });
   }
 
   private cloneParentSite() {
@@ -116,7 +146,8 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
 
     siteSource.forEach(element => {
       if (element.isSelected) {
-        groupConfigs.push({ restrictedGroupId: restrictedGroupId, siteId: element.id });
+        let restrictedItem = this.restrictedListSource.value.find(s => s.itemId === restrictedGroupId);
+        groupConfigs.push({ restrictedGroupId: restrictedGroupId, restrictedGroupName: restrictedItem.itemName, siteId: element.id });
       }
     });
   }
@@ -143,13 +174,18 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
     this.rebuildFormFromSelectionGroup();
   }
 
-  rebuildFormFromSelectionGroup() {
-    let mappedElement = this.mappedGroupArr[this.currentRestrictedGroupId];
-    if (mappedElement && mappedElement.length > 0) {
-      this.siteForm.setControl('siteSource', this.fb.array(siteParentTreeHelper.listToTree(mappedElement, this.fb)));
-    }
+  private onAddNewGroupConfig() {
+    this.siteForm.markAsDirty();
+    let id = guidHelper.Guid.newGuid();
+    this.currentRestrictedGroupId = id;
+    let restrictedItem = { itemName: 'group name', itemId: id, isActive: true };
+    this.mappedGroupArr[id] = this.cloneParentSite();
+    this.restrictedListSource.push(this.fb.group(restrictedItem));
+    this.updateActiveRestrictedItem(id);
+    this.rebuildFormFromSelectionGroup();
   }
 
-  private onAddNewGroupConfig() {
+  private onCloseDialog() {
+    this.onClick(this.restrictedListSource.value);
   }
 }

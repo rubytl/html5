@@ -18,9 +18,11 @@ namespace MSMClientAPIService.Controllers
     {
         private IRestrictedGroupConfigRepository configRepository;
 
-        public RestrictedGroupConfigurationController(IRestrictedGroupConfigRepository configRepository)
+        private IRestrictedGroupRepository groupRepository;
+        public RestrictedGroupConfigurationController(IRestrictedGroupConfigRepository configRepository, IRestrictedGroupRepository groupRepository)
         {
             this.configRepository = configRepository;
+            this.groupRepository = groupRepository;
         }
 
         // GET api/sites
@@ -49,11 +51,28 @@ namespace MSMClientAPIService.Controllers
             }
 
             // add new configs
-            foreach (RestrictedGroupConfigurationModel model in updateReq.GroupConfig)
+            foreach (IGrouping<Guid, RestrictedGroupConfigurationModel> restrictedGroup in updateReq.GroupConfig.GroupBy(s => s.RestrictedGroupId))
             {
-                await this.configRepository.AddAsync(RestrictedGroupMapping.MapModelToGroupConfiguration(model));
+                // add or update restricted group information
+                var existingGroup = await this.groupRepository.GetSingleAsync(s => s.RestrictedGroupId == restrictedGroup.Key);
+                var restrictedItem = restrictedGroup.ElementAt(0);
+                if (existingGroup == null)
+                {
+                    await this.groupRepository.AddAsync(RestrictedGroupMapping.MapModelToRestrictedGroup(restrictedItem));
+                }
+                else
+                {
+                    existingGroup.RestrictedGroupName = restrictedItem.RestrictedGroupName;
+                }
+
+                foreach (RestrictedGroupConfigurationModel model in restrictedGroup)
+                {
+                    // add restricted group configuration
+                    await this.configRepository.AddAsync(RestrictedGroupMapping.MapModelToGroupConfiguration(model));
+                }
             }
 
+            await this.groupRepository.CommitAsync();
             await this.configRepository.CommitAsync();
 
             return Ok(true);

@@ -2,19 +2,20 @@
   <div class="card mb-0">
     <div class="card-header row mx-0">
       <h6><strong>Accessible site/group configuration</strong></h6>
-      <button type="button" class="close ml-auto" aria-label="Close" (click)="bsModalRef.hide()">
+      <button type="button" class="close ml-auto" aria-label="Close" (click)="onCloseDialog()">
         <span aria-hidden="true">&times;</span>
     </button>
     </div>
     <div class="card-body">
       <div class="card container">
         <div class="card-body row">
-          <div class="col-6 card">
+          <div class="col-6 card" formArrayName="restrictedList">
             <div class="row">
               <input type="button" class="form-control" value="Restricted group name">
             </div>
-            <div class="row px-5 py-1 restrictedList" *ngFor="let name of setting.restrictedList">
-              <p (click)="onSelectGroup(name)">{{name.itemName}}</p>
+            <div *ngFor="let item of restrictedListSource.controls; let i=index" [formGroupName]="i" class="row">
+              <input type="text" [ngClass]="{'active':item.value.isActive}" class="px-0 col-12 sitegroup form-control" (click)="onSelectGroup(item)"
+                formControlName="itemName">
             </div>
           </div>
           <div class="col-6 card sidebar">

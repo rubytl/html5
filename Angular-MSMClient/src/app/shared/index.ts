@@ -14,6 +14,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { FilterTypeComponent } from './filter-type/filter-type.component';
 import { MsmPaginatorComponent } from './msm-paginator/msm-paginator.component';
 import { MsmSortingComponent, SortingToggleDirective } from './msm-sorting/msm-sorting.component';
+import { ActiveToggleDirective } from './active.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from './nav-dropdown.directive';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './sidebar.directive';
 import { AsideToggleDirective } from './aside.directive';
@@ -43,7 +44,7 @@ import { GroupConfigurationComponent } from '../views/system/administration/grou
     imports: [CommonModule, FormsModule, ReactiveFormsModule, TabsModule],
     declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
-        SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
+        SortingToggleDirective, ActiveToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
         MsmFooterComponent, MsmAsideComponent,
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
         MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
@@ -54,7 +55,7 @@ import { GroupConfigurationComponent } from '../views/system/administration/grou
     exports: [FormsModule, CommonModule, ReactiveFormsModule, TabsModule,
         SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
-        SortingToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
+        SortingToggleDirective, ActiveToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
         MsmFooterComponent, MsmAsideComponent,
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
         MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
