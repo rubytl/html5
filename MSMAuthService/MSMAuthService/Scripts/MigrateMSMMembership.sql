@@ -6,7 +6,9 @@ DELETE [MSMMembership].[dbo].[AspNetUserRoles]
 INSERT INTO [MSMMembership].[dbo].[AspNetUsers]
     ([Id]
     ,[AccessFailedCount]
+	,[CreatedDate]
     ,[EmailConfirmed]
+	,[Locked]
     ,[LockoutEnabled]
     ,[NormalizedUserName]
     ,[PasswordHash]
@@ -14,8 +16,8 @@ INSERT INTO [MSMMembership].[dbo].[AspNetUsers]
 	,[SecurityStamp]
     ,[TwoFactorEnabled]
     ,[UserName])
-(SELECT UserId,0,
-	 0,1,UserName,
+(SELECT UserId,0,GETDATE(),
+	 0,0,1,UserName,
 	 'AQAAAAEAACcQAAAAEP0IRqdzG/j6UZMQ4kwYyxgTlFR2v0hLTCRCgitN++QoqKrxcuaOwoVprQMdZOhNjg==',
 	 0,'718b3fbd-dbb5-45e4-8808-609cd1e7c273',0,UserName
 	 FROM [RIAMembership].[dbo].[aspnet_Users])
