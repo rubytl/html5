@@ -16,6 +16,8 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
   siteForm: FormGroup;
   mappedGroupArr = {};
   currentRestrictedGroupId;
+  selectedRowIndex;
+  deletedGroupIds = [];
   isSelectGroup = false;
   constructor(bsModalRef: BsModalRef, private siteService: SiteService,
     modelService: BsModalService, private fb: FormBuilder, private groupService: RestrictedGroupService) {
@@ -62,7 +64,7 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
         let restrictedElement = this.restrictedListSource.controls[0];
         if (restrictedElement) {
           this.currentRestrictedGroupId = restrictedElement.value.itemId;
-          this.onSelectGroup(restrictedElement);
+          this.onSelectGroup(restrictedElement, 0);
         }
       });
   }
@@ -76,12 +78,13 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
     this.rebuildRestrictedListForm();
   }
 
-  private onSelectGroup($event) {
+  private onSelectGroup($event, index) {
     this.isSelectGroup = true;
     if (!$event || $event === null) {
       return;
     }
 
+    this.selectedRowIndex = index;
     let event = $event.value;
     $event.patchValue({ isActive: true });
     this.updateActiveRestrictedItem(event.itemId);
@@ -153,6 +156,11 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
   }
 
   private onSaveChanges() {
+    // delete neccessary items first
+    if (this.deletedGroupIds.length > 0) {
+      this.groupService.deleteGroupConfigs(this.deletedGroupIds);
+    }
+
     let groupConfigs = [];
 
     // build group configs from selected restricted group name and site group name
@@ -161,12 +169,11 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
       this.selectGroupConfigs(id, mappedElement, groupConfigs);
     }
 
-    // update changes
+    // update configs later
     if (groupConfigs.length > 0) {
       this.groupService.updateGroupConfig(groupConfigs)
-        .then(res => {
-          this.openNotificationDialog("Success", "Group saved successfully");
-        });
+        .then(res => this.openNotificationDialog("Success", "Group saved successful"))
+        .catch(error => this.openNotificationDialog("Fail", "Group saved unsuccessful"));
     }
   }
 
@@ -178,11 +185,32 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
     this.siteForm.markAsDirty();
     let id = guidHelper.Guid.newGuid();
     this.currentRestrictedGroupId = id;
+    this.selectedRowIndex = this.restrictedListSource.length;
     let restrictedItem = { itemName: 'group name', itemId: id, isActive: true };
     this.mappedGroupArr[id] = this.cloneParentSite();
     this.restrictedListSource.push(this.fb.group(restrictedItem));
     this.updateActiveRestrictedItem(id);
     this.rebuildFormFromSelectionGroup();
+  }
+
+  private onDeleteGroupConfig() {
+    if (this.selectedRowIndex === undefined) {
+      this.openNotificationDialog('Delete Group Config?', "Please select a config to delete");
+      return;
+    }
+
+    let configItem = this.restrictedListSource.controls[this.selectedRowIndex].value;
+    this.groupService.canDeleteGroupConfig(configItem.itemId)
+      .then(res => {
+        if (res) {
+          this.restrictedListSource.removeAt(this.selectedRowIndex);
+          this.deletedGroupIds.push(configItem.itemId);
+          this.siteForm.markAsDirty();
+        }
+        else {
+          this.openNotificationDialog("Error", "Role " + configItem.itemName + " is in use. Not able to delete!");
+        }
+      })
   }
 
   private onCloseDialog() {

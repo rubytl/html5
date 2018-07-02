@@ -164,8 +164,12 @@ export function getRestrictedGroupUrl() {
 }
 
 // restricted group config urls
-export function getUpdateGroupConfigUrl() {
+export function getRestrictedGroupConfigUrl() {
     return CLIENT_API_URL + "/restrictedgroupconfiguration";
+}
+
+export function getCanDeleteGroupConfigUrl() {
+    return CLIENT_API_URL + "/restrictedgroupconfiguration/canDelete/?groupId=";
 }
 
 // user login urls

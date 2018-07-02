@@ -17,6 +17,18 @@ export class RestrictedGroupService extends BaseService {
   }
 
   updateGroupConfig(groupConfig) {
-    return this.put(factory.getUpdateGroupConfigUrl(), JSON.stringify({ groupConfig }), factory.createHeaderWithToken());
+    return this.put(factory.getRestrictedGroupConfigUrl(), JSON.stringify({ groupConfig }), factory.createHeaderWithToken());
+  }
+
+  canDeleteGroupConfig(groupId) {
+    return this.get(factory.getCanDeleteGroupConfigUrl() + groupId, factory.createHeaderWithToken());
+  }
+
+  deleteGroupConfigs(groupIds) {
+    let data = '?';
+    groupIds.forEach(element => {
+      data += "groupIds=" + element + "&";
+    });
+    return this.delete(factory.getRestrictedGroupConfigUrl(), data, factory.createHeaderWithToken());
   }
 }
