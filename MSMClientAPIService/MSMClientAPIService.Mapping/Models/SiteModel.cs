@@ -33,7 +33,7 @@ namespace MSMClientAPIService.Mapping.Models
         public int? SharedCategories { get; set; }
         public int ControllerType { get; set; }
         public int? SnmpTemplateId { get; set; }
-        public string SnmpDataTemplateId { get; set; }
+        public int? SnmpDataTemplateId { get; set; }
         public int? SecurityProtocol { get; set; }
     }
 }
