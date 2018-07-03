@@ -41,7 +41,7 @@ namespace MSM.Data.Models
         public int? SharedCategories { get; set; }
         public int ControllerType { get; set; }
         public int? SnmpTemplateId { get; set; }
-        public int SnmpDataTemplateId { get; set; }
+        public int? SnmpDataTemplateId { get; set; }
         public int? SecurityProtocol { get; set; }
 
         public Site Parent { get; set; }
