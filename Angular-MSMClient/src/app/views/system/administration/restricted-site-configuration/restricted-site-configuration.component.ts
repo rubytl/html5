@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CommonComponent } from '../../../common/common.component';
 import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../../../../store';
+import { siteParentTreeHelper } from '../../../../helpers';
 
 @Component({
   selector: 'restricted-site-tree-view',
@@ -12,6 +13,7 @@ import { IAppState } from '../../../../store';
 })
 export class RestrictedSiteConfigurationComponent extends CommonComponent {
   @Input() sites;
+  @Input() parentId;
   @Output() valueChanged = new EventEmitter<any>();
   parentSiteForm: any;
   private siteGroups = [];
@@ -40,23 +42,28 @@ export class RestrictedSiteConfigurationComponent extends CommonComponent {
 
   // rebuild form if any changed
   private rebuildForm() {
-    let sites;
     if (this.sites && this.sites.length > 0) {
-      sites = this.sites.map(site => this.fb.group(site));
+      let sites = siteParentTreeHelper.listToTree(this.sites, this.fb);
+      this.parentSiteForm.setControl('parentSiteSource', this.fb.array(sites));
     }
     else if (this.sites.length === undefined) {
-      sites = this.sites.parentSiteSource.map(site => this.fb.group(site));
-    }
-
-    if (sites) {
-      this.parentSiteForm.setControl('parentSiteSource', this.fb.array(sites));
+      let mappedElement = siteParentTreeHelper.findChildrenMapping(this.parentId);
+      this.parentSiteForm.setControl('parentSiteSource', mappedElement.controls.children.controls.parentSiteSource);
     }
   }
 
-  private onValueChanged(event, id) {
+  private onValueChanged(event, site) {
+    let isSelected = event.target.checked;
     this.valueChanged.next({
-      isSelected: event.target.checked,
-      id: id
+      isSelected: isSelected,
+      id: site.value.id
     });
+
+    if (site.value.children) {
+      site.controls.children.controls.parentSiteSource.controls.forEach(element => {
+        element.patchValue({ isSelected: isSelected });
+        this.onValueChanged(event, element);
+      });
+    }
   }
 }

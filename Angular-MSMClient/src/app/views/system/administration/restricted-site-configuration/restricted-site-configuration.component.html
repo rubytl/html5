@@ -3,12 +3,12 @@
     <li *ngFor="let site of parentSiteSource.controls; let i=index" [formGroupName]="i" class="nav-item nav-dropdown" [ngClass]="{'open':site.get('id').value===0}"
       appNavDropdown>
       <div class="d-md-flex flex-row align-items-center">
-        <input type="checkbox" formControlName="isSelected" (change)="onValueChanged($event,site.value.id)">
+        <input type="checkbox" formControlName="isSelected" (change)="onValueChanged($event,site)">
         <!-- Description -->
         <a *ngIf="site.get('children').value !== null" class="nav-link nav-dropdown-toggle ml-5" appNavDropdownToggle>{{site.get('description').value}}</a>
         <a *ngIf="site.get('children').value === null" class="nav-link nav-dropdown-toggle-noContent">{{site.get('description').value}}</a>
       </div>
-      <restricted-site-tree-view *ngIf="site.get('children').value !== null" [sites]="site.get('children').value"></restricted-site-tree-view>
+      <restricted-site-tree-view *ngIf="site.get('children').value !== null" [sites]="site.get('children').value" [parentId]="site.value.id"></restricted-site-tree-view>
     </li>
   </ul>
 </form>

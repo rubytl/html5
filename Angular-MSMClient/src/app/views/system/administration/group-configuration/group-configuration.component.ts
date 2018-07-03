@@ -42,7 +42,8 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
   private rebuildFormFromSelectionGroup() {
     let mappedElement = this.mappedGroupArr[this.currentRestrictedGroupId];
     if (mappedElement && mappedElement.length > 0) {
-      this.siteForm.setControl('siteSource', this.fb.array(siteParentTreeHelper.listToTree(mappedElement, this.fb)));
+      let restrictedGroup = mappedElement.map(element => this.fb.group(element));
+      this.siteForm.setControl('siteSource', this.fb.array(restrictedGroup));//this.fb.array(siteParentTreeHelper.listToTree(mappedElement, this.fb)));
     }
   }
 
@@ -178,7 +179,8 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
   }
 
   private onRejectChanges() {
-    this.rebuildFormFromSelectionGroup();
+    this.mappedGroupArr={};
+    this.onComponentInit();
   }
 
   private onAddNewGroupConfig() {
@@ -208,7 +210,7 @@ export class GroupConfigurationComponent extends MsmDialogComponent {
           this.siteForm.markAsDirty();
         }
         else {
-          this.openNotificationDialog("Error", "Role " + configItem.itemName + " is in use. Not able to delete!");
+          this.openNotificationDialog("Error", "Role '" + configItem.itemName + "' is in use. Not able to delete!");
         }
       })
   }

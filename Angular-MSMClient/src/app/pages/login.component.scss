@@ -28,10 +28,7 @@
     background-color:white;
     position: absolute;
     top:30%;
-    // button
-    // {
-    //     width: 4rem;
-    // }
+
     &.hidden
     {
         animation: loginHidden 1s ease-in-out both;
@@ -72,3 +69,8 @@
     border: 1px solid #c2cfd6;
     background-clip: padding-box;
 }
+
+.btnlogin
+    {
+        width: 4rem;
+    }

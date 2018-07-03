@@ -6,7 +6,7 @@ namespace MSM.Data.Models
     public partial class SnmpDataTemplateConfig
     {
         public long Id { get; set; }
-        public string SnmpDataTemplateId { get; set; }
+        public int SnmpDataTemplateId { get; set; }
         public string SnmpOid { get; set; }
         public int ProtocolId { get; set; }
         public string Description { get; set; }

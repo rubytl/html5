@@ -1,7 +1,8 @@
+var mappedArr = {};
+var tree = [];
 export function listToTree(arr, fb) {
-    var tree = [];
-    var mappedArr = {};
     var arrElem, mappedElem, arrElemFormGroup;
+    tree = [];
     if (arr === null || arr.length == 0) {
         return tree;
     }
@@ -40,4 +41,8 @@ export function listToTree(arr, fb) {
     }
 
     return tree;
+}
+
+export function findChildrenMapping(parentId) {
+    return mappedArr[parentId];
 }
