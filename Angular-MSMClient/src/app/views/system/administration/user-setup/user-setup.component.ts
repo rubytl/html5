@@ -24,7 +24,7 @@ export class UserSetupComponent extends CommonComponent {
   private selectedRowIndex: number;
   private deletedUsers = [];
   private lockedUsers = [];
-
+  private userChangedIds = [];
   constructor(modalService: BsModalService, ngRedux: NgRedux<IAppState>, private fb: FormBuilder,
     private roleService: RoleService,
     private userService: UserService, private restrictedService: RestrictedGroupService) {
@@ -64,11 +64,24 @@ export class UserSetupComponent extends CommonComponent {
     this.userService.getUsers(this.paging.pageIndex, this.paging.pageSize)
       .then(res => {
         res.forEach(element => {
-          this.originalUserSource.push({
-            id: element.id, userName: element.userName, email: element.email,
-            comment: element.comment, locked: element.locked, friendlyName: element.friendlyName,
-            createdDate: element.createdDate, lastLogin: element.lastLogin
-          });
+          let user = this.originalUserSource.find(s => s.userName === element.userName);
+          if (user) {
+            user.id = element.id;
+            user.userName = element.userName;
+            user.email = element.email;
+            user.comment = element.comment;
+            user.locked = element.locked;
+            user.friendlyname = element.friendlyName;
+            user.createdDate = element.createdDate;
+            user.lastLogin = element.lastLogin;
+          }
+          else {
+            this.originalUserSource.push({
+              id: element.id, userName: element.userName, email: element.email,
+              comment: element.comment, locked: element.locked, friendlyName: element.friendlyName,
+              createdDate: element.createdDate, lastLogin: element.lastLogin
+            });
+          }
         });
         this.noServiceLoaded++;
         if (this.noServiceLoaded === 2) {
@@ -103,16 +116,19 @@ export class UserSetupComponent extends CommonComponent {
       .then(res => {
         let actualIds = [];
         res.forEach(element => {
+          actualIds.push(element.id);
           let user = this.originalUserSource.find(s => s.userName === element.userName);
           if (user) {
             user.roleName = element.roleName;
             user.restrictedGroupId = element.restrictedGroupId;
             user.userId = element.id;
-            actualIds.push(user.id);
+          }
+          else {
+            this.originalUserSource.push(element);
           }
         });
 
-        this.originalUserSource = this.originalUserSource.filter(s => actualIds.includes(s.id));
+        this.originalUserSource = this.originalUserSource.filter(s => actualIds.includes(s.userId));
         this.noServiceLoaded++;
         if (this.noServiceLoaded === 2) {
           this.rebuildForm();
@@ -122,13 +138,45 @@ export class UserSetupComponent extends CommonComponent {
 
   // rebuild form if any changed
   private rebuildForm() {
-    const sites = this.originalUserSource.map(site => this.fb.group(site));
-    const siteFormArray = this.fb.array(sites);
-    this.userForm.setControl('userSource', siteFormArray);
+    const users = this.originalUserSource.map(site => this.fb.group(site));
+    this.userForm.setControl('userSource', this.fb.array(users));
+    this.onUserControlsChanges(users);
+  }
+
+  private onUserControlsChanges(users) {
+    users.forEach(element => {
+      element.valueChanges.subscribe(
+        val => {
+          if (this.userChangedIds.findIndex(s => s === val.id) < 0) {
+            this.userChangedIds.push(val.id);
+          }
+        });
+    });
   }
 
   private onValueChanged(event) {
     this.userForm.markAsDirty();
+    this.updateItemById(this.userSource.value, event);
+    if (this.userChangedIds.findIndex(s => s === event.id) < 0) {
+      this.userChangedIds.push(event.id);
+    }
+  }
+
+  private updateItemById(arr, event) {
+    if (arr === undefined || arr.length === 0) {
+      return;
+    }
+
+    var index = arr.findIndex(s => s.id === event.id);
+    if (index !== -1) {
+      var site = arr[index];
+      if (event.name === 'roleName') {
+        site.roleName = event.value;
+      }
+      else if (event.name === 'restrictedGroupId') {
+        site.restrictedGroupId = event.value;
+      }
+    }
   }
 
   private onAddNewUser() {
@@ -180,8 +228,7 @@ export class UserSetupComponent extends CommonComponent {
         .then(res => {
           this.userService.deleteUserLoginById(this.deletedUsers.map(s => s.userId))
             .then(res => {
-              this.updateLocalVariables();
-              this.openNotificationDialog('Success', 'User(s) deleted successfully');
+              this.deletedUsers = []
             })
         });
     }
@@ -189,11 +236,18 @@ export class UserSetupComponent extends CommonComponent {
     if (this.lockedUsers.length > 0) {
       this.userService.unlockUser(this.lockedUsers.map(s => s.id));
     }
-  }
 
-  private updateLocalVariables() {
-    this.deletedUsers = [];
-    this.originalUserSource = this.userSource.value;
+    // save updated users information
+    if (this.userChangedIds.length > 0) {
+      let userChangeds = this.userSource.value.filter(s => this.userChangedIds.includes(s.id));
+      this.userService.updateUsers(userChangeds)
+        .then(res => {
+          this.originalUserSource = this.userSource.value;
+          this.openNotificationDialog('Success', 'User(s) saved successfully');
+        });
+
+      this.userService.updateUsersConfig(userChangeds);
+    }
   }
 
   private onResetPassword() {
@@ -236,7 +290,7 @@ export class UserSetupComponent extends CommonComponent {
   private onAfterOpenGroupConfiguration(groupRef) {
     groupRef.content.onClose.subscribe(result => {
       if (result) {
-        this.restrictedList=[];
+        this.restrictedList = [];
         this.restrictedList.push({ itemName: 'All', itemId: null });
         result.forEach(element => {
           this.restrictedList.push(element);

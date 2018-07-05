@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace MSMAuthService.Models
 {
+    public class UserUpdateRequest
+    {
+        public List<RegisterModel> Users;
+    }
+
     public class RefreshTokenModel
     {
         public string Token { get; set; }
@@ -26,19 +31,10 @@ namespace MSMAuthService.Models
 
     public class RegisterModel
     {
-        [Required]
         public string UserName { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
-
-        [Required]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         public string Comment { get; set; }
@@ -46,6 +42,8 @@ namespace MSMAuthService.Models
         public bool Locked { get; set; }
 
         public string FriendlyName { get; set; }
+
+        public string RoleName { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

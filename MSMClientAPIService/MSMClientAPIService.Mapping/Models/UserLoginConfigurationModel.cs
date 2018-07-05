@@ -6,6 +6,8 @@ namespace MSMClientAPIService.Mapping.Models
 {
     public class UserLoginConfigurationModel
     {
+        public int UserId { get; set; }
+
         public string UserName { get; set; }
 
         public string RoleName { get; set; }

@@ -41,4 +41,12 @@ export class UserService extends BaseService {
   unlockUser(userIds) {
     return this.put(factory.getUnlockUserUrl(), userIds, factory.createHeaderWithToken());
   }
+
+  updateUsers(users) {
+    return this.put(factory.getUpdateUserUrl(), JSON.stringify({ users }), factory.createHeaderWithToken());
+  }
+
+  updateUsersConfig(users) {
+    return this.put(factory.getUpdateUserConfigUrl(), JSON.stringify({ users }), factory.createHeaderWithToken());
+  }
 }

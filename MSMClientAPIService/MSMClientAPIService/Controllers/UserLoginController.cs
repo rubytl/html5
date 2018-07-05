@@ -33,7 +33,7 @@ namespace MSMClientAPIService.Controllers
                 await this.userRepo.AddAsync(UserLoginConfigurationMapping.MapModelToUserLoginConfiguration(userConfig));
                 await this.userRepo.CommitAsync();
                 var user = await this.userRepo.GetSingleAsync(s => s.UserName == userConfig.UserName);
-                if(user != null)
+                if (user != null)
                 {
                     return Ok(user.Id);
                 }
@@ -60,6 +60,23 @@ namespace MSMClientAPIService.Controllers
         {
             var result = await this.userRepo.GetAll();
             return Ok(result.Skip(pageIndex * pageSize).Take(pageSize));
+        }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateUser([FromBody]UserUpdateRequest updateReq)
+        {
+            foreach (UserLoginConfigurationModel model in updateReq.Users)
+            {
+                var user = await this.userRepo.GetSingleAsync(s => s.Id == model.UserId);
+                if (user != null)
+                {
+                    user.RoleName = model.RoleName;
+                    user.RestrictedGroupId = model.RestrictedGroupID;
+                }
+            }
+
+            await this.userRepo.CommitAsync();
+            return Ok();
         }
     }
 }

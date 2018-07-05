@@ -308,6 +308,34 @@ namespace MSMAuthService.Services
 
             return await Task.FromResult(true);
         }
+
+        public async Task<bool> UpdateUsers(List<RegisterModel> userModels)
+        {
+            foreach (RegisterModel userModel in userModels)
+            {
+                var user = await this.userManager.FindByNameAsync(userModel.UserName);
+                if (user != null)
+                {
+                    user.Comment = userModel.Comment;
+                    user.FriendlyName = userModel.FriendlyName;
+                    user.Email = userModel.Email;
+                    await this.userManager.UpdateAsync(user);
+
+                    var roles = await this.userManager.GetRolesAsync(user);
+                    var currentRole = roles.FirstOrDefault();
+                    if (currentRole != userModel.RoleName)
+                    {
+                        if (currentRole != null)
+                        {
+                            await this.userManager.RemoveFromRoleAsync(user, currentRole);
+                        }
+
+                        await this.userManager.AddToRoleAsync(user, userModel.RoleName);
+                    }
+                }
+            }
+            return await Task.FromResult(true);
+        }
     }
 
     /// <summary>

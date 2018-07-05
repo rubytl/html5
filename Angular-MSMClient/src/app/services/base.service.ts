@@ -17,7 +17,8 @@ export abstract class BaseService {
 
   // Open the confirm diaglog
   protected openNotificationDialog(error) {
-    let settings = { title: 'Error', message: error.error ? error.error : error.message };
+    let message = error.error.message ? error.error.message : error.error ? error.error : error.message;
+    let settings = { title: 'Error', message: message };
     msmHelper.openNotificationDialog(this.modelService, settings);
   }
 

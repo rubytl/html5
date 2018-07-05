@@ -89,6 +89,7 @@
 
         Task<bool> UpdateLastLogin(string userName);
 
+        Task<bool> UpdateUsers(List<RegisterModel> userModels);
 
         #endregion Methods
     }

@@ -136,5 +136,10 @@ namespace MSMAuthService.Controllers
         [HttpPut("lastlogin")]
         public async Task<IActionResult> UpdateLastLogin([FromBody]LoginModel loginModel)
            => Ok(await this.authService.UpdateLastLogin(loginModel.Username));
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateUsers([FromBody]UserUpdateRequest updateReq)
+            => Ok(await this.authService.UpdateUsers(updateReq.Users));
+
     }
 }

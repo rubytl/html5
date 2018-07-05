@@ -109,6 +109,10 @@ export function getUpdateLastLoginUrl() {
     return AUTH_API_URL + "/auth/lastlogin";
 }
 
+export function getUpdateUserUrl() {
+    return AUTH_API_URL + "/auth/update";
+}
+
 // Alarm urls
 export function getRollingAlarmUrl() {
     return CLIENT_API_URL + "/alarm/filter";
@@ -179,4 +183,8 @@ export function getUserLoginUrl(pageIndex, pageSize) {
 
 export function getNewUserLoginUrl() {
     return CLIENT_API_URL + "/userlogin";
+}
+
+export function getUpdateUserConfigUrl() {
+    return CLIENT_API_URL + "/userlogin/update";
 }

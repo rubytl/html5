@@ -29,6 +29,11 @@ namespace MSMClientAPIService.Models
         public SiteTemplateModel Template { get; set; }
     }
 
+    public class UserUpdateRequest
+    {
+        public List<UserLoginConfigurationModel> Users { get; set; }
+    }
+
     public class AlarmRequest : PagingRequest
     {
         public string Filter { get; set; }

@@ -19,5 +19,15 @@
             background-color: #20a8d8;
           }
         }
-      }
+    }
+
+    .tr-active
+    {
+        cursor: pointer;
+        &.active,
+        &:active
+        {
+            background-color: #82D0ED;
+        }
+    }
 }
