@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody formArrayName="siteTemplateSource">
-          <tr class="tr-active" name="displayItem" activeToggle *ngFor="let site of siteTemplateSource.controls; let i=index" [formGroupName]="i" (click)="onRowClick(i)">
+          <tr name="displayItem" activeToggle *ngFor="let site of siteTemplateSource.controls; let i=index" [formGroupName]="i" (click)="onRowClick(i)">
             <td><button class="btn btn-pill mr-4" (click)="onOpenSiteTemplate(i)"><i class="fa fa-ellipsis-h"></i></button></td>
             <td>{{site.get('templateId').value}}</td>
             <td>{{site.get('templateName').value}}</td>

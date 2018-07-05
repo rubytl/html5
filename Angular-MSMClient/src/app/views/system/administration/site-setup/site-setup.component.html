@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody formArrayName="siteSource">
-          <tr class="tr-active" name="displayItem" activeToggle *ngFor="let site of siteSource.controls; let i=index" [formGroupName]="i" (click)="onRowClick(i)">
+          <tr name="displayItem" activeToggle *ngFor="let site of siteSource.controls; let i=index" [formGroupName]="i" (click)="onRowClick(i)">
             <td><i class="fa fa-caret-right p-3"></i></td>
             <td>{{site.get('id').value}}</td>
             <td><input type="text" class="form-control" formControlName="description"></td>

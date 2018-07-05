@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody formArrayName="userSource">
-          <tr class="tr-active" name="displayItem" activeToggle *ngFor="let user of userSource.controls; let i=index" [formGroupName]="i" (click)="onRowClick(i)">
+          <tr name="displayItem" activeToggle *ngFor="let user of userSource.controls; let i=index" [formGroupName]="i" (click)="onRowClick(i)">
             <td>{{user.get('userName').value}}</td>
             <td>
               <input type="text" class="form-control" formControlName="email">

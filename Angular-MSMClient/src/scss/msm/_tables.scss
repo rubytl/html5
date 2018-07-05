@@ -20,8 +20,11 @@
           }
         }
     }
+}
 
-    .tr-active
+tbody
+{
+    tr, tr:nth-of-type(odd)
     {
         cursor: pointer;
         &.active,

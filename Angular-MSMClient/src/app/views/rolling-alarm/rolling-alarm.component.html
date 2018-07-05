@@ -120,7 +120,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let alarm of alarmSource">
+                <tr name="displayItem" activeToggle *ngFor="let alarm of alarmSource">
                     <td>
                         <img *ngIf="alarm.eventType == 0 ||
                             alarm.eventType == 3 ||
