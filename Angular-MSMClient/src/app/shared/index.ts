@@ -18,6 +18,7 @@ import { ActiveToggleDirective } from './active.directive';
 import { NAV_DROPDOWN_DIRECTIVES } from './nav-dropdown.directive';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './sidebar.directive';
 import { AsideToggleDirective } from './aside.directive';
+import { RollingAlarmToggleDirective } from './alarm.directive';
 import { MsmMultipleSortingComponent } from './msm-multiple-sorting/msm-multiple-sorting.component';
 import { MsmDialogComponent } from './msm-dialog/msm-dialog.component';
 import { MsmFooterComponent } from './msm-footer/msm-footer.component';
@@ -44,7 +45,8 @@ import { GroupConfigurationComponent } from '../views/system/administration/grou
     imports: [CommonModule, FormsModule, ReactiveFormsModule, TabsModule],
     declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
-        SortingToggleDirective, ActiveToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
+        SortingToggleDirective, ActiveToggleDirective, RollingAlarmToggleDirective,
+        MsmMultipleSortingComponent, MsmDialogComponent,
         MsmFooterComponent, MsmAsideComponent,
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
         MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,
@@ -55,7 +57,8 @@ import { GroupConfigurationComponent } from '../views/system/administration/grou
     exports: [FormsModule, CommonModule, ReactiveFormsModule, TabsModule,
         SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
-        SortingToggleDirective, ActiveToggleDirective, MsmMultipleSortingComponent, MsmDialogComponent,
+        SortingToggleDirective, ActiveToggleDirective, RollingAlarmToggleDirective,
+        MsmMultipleSortingComponent, MsmDialogComponent,
         MsmFooterComponent, MsmAsideComponent,
         MsmPriorityComponent, MsmControllerTypeComponent, MsmSitegroupComponent,
         MsmSiteTemplateComponent, MsmSnmpTemplateComponent, MsmSnmpDataTemplateComponent,

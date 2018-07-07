@@ -18,32 +18,68 @@ body.relative{
     .main .container-fluid {
       padding: 0 1.5 * $spacer;
     
+      .rolling-alarm
+      {
+        display: block;
+        &.hidden
+        {
+          display:none;
+        }
+      }
+
       .main-height
       {
         height: 51.2vh; //42
         position: relative;
-        .msm-map
+        &.full-screen
         {
-          height: 46.5vh; //35
+          height: 82vh;
+          .msm-map
+          {
+            height: 78.5vh; //35
+          }
+
+          .msm-list
+          {
+            height: 74.5vh;
+          }
+    
+          .msm-content
+          {
+            height: 77.5vh;
+          }
+    
+          .msm-content-no-paging
+          {
+            height: 74.8vh; // 42
+          }
         }
-  
-        .msm-list
+
+        &.active
         {
-          height: 42.5vh;
-          overflow: auto;
-        }
-  
-        .msm-content
-        {
-          height: 45.5vh;
-          overflow: auto;
-        }
-  
-        .msm-content-no-paging
-        {
-          height: 52.8vh; // 42
-          margin-right:0px;
-          overflow: auto;
+          .msm-map
+          {
+            height: 46.5vh; //35
+          }
+    
+          .msm-list
+          {
+            height: 42.5vh;
+            overflow: auto;
+          }
+    
+          .msm-content
+          {
+            height: 45.5vh;
+            overflow: auto;
+          }
+    
+          .msm-content-no-paging
+          {
+            height: 52.8vh; // 42
+            margin-right:0px;
+            overflow: auto;
+          }
         }
       }
     }

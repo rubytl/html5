@@ -14,17 +14,27 @@
         <span class="d-md-down-none">Welcome {{username}}</span>
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="simple-dropdown">
-        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
-        <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Setting</a>
-        <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a>
-        <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
+        <a class="dropdown-item" href="#">
+          <i class="fa fa-user"></i> Profile</a>
+        <a class="dropdown-item" href="#">
+          <i class="fa fa-wrench"></i> Setting</a>
+        <a class="dropdown-item" href="#">
+          <i class="fa fa-usd"></i> Payments
+          <span class="badge badge-default">42</span>
+        </a>
+        <a class="dropdown-item" href="#">
+          <i class="fa fa-file"></i> Projects
+          <span class="badge badge-primary">42</span>
+        </a>
         <div class="divider"></div>
-        <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>
-        <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-lock"></i> Logout</a>
+        <a class="dropdown-item" href="#">
+          <i class="fa fa-shield"></i> Lock account</a>
+        <a class="dropdown-item" href="#" (click)="logout()">
+          <i class="fa fa-lock"></i> Logout</a>
       </div>
     </li>
     <button class="navbar-toggler d-md-down-none" type="button" appAsideMenuToggler>
-        &#9776;
+      &#9776;
     </button>
   </ul>
 </header>
@@ -46,19 +56,22 @@
       <!-- Breadcrumb Menu-->
       <li class="breadcrumb-menu d-md-down-none">
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-          <a class="btn" [routerLink]="['/dashboard']"><i class="icon-graph"></i> &nbsp;Dashboard</a>
+          <a class="btn" [routerLink]="['/dashboard']">
+            <i class="icon-graph"></i> &nbsp;Dashboard</a>
         </div>
       </li>
     </ol>
 
     <div class="container-fluid">
-      <div class="main-height relative">
+      <div class="main-height relative active" id="main-content">
         <router-outlet></router-outlet>
         <app-spinner [hidden]="!isMainLoading" [isRunning]="isMainLoading" class="spinner"></app-spinner>
       </div>
-      <div class="relative">
-        <rolling-alarm></rolling-alarm>
-        <app-spinner [hidden]="!isAlarmLoading" [name]="'alarm'" [isRunning]="isAlarmLoading" class="spinner"></app-spinner>
+      <div class="rolling-alarm" id="rolling-alarm">
+        <div class="relative">
+          <rolling-alarm></rolling-alarm>
+          <app-spinner [hidden]="!isAlarmLoading" [name]="'alarm'" [isRunning]="isAlarmLoading" class="spinner"></app-spinner>
+        </div>
       </div>
     </div>
   </main>

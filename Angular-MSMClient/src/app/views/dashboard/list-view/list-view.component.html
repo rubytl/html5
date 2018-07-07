@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let siteView of siteListViews">
+                <tr name="displayItem" activeToggle *ngFor="let siteView of siteListViews">
                     <td>{{siteView.siteName}}</td>
                     <td>{{siteView.ipAddress}}</td>
                     <td>{{siteView.controllerType}}</td>
