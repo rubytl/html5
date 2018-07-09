@@ -23,6 +23,10 @@ const routes: Routes = [
         data: {
           title: 'Energy trend'
         }
+      },
+      {
+        path: 'alarm',
+        loadChildren:'./alarm/alarm.module#AlarmModule'
       }
     ]
   }

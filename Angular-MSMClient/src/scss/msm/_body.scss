@@ -42,16 +42,20 @@ body.relative{
           .msm-list
           {
             height: 74.5vh;
+            overflow: auto;
           }
     
           .msm-content
           {
             height: 77.5vh;
+            overflow: auto;
           }
     
           .msm-content-no-paging
           {
-            height: 74.8vh; // 42
+            height: 74.8vh;
+            margin-right:0px;
+            overflow: auto;
           }
         }
 

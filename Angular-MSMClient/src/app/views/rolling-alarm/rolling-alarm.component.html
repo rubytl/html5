@@ -13,19 +13,19 @@
             <div class="alarm-header d-md-flex flex-row col-md-2 align-items-center">
                 <a>Priority:</a>
                 <select class="form-control" [(ngModel)]="alarm.selectedPriority" (change)="getFilterAlarm()">
-                <option *ngFor="let priority of priorities" value= {{priority.Description}}>
-                  {{priority.Description}}
-                </option>
+                    <option *ngFor="let priority of priorities" value={ {priority.Description}}>
+                        {{priority.Description}}
+                    </option>
                 </select>
             </div>
 
             <div class="alarm-header d-md-flex flex-row align-items-center">
                 <a>Status:</a>
                 <select class="form-control" [(ngModel)]="alarm.selectedStatus" (change)="getFilterAlarm()">
-                <option *ngFor="let status of statuses" value= {{status.Description}}>
-                  {{status.Description}}
-                </option>
-                 </select>
+                    <option *ngFor="let status of statuses" value={ {status.Description}}>
+                        {{status.Description}}
+                    </option>
+                </select>
             </div>
 
             <div class="alarm-header d-md-flex flex-row align-items-center">
@@ -48,14 +48,17 @@
 
         <div class="card-actions d-md-flex flex-row alarm-header p-0">
             <button type="button" class="btn btn-primary" (click)="searchAlarm()">
-                        <i class="fa fa-search"></i>
-                        </button>
+                <i class="fa fa-search"></i>
+            </button>
             <button type="button" class="btn btn-primary" (click)="createDefaultFilter()">
                 <i class="fa fa-reply"></i>
-                    </button>
+            </button>
             <button type="button" class="btn btn-primary" (click)="stopConnection()">
-                    <i class="fa fa-play"></i>
-                    </button>
+                <i class="fa fa-play"></i>
+            </button>
+            <button type="button" class="close" aria-label="Close" rollingAlarmToggle>
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     </div>
     <div class="align-items-center card-body">
@@ -127,11 +130,14 @@
                             alarm.eventType == 5 ||
                             alarm.eventType == 7 ||
                             alarm.eventType == 8 ||
-                            alarm.eventType == 10" src="../../../assets/img/StatusIcon/16x16_Alarm.png"><img>
+                            alarm.eventType == 10" src="../../../assets/img/StatusIcon/16x16_Alarm.png">
+                        <img>
                         <img *ngIf="alarm.eventType == 2 ||
                             alarm.eventType == 9 ||
-                            alarm.eventType == 11" src="../../../assets/img/StatusIcon/16x16_Warning.png"><img>
-                        <img *ngIf="alarm.eventType == 4" src="../../../assets/img/StatusIcon/16x16_Disabled.png"><img>
+                            alarm.eventType == 11" src="../../../assets/img/StatusIcon/16x16_Warning.png">
+                        <img>
+                        <img *ngIf="alarm.eventType == 4" src="../../../assets/img/StatusIcon/16x16_Disabled.png">
+                        <img>
                     </td>
                     <td>{{alarm.receiveTime}}</td>
                     <td>{{alarm.alarmDescription}}</td>
@@ -140,8 +146,10 @@
                     <td>{{alarm.siteName}}</td>
                     <td>{{alarm.parentSiteName}}</td>
                     <td>{{alarm.sitePriority}}</td>
-                    <td> <a *ngIf="alarm.onOffStatus">On</a>
-                        <a *ngIf="!alarm.onOffStatus">Off</a></td>
+                    <td>
+                        <a *ngIf="alarm.onOffStatus">On</a>
+                        <a *ngIf="!alarm.onOffStatus">Off</a>
+                    </td>
                     <td>{{alarm.repeatCount}}</td>
                 </tr>
             </tbody>
