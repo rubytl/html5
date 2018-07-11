@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { SharedModule } from '../../shared';
 
 import {
   EcbComponent, InspectRoutingModule,
@@ -11,7 +12,8 @@ import {
 @NgModule({
   imports: [
     InspectRoutingModule,
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ],
   declarations: [
     EcbComponent,

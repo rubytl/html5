@@ -1,3 +1,120 @@
-<p>
-  alarm-detail works!
-</p>
+<div class="card">
+  <div class="msm-content">
+    <div class="card-header">
+      Alarm Details
+    </div>
+    <div class="card-body">
+
+      <!-- Alarm description -->
+      <div class="row mx-0">
+        <form class="col">
+          <div class="mb-3 row col">
+            <label>Monitored since:</label>
+            <label>2017</label>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label>Total time in Major Alarm:</label>
+              <label>210 minutes</label>
+            </div>
+            <div class="col">
+              <label>Major Alarm Ranking:</label>
+              <label>210</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label>Total time in Minor Alarm:</label>
+              <label>210 minutes</label>
+            </div>
+            <div class="col">
+              <label>Minor Alarm Ranking:</label>
+              <label>210</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label>Total time in Offline:</label>
+              <label>210 minutes</label>
+            </div>
+            <div class="col">
+              <label>Offline Ranking:</label>
+              <label>210</label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="card mt-3">
+
+        <!-- Search option -->
+        <div class="row card-header mx-0">
+          <div class="d-flex flex-row alarm-header col-10 p-0 align-items-center">
+            <a>Status</a>
+            <select class="col-2">
+              <option *ngFor="let status of statuses" value={{status.Description}}>
+                {{status.Description}}
+              </option>
+            </select>
+            <a>From Date:</a>
+            <angular2-date-picker class="col-2" [(ngModel)]="alarm.fromDate" (onDateSelect)="onFromDateSelect($event)" [settings]="alarm.settings"></angular2-date-picker>
+            <a>To Date:</a>
+            <angular2-date-picker class="col-2" [(ngModel)]="alarm.toDate" (onDateSelect)="onFromDateSelect($event)" [settings]="alarm.settings"></angular2-date-picker>
+            <button class="btn btn-primary">
+              <i class="fa fa-search"></i>
+            </button>
+            <button class="btn btn-primary">
+              <i class="fa fa-reply"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Alarm details -->
+        <div class="row mx-0">
+          <tabset class="col-12 px-0 py-3">
+            <tab>
+              <ng-template tabHeading>Active Alarms</ng-template>
+              <table class="table table-striped table-bordered table-hover table-responsive table-sm">
+                <thead class="thead-default">
+                  <tr>
+                    <th></th>
+                    <th>Alarm description</th>
+                    <th>Value</th>
+                    <th>Status</th>
+                    <th>Site</th>
+                    <th>Alarm on time</th>
+                    <th>Last reported</th>
+                    <th>Event Log</th>
+                    <th>Acknowledge alarm</th>
+                  </tr>
+                </thead>
+              </table>
+            </tab>
+            <tab>
+              <ng-template tabHeading>All Alarms</ng-template>
+              <table class="table table-striped table-bordered table-hover table-responsive table-sm">
+                  <thead class="thead-default">
+                    <tr>
+                      <th></th>
+                      <th>Alarm description</th>
+                      <th>Value</th>
+                      <th>Status</th>
+                      <th>Site</th>
+                      <th>Alarm on time</th>
+                      <th>Alarm off time</th>
+                      <th>Last reported</th>
+                      <th>Event Log</th>
+                    </tr>
+                  </thead>
+                </table>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card card-header">
+    <msm-paginator class="ml-auto" [pageSizeOptions]="[10,20,30,40]" [pageLength]="paging.pageLength" [(pageIndex)]="paging.pageIndex"
+      (currentPageChange)="onCurrentPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></msm-paginator>
+  </div>
+</div>

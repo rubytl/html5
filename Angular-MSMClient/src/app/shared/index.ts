@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 
 import { SpinnerComponent } from './spinner/spinner.component';
 import { FilterTypeComponent } from './filter-type/filter-type.component';
@@ -42,7 +43,7 @@ import { ResetPasswordComponent } from '../views/system/administration/reset-pas
 import { GroupConfigurationComponent } from '../views/system/administration/group-configuration/group-configuration.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, TabsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, TabsModule, AngularDateTimePickerModule],
     declarations: [SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
         SortingToggleDirective, ActiveToggleDirective, RollingAlarmToggleDirective,
@@ -54,7 +55,7 @@ import { GroupConfigurationComponent } from '../views/system/administration/grou
         NewSiteComponent, NewSiteGroupComponent, NewSiteTemplateComponent,
         NewUserComponent, ResetPasswordComponent, GroupConfigurationComponent,
         RestrictedSiteConfigurationComponent],
-    exports: [FormsModule, CommonModule, ReactiveFormsModule, TabsModule,
+    exports: [FormsModule, CommonModule, ReactiveFormsModule, TabsModule, AngularDateTimePickerModule,
         SpinnerComponent, FilterTypeComponent, MsmPaginatorComponent, MsmSortingComponent,
         NAV_DROPDOWN_DIRECTIVES, SIDEBAR_TOGGLE_DIRECTIVES, AsideToggleDirective,
         SortingToggleDirective, ActiveToggleDirective, RollingAlarmToggleDirective,

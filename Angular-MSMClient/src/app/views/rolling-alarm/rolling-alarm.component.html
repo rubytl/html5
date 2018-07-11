@@ -13,7 +13,7 @@
             <div class="alarm-header d-md-flex flex-row col-md-2 align-items-center">
                 <a>Priority:</a>
                 <select class="form-control" [(ngModel)]="alarm.selectedPriority" (change)="getFilterAlarm()">
-                    <option *ngFor="let priority of priorities" value={ {priority.Description}}>
+                    <option *ngFor="let priority of priorities" value={{priority.Description}}>
                         {{priority.Description}}
                     </option>
                 </select>

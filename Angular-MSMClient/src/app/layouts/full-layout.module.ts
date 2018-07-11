@@ -15,15 +15,13 @@ import { SiteTreeViewComponent } from '../views/site-tree-view/site-tree-view.co
 import { TreeViewComponent } from '../views/site-tree-view/tree-view.component';
 import { SharedModule } from '../shared';
 import { RollingAlarmComponent } from '../views/rolling-alarm/rolling-alarm.component';
-import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 
 @NgModule({
   imports: [
     RouterModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    SharedModule,
-    AngularDateTimePickerModule,
+    SharedModule
   ],
   declarations: [
     FullLayoutComponent,
